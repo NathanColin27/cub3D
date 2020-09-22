@@ -1,10 +1,37 @@
 #include "../includes/cub3d.h"
 
-// get_dimension(data);
 
-// check_sprites(); 
 
-// check_content(); // only 1 - 0 - 2 or N S E W 
+This need to be implemented :
+- have to had a sprite structure (int x , int y, ...)
+- integrate this fonction after all the checks 
+
+// int		set_sprite(t_info *info)
+// {
+// 	int	x;
+// 	int	y;
+// 	int	i;
+
+// 	y = 0;
+// 	i = 0;
+// 	if (!(info->sprite =\
+// 			(t_sprite *)malloc(sizeof(t_sprite) * info->num_sprite)))
+// 		return (exit_error(info));
+// 	while (y < info->map_height)
+// 	{
+// 		x = 0;
+// 		while (x < info->map_width)
+// 		{
+// 			if (info->map[y][x] == '2')
+// 			{
+// 				set_pos_sprite(info, i, x, y);
+// 				i++;
+// 			}
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// 	return (1);
 
 int elem_type(t_map_data *data, int x, int y)
 {
@@ -27,7 +54,7 @@ int elem_type(t_map_data *data, int x, int y)
             data->start_direction = elem;
         }
         else if(data->start_x != x || data->start_y != y )
-            error("Start position already declared more than once");
+            error("Start position declared more than once");
         return (4);
     }
     return (0);

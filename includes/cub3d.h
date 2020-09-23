@@ -14,6 +14,7 @@
 #define RED 16711680
 #define GREEN 65280
 #define BLUE 255
+#define WHITE 16777215
 
 typedef struct s_map
 {
@@ -112,5 +113,7 @@ void get_map_height(t_map_data *data);
 int map_check(t_map_data *data);
 void check_adjacent_elem(t_map_data *data,int x, int y);
 int		set_sprite(t_map_data *data);
+int windows(t_map_data *data);
+void delay(int number_of_seconds);
 
 #endif

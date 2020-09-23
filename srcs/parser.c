@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:39:34 by ncolin            #+#    #+#             */
-/*   Updated: 2020/09/23 11:03:20 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/09/23 12:31:27 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ int main(int ac, char **av)
 	printf("sprite number %d\n", data.sprite_number);
 	for (int i = 0; i < data.sprite_number; i++)
 	{
+		
 		printf("Sprite number %d --> x = %d, y = %d\n", i + 1, data.sprites[i].x, data.sprites[i].y);
 	}
-	
 	close(fd);
+	windows(&data);
 	
 	return (0); 
 }

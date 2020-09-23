@@ -9,7 +9,9 @@ SRCS = 	srcs/parser.c \
 		srcs/struct_init.c \
 		srcs/parse_map_data.c \
 		srcs/map_parser.c \
-		srcs/map_checker.c
+		srcs/map_checker.c \
+		srcs/display.c \
+		srcs/basic_forms.c
 
 OBJS =	$(SRCS:.c=.o)
 
@@ -19,7 +21,7 @@ OSNAME = $(shell uname)
 
 ifeq ($(OSNAME),Darwin)
 	MLX_PATH = 
-	MLX_FLAGS = 
+	MLX_FLAGS = -L../mlx -lmlx -framework OpenGL -framework AppKit
 	MLX = 
 else
 	MLX = libmlx.a

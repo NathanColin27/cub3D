@@ -2,36 +2,33 @@
 
 
 
-This need to be implemented :
-- have to had a sprite structure (int x , int y, ...)
-- integrate this fonction after all the checks 
+int		set_sprite(t_map_data *data)
+{
+	int	x;
+	int	y;
+	int	i;
 
-// int		set_sprite(t_info *info)
-// {
-// 	int	x;
-// 	int	y;
-// 	int	i;
-
-// 	y = 0;
-// 	i = 0;
-// 	if (!(info->sprite =\
-// 			(t_sprite *)malloc(sizeof(t_sprite) * info->num_sprite)))
-// 		return (exit_error(info));
-// 	while (y < info->map_height)
-// 	{
-// 		x = 0;
-// 		while (x < info->map_width)
-// 		{
-// 			if (info->map[y][x] == '2')
-// 			{
-// 				set_pos_sprite(info, i, x, y);
-// 				i++;
-// 			}
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// 	return (1);
+	y = 0;
+	i = 0;
+	if (!( data->sprites = (t_sprite *)malloc(sizeof(t_sprite) * data->sprite_number)))
+		error("couldn't initialize sprite struct");
+	 while(y < data->height)
+    {
+        x = 0;
+        while(x < ((int)ft_strlen(data->pattern[y])))
+		{
+			if (data->pattern[y][x] == '2')
+			{
+				data->sprites[i].x = x;
+                data->sprites[i].y = y;
+				i++;
+			}
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
 
 int elem_type(t_map_data *data, int x, int y)
 {
@@ -112,5 +109,6 @@ int map_check(t_map_data *data)
         }
         y++;
     }
+    set_sprite(data);
     return 0;
 }

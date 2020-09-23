@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 13:28:17 by ncolin            #+#    #+#             */
-/*   Updated: 2020/09/21 11:57:05 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/09/23 10:15:35 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@
 **	the functions locate the terminating `\0'.
 */
 
-char	*ft_strchr(char const *str, int c)
+char	*ft_strchr(const char *s, int c)
 {
-	char a;
+	char	*ptr;
 
-	a = c;
-	while (*str)
+	ptr = (char *)s;
+	while (*ptr != c)
 	{
-		if (*str == a)
-			return (char *)(str);
-		str++;
+		if (*ptr == '\0')
+		{
+			return (0);
+		}
+		ptr++;
 	}
-	if (*str == a)
-		return (char *)(str);
-	return (NULL);
+	return (ptr);
 }

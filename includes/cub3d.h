@@ -4,7 +4,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include "../minilibx-linux/mlx.h"
-// #include <mlx.h>
+#include <mlx.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -31,6 +31,12 @@ typedef struct s_session
     void *window;
 } t_session;
 
+typedef struct s_sprite
+{
+    int x;
+    int y;
+} t_sprite;
+
 typedef struct s_map_data
 {
     int res_x;
@@ -38,11 +44,12 @@ typedef struct s_map_data
     int floor_color;
     int height;
     int ceiling_color;
-    char texture_north[50];
-    char texture_south[50];
-    char texture_east[50];
-    char texture_west[50];
-    char texture_sprite[50];
+    char *texture_south;
+    char *texture_north;
+    char *texture_east;
+    char *texture_west;
+    char *texture_sprite;
+    t_sprite *sprites;
     char **pattern;
     char start_direction;
     int start_x;
@@ -99,10 +106,11 @@ int valid_map_data(t_map_data *data);
 int is_map_start(char *line);
 int parse_map_pattern(char *line, t_map_data *data, int fd);
 char *space_to_wall(char *line);
-char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del);
+char *ft_strjoin_delimiter(char const *s1, char const *s2, char del);
 int elem_type(t_map_data *data, int x, int y);
 void get_map_height(t_map_data *data);
 int map_check(t_map_data *data);
 void check_adjacent_elem(t_map_data *data,int x, int y);
+int		set_sprite(t_map_data *data);
 
 #endif

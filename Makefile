@@ -18,14 +18,16 @@ INCLUDES =	includes/cub3d.h
 OSNAME = $(shell uname)
 
 ifeq ($(OSNAME),Darwin)
-	MLX_PATH = ./minilibx-mac/
-	MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+	MLX_PATH = 
+	MLX_FLAGS = 
+	MLX = 
 else
+	MLX = libmlx.a
 	MLX_PATH = ./minilibx-linux/
 	MLX_FLAGS = -lm -lX11 -lXext
 endif
 
-MLX = libmlx.a
+
 
 LIBFT_PATH = ./libft/
 
@@ -39,11 +41,9 @@ all: $(NAME)
 re_libs:
 	$(MAKE) -C libft re
 	$(MAKE) -C libft clean
-	$(MAKE) -C $(MLX_PATH) re
-	$(MAKE) -C $(MLX_PATH) clean
 
 $(NAME): 
-	$(GCC) $(SRCS) $(LIBFT_PATH)$(LIBFT) $(MLX_PATH)$(MLX) $(MLX_FLAGS) -o test 
+	$(GCC) $(SRCS) $(LIBFT_PATH)$(LIBFT) $(MLX_PATH)$(MLX) $(MLX_FLAGS) 
 
 clean:
 	@rm -rf *.o test

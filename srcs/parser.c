@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/23 10:39:34 by ncolin            #+#    #+#             */
+/*   Updated: 2020/09/23 11:03:20 by ncolin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 int main(int ac, char **av)
@@ -10,8 +22,8 @@ int main(int ac, char **av)
 	valid_args(ac);
 	valid_extension(av[1]);
 	data_init(&data);
-
 	fd = open(av[1], O_RDONLY);
+	
 	while ((ret = get_next_line(fd, &buff)) >= 0 && !is_map_start(buff))
 	{
 		printf("%s\n", buff);
@@ -37,6 +49,11 @@ int main(int ac, char **av)
 	printf("start dir %c\n", data.start_direction);
 	printf("map_height %d\n", data.height);
 	printf("sprite number %d\n", data.sprite_number);
+	for (int i = 0; i < data.sprite_number; i++)
+	{
+		printf("Sprite number %d --> x = %d, y = %d\n", i + 1, data.sprites[i].x, data.sprites[i].y);
+	}
+	
 	close(fd);
 	
 	return (0); 

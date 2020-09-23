@@ -47,15 +47,15 @@ int parse_texture(char *line, t_map_data *data)
     while (ft_isspace(line[i]))
         i++;
     if (line[0] == 'N' && line[1] == 'O')
-        ft_strcpy(data->texture_north, &line[i]);
+        data->texture_north = ft_strdup(&line[i]);
     else if (line[0] == 'S' && line[1] == 'O')
-        ft_strcpy(data->texture_south, &line[i]);
+        data->texture_south = ft_strdup(&line[i]);
     else if (line[0] == 'W' && line[1] == 'E')
-        ft_strcpy(data->texture_west, &line[i]);
+        data->texture_west = ft_strdup(&line[i]);
     else if (line[0] == 'E' && line[1] == 'A')
-        ft_strcpy(data->texture_east, &line[i]);
+        data->texture_east = ft_strdup(&line[i]);
     else if (line[0] == 'S' && line[1] == ' ')
-        ft_strcpy(data->texture_sprite, &line[i]);
+        data->texture_sprite = ft_strdup(&line[i]);
     return (1);
 }
 

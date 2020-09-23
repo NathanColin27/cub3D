@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:25:46 by ncolin            #+#    #+#             */
-/*   Updated: 2020/09/23 12:55:53 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/09/23 21:37:00 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int windows(t_map_data *data)
     if ((session.window = mlx_new_window(session.session, width, height, "Hello world")) == NULL)
         return (EXIT_FAILURE);
     int y = 10;
-    draw_line(session, start.x, start.y, end.x, end.y, rgb(255,255,0));
-    draw_square(session, center, 150, RED);
-    draw_circle(session, center, 100, GREEN);
+    // draw_line(session, start.x, start.y, end.x, end.y, rgb(255,255,0));
+    // draw_square(session, center, 150, RED);
+    // draw_circle(session, center, 100, GREEN);
     mlx_string_put(session.session, session.window, 15, y, BLUE, ft_strjoin("res x = " ,ft_itoa(data->res_x)));
     y += 20;
     mlx_string_put(session.session, session.window, 15, y, BLUE, ft_strjoin("res y = " ,ft_itoa(data->res_y)));
@@ -68,6 +68,7 @@ int windows(t_map_data *data)
     y += 20;
     for (int i = 0; i < data->sprite_number; i++)
 	{
+
 	    mlx_string_put(session.session, session.window, 15, y, BLUE, ft_strjoin("sprite : x = " ,ft_itoa(data->sprites[i].x)));
         mlx_string_put(session.session, session.window, 170, y, BLUE, ft_strjoin(", y = " ,ft_itoa(data->sprites[i].y)));
         y += 20;
@@ -75,31 +76,22 @@ int windows(t_map_data *data)
     // img = mlx_xpm_file_to_image(session.session, relative_path, &img_width, &img_height);
     // mlx_put_image_to_window (session.session, session.window, img, img_width, img_height);
     int x;
-    int offset_x = 300;
-    int offset_y = 300;
+    int offset_x = data->res_x/3;
+    int offset_y = 20 ;
     y = 0;
     while(y < data->height)
     {
         x = 0;
         while(x < ((int)ft_strlen(data->pattern[y])))
         {
-                if (data->pattern[y][x] == 'X')
-                {
-                    mlx_pixel_put(session.session, session.window, offset_x + x, offset_y + y, WHITE);
-                }
+                
                 if (data->pattern[y][x] == '1')
                 {
-                    mlx_pixel_put(session.session, session.window, offset_x + x, offset_y + y, 16589);
+                    for (int i = x*8; i < x*8 + 8; i++)
+                        for (int j = y*8; j < y*8 + 8; j++)
+                            mlx_pixel_put(session.session, session.window, offset_x + i, offset_y + j, GREEN);
                 }
-                if (data->pattern[y][x] == '2')
-                {
-                    mlx_pixel_put(session.session, session.window, offset_x + x, offset_y + y, RED);
-                }
-                if (data->pattern[y][x] == '0')
-                {
-                    mlx_pixel_put(session.session, session.window, offset_x + x, offset_y + y, RED);
-                }
-    
+              
                 
                 x++;
         }

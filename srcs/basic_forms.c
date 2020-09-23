@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basic_forms.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/02 17:51:35 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/23 11:57:01 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/09/23 20:45:39 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void draw_line(t_session data, float x1,float y1,float x2,float y2,int c )
 
 		const float m = dx / dy;
 		float y = y1;
-		int lastIntY;
+		int lastIntY = 0;
 		for( float x = x1; y < y2; y += 1.0f,x += m )
 		{
 			lastIntY = (int)y;
@@ -155,7 +155,7 @@ void draw_line(t_session data, float x1,float y1,float x2,float y2,int c )
 
 		const float m = dy / dx;
 		float x = x1;
-		int lastIntX;
+		int lastIntX = 0;
 		for( float y = y1; x < x2; x += 1.0f,y += m )
 		{
 			lastIntX = (int)x;

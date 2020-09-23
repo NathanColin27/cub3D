@@ -21,6 +21,21 @@ char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del)
 	return (str);
 }
 
+void remove_spaces(char* s) {
+    int count;
+    int i;
+
+    count = 0;
+    i = 0;
+    while(s[i])
+    {
+        if (s[i] != ' ')
+            s[count++] = s[i];
+        i++;
+    }
+    s[count] = '\0';
+}
+
 
 int parse_map_pattern(char *buff, t_map_data *data, int fd)
 {
@@ -29,10 +44,13 @@ int parse_map_pattern(char *buff, t_map_data *data, int fd)
 
     if(buff[0] == '\0')
         error("map not found");
+    remove_spaces(buff);
     tmp = space_to_wall(buff);
-    
+    printf("%s", buff);
     while ((ret = get_next_line(fd, &buff)) >= 0)
 		{   
+            remove_spaces(buff);
+            printf("%s", buff);
             tmp = ft_strjoin_delimiter(tmp, space_to_wall(buff), '|');
             free(buff);
 			if(ret == 0)

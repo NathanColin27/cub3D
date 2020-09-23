@@ -4,7 +4,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include "../minilibx-linux/mlx.h"
-#include <mlx.h>
+//#include <mlx.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -115,5 +115,6 @@ void check_adjacent_elem(t_map_data *data,int x, int y);
 int		set_sprite(t_map_data *data);
 int windows(t_map_data *data);
 void delay(int number_of_seconds);
+void remove_spaces (char *s);
 
 #endif

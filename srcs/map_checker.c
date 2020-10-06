@@ -2,7 +2,7 @@
 
 
 
-int		set_sprite(t_map_data *data)
+int		set_sprite(t_main *main)
 {
 	int	x;
 	int	y;
@@ -10,17 +10,17 @@ int		set_sprite(t_map_data *data)
 
 	y = 0;
 	i = 0;
-	if (!( data->sprites = (t_sprite *)malloc(sizeof(t_sprite) * data->sprite_number)))
+	if (!( main->sprites = (t_sprite *)malloc(sizeof(t_sprite) * main->map.sprite_number)))
 		error("couldn't initialize sprite struct");
-	 while(y < data->height)
+	 while(y < main->map.height)
     {
         x = 0;
-        while(x < ((int)ft_strlen(data->pattern[y])))
+        while(x < ((int)ft_strlen(main->map.pattern[y])))
 		{
-			if (data->pattern[y][x] == '2')
+			if (main->map.pattern[y][x] == '2')
 			{
-				data->sprites[i].x = x;
-                data->sprites[i].y = y;
+				main->sprites[i].x = x;
+                main->sprites[i].y = y;
 				i++;
 			}
 			x++;
@@ -30,11 +30,11 @@ int		set_sprite(t_map_data *data)
 	return (1);
 }
 
-int elem_type(t_map_data *data, int x, int y)
+int elem_type(t_map *map, int x, int y)
 {
     char elem ;
     
-    elem  = data->pattern[y][x];
+    elem  = map->pattern[y][x];
 
     if (elem  == 'X')
         return (1);
@@ -44,43 +44,43 @@ int elem_type(t_map_data *data, int x, int y)
         return (3);
     else if (elem  == 'N' || elem  == 'S' || elem  == 'E' || elem  == 'W')
     {
-        if(data->start_x == 0 && data->start_y == 0)
+        if(map->start_x == 0 && map->start_y == 0)
         {
-            data->start_x = x;
-            data->start_y = y;
-            data->start_direction = elem;
+            map->start_x = x;
+            map->start_y = y;
+            map->start_direction = elem;
         }
-        else if(data->start_x != x || data->start_y != y )
+        else if(map->start_x != x || map->start_y != y )
             error("Start position declared more than once");
         return (4);
     }
     return (0);
 }
 
-void get_map_height(t_map_data *data)
+void get_map_height(t_map *map)
 {
     int i;
 
     i = 0;
-    while(data->pattern[i])
+    while(map->pattern[i])
         i++;
-    data->height = i;
+    map->height = i;
 }
 
-void check_adjacent_elem(t_map_data *data,int x, int y)
+void check_adjacent_elem(t_map *map,int x, int y)
 {
     int i;
     int j;
 
-    if(data->pattern[y][x] == '2')
-        data->sprite_number++;
+    if(map->pattern[y][x] == '2')
+        map->sprite_number++;
     i = x - 1;
     while(i <= x + 1)
     {
         j = y - 1;
         while(j <= y + 1)
         {
-            if(data->pattern[j][i] == '\0' || data->pattern[j][i] == 'X')
+            if(map->pattern[j][i] == '\0' || map->pattern[j][i] == 'X')
                 error("map isn't totaly surrounded by walls");
             j++;
         }
@@ -88,27 +88,27 @@ void check_adjacent_elem(t_map_data *data,int x, int y)
     }
 }
 
-int map_check(t_map_data *data)
+int map_check(t_main *main)
 {
     int x;
     int y;
 
     y = 0;
-    while(y < data->height)
+    while(y < main->map.height)
     {
         x = 0;
-        while(x < ((int)ft_strlen(data->pattern[y])))
+        while(x < ((int)ft_strlen(main->map.pattern[y])))
         {
-            if(!elem_type(data, x, y))
+            if(!elem_type(&main->map, x, y))
                 error("Unrecognized objet in map");
-            if((y == 0 || y == data->height - 1) && elem_type(data, x, y) > 2)
+            if((y == 0 || y == main->map.height - 1) && elem_type(&main->map, x, y) > 2)
                 error("Map isn't closed on top or bottom wall");
-            if(elem_type(data, x, y) >= 3)
-                check_adjacent_elem(data, x, y);
+            if(elem_type(&main->map, x, y) >= 3)
+                check_adjacent_elem(&main->map, x, y);
             x++;
         }
         y++;
     }
-    set_sprite(data);
+    set_sprite(main);
     return 0;
 }

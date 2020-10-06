@@ -37,7 +37,7 @@ char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del)
 // }
 
 
-int parse_map_pattern(char *buff, t_map_data *data, int fd)
+int parse_map_pattern(char *buff, t_map *map, int fd)
 {
     char *tmp;
     int ret;
@@ -55,9 +55,9 @@ int parse_map_pattern(char *buff, t_map_data *data, int fd)
 				break;
 		}
     ret = 0;
-    data->pattern = ft_split(tmp, '|');
+    map->pattern = ft_split(tmp, '|');
     free(tmp);
-    get_map_height(data);
+    get_map_height(map);
     return 0;
 }
 

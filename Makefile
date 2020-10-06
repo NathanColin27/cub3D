@@ -11,7 +11,7 @@ SRCS = 	srcs/parser.c \
 		srcs/map_parser.c \
 		srcs/map_checker.c \
 		srcs/display.c \
-		srcs/basic_forms.c
+
 
 OBJS =	$(SRCS:.c=.o)
 

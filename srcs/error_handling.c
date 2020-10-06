@@ -22,22 +22,22 @@ int valid_args(int ac)
     return (1);
 }
 
-int valid_res(t_map_data *data)
+int valid_res(t_map *map)
 {
-    if (data->res_x <= 0 || data->res_y <= 0)
+    if (map->res_x <= 0 || map->res_y <= 0)
         error("Wrong resolution");
-    if (data->res_x > 1920)
-        data->res_x = 1920;
-    if (data->res_y > 1080)
-        data->res_y = 1080;
+    if (map->res_x > 1920)
+        map->res_x = 1920;
+    if (map->res_y > 1080)
+        map->res_y = 1080;
     return (1);
 }
 
-int valid_color(t_map_data *data)
+int valid_color(t_map *map)
 {
-    if (data->ceiling_color < 0)
+    if (map->ceiling_color < 0)
         error("Wrong ceiling color");
-    else if (data->floor_color < 0)
+    else if (map->floor_color < 0)
         error("Wrong floor color");
     return (1);
 }
@@ -52,22 +52,22 @@ int valid_extension(char *map_name)
     return (1);
 }
 
-int valid_file(t_map_data *data)
+int valid_file(t_map *map)
 {
-    if ((open(data->texture_north, O_RDONLY)) == -1)
+    if ((open(map->texture_north, O_RDONLY)) == -1)
         error("Could not open North texture");
-    else if (open(data->texture_south, O_RDONLY) == -1)
+    else if (open(map->texture_south, O_RDONLY) == -1)
         error("Could not open South texture");
-    else if (open(data->texture_east, O_RDONLY) == -1)
+    else if (open(map->texture_east, O_RDONLY) == -1)
         error("Could not open East texture");
-    else if (open(data->texture_west, O_RDONLY) == -1)
+    else if (open(map->texture_west, O_RDONLY) == -1)
         error("Could not open West texture");
-    else if (open(data->texture_sprite, O_RDONLY) == -1)
+    else if (open(map->texture_sprite, O_RDONLY) == -1)
         error("Could not open Sprite texture");
     return (1);
 }
 
-int valid_map_data(t_map_data *data)
+int valid_map_data(t_map *map)
 {
-    return ((valid_color(data) && valid_file(data) && valid_res(data)));
+    return ((valid_color(map) && valid_file(map) && valid_res(map)));
 }

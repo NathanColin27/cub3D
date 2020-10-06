@@ -16,21 +16,19 @@
 #define BLUE 255
 #define WHITE 16777215
 
-typedef struct s_map
+typedef struct  s_movement
 {
-    int width;
-    int height;
-    int start_x;
-    int start_y;
-    char **pattern;
+    int move_x;
+    int move_y;
+    int rotate_x;
+    int rotate_y;
+}               t_movement;
 
-} t_map;
-
-typedef struct s_window
+typedef struct  s_window
 {
     void *ptr;
     void *win;
-} t_window;
+}               t_window;
 
 typedef struct s_sprite
 {
@@ -38,7 +36,7 @@ typedef struct s_sprite
     int y;
 } t_sprite;
 
-typedef struct s_map_data
+typedef struct s_map
 {
     int res_x;
     int res_y;
@@ -50,64 +48,53 @@ typedef struct s_map_data
     char *texture_east;
     char *texture_west;
     char *texture_sprite;
-    t_sprite *sprites;
     char **pattern;
     char start_direction;
     int start_x;
     int start_y;
     int sprite_number;
-} t_map_data;
+} t_map;
 
 typedef struct s_main
 {
-    t_map_data data;
-    t_window  window;
-    t_map      map;
+    t_map       map;
+    t_window    window;
+    t_sprite    *sprites;
 }              t_main;
 
-typedef struct s_2D_point
-{
-    int x;
-    int y;
-} t_2D_point;
 
-
-int draw_pixel(t_window data, t_2D_point pixel, int color);
 void draw_line(t_window data, float x1, float y1, float x2, float y2, int c);
 int draw_circle_points(t_window data, int xc, int yc, int x, int y, int color);
-void set_point(t_2D_point *point, int x, int y);
-int draw_circle(t_window data, t_2D_point center, int r, int color);
 int color_map_1(t_window data, int w, int h);
-int draw_square(t_window data, t_2D_point origin, int lenght, int color);
 void delay(int number_of_seconds);
 int rgb(int r, int g, int b);
 int valid_extension(char *map_name);
 void error(char *s);
 int valid_args(int ac);
-void data_init(t_map_data *map_data);
-int parse_res(char *line, t_map_data *data);
-int parse_texture(char *line, t_map_data *data);
-int parse_map_data(char *line, t_map_data *data);
-int parse_colors(char *line, t_map_data *data);
-int valid_file(t_map_data *data);
+void data_init(t_main *main);
+int parse_res(char *line, t_map *map);
+int parse_texture(char *line, t_map *map);
+int parse_map_data(char *line, t_map *map);
+int parse_colors(char *line, t_map *map);
+int valid_file(t_map *map);
 int valid_descriptor(char a, char b);
-int valid_color(t_map_data *data);
-int valid_map_data(t_map_data *data);
+int valid_color(t_map *map);
+int valid_map_data(t_map *map);
 int is_map_start(char *line);
-int parse_map_pattern(char *line, t_map_data *data, int fd);
+int parse_map_pattern(char *line, t_map *map, int fd);
 char *space_to_wall(char *line);
 char *ft_strjoin_delimiter(char const *s1, char const *s2, char del);
-int elem_type(t_map_data *data, int x, int y);
-void get_map_height(t_map_data *data);
-int map_check(t_map_data *data);
-void check_adjacent_elem(t_map_data *data,int x, int y);
-int set_sprite(t_map_data *data);
-int windows(t_map_data *data);
+int elem_type(t_map *map, int x, int y);
+void get_map_height(t_map *map);
+int map_check(t_main *main);
+void check_adjacent_elem(t_map *map,int x, int y);
+int set_sprite(t_main *main);
+int windows(t_main *main);
 void delay(int number_of_seconds);
 void remove_spaces (char *s);
-void info_and_map(t_map_data *data, t_window session);
+void info_and_map(t_main *main);
 int key_press(int keycode, t_window *data);
 int key_release(int keycode, t_window *data);
-int main_loop(t_map_data *data);
+int main_loop(t_main *main);
 
 #endif

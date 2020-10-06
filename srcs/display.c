@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:25:46 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/06 16:43:40 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/06 22:52:11 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,16 @@ int exit_pressed(t_window *window)
     return (1);
 }
 
-int windows(t_map_data *data)
+int windows(t_main *main)
 {
     t_window window;
 
     if ((window.ptr = mlx_init()) == NULL)
         return (EXIT_FAILURE);
-    if ((window.win = mlx_new_window(window.ptr, data->res_x, data->res_y, "Cub3D")) == NULL)
+    if ((window.win = mlx_new_window(window.ptr, main->map.res_x, main->map.res_y, "Cub3D")) == NULL)
         return (EXIT_FAILURE);
-    info_and_map(data, window);
-
+    main->window = window;
+    info_and_map(main);
     mlx_hook(window.win, X_EVENT_KEY_PRESS, 1L<<0, key_press, &window);
     mlx_hook(window.win, X_EVENT_KEY_RELEASE, 0, key_release, &window);
     //mlx_hook(window.win, X_EVENT_KEY_EXIT, 0, exit_pressed, &window);
@@ -79,18 +79,18 @@ int windows(t_map_data *data)
     return (EXIT_SUCCESS);
 }
 
-int main_loop(t_map_data *data)
-{
-    printf("test");
-    raycasting(data);
-    return 1;
-}
+// int main_loop(t_main *main)
+// {
+//     printf("test");
+//     raycasting(data);
+//     return 1;
+// }
 
-int raycasting(t_map_data *data)
-{
-}
+// int raycasting(t_map_data *data)
+// {
+// }
 
-void info_and_map(t_map_data *data, t_window window)
+void info_and_map(t_main *main)
 {
 
     // int y = 10;
@@ -125,33 +125,33 @@ void info_and_map(t_map_data *data, t_window window)
 
     int x;
     int size = 25;
-    int offset_x = data->res_x / 2 - (size * ft_strlen(data->pattern[0]) / 2);
-    int offset_y = data->res_y / 2 - (size * data->height / 2);
+    int offset_x = main->map.res_x / 2 - (size * ft_strlen(main->map.pattern[0]) / 2);
+    int offset_y = main->map.res_y / 2 - (size * main->map.height / 2);
     int y = 0;
 
-    while (y < data->height)
+    while (y < main->map.height)
     {
         x = 0;
-        while (x < ((int)ft_strlen(data->pattern[y])))
+        while (x < ((int)ft_strlen(main->map.pattern[y])))
         {
 
-            if (data->pattern[y][x] == '1')
+            if (main->map.pattern[y][x] == '1')
             {
                 for (int i = x * size; i < x * size + size; i++)
                     for (int j = y * size; j < y * size + size; j++)
-                        mlx_pixel_put(window.ptr, window.win, offset_x + i, offset_y + j, GREEN);
+                        mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, GREEN);
             }
-            else if (data->pattern[y][x] == '2')
+            else if (main->map.pattern[y][x] == '2')
             {
                 for (int i = x * size; i < x * size + size; i++)
                     for (int j = y * size; j < y * size + size; j++)
-                        mlx_pixel_put(window.ptr, window.win, offset_x + i, offset_y + j, BLUE);
+                        mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, BLUE);
             }
-            else if (data->pattern[y][x] == 'N' || data->pattern[y][x] == 'E' || data->pattern[y][x] == 'W' || data->pattern[y][x] == 'S')
+            else if (main->map.pattern[y][x] == 'N' || main->map.pattern[y][x] == 'E' || main->map.pattern[y][x] == 'W' || main->map.pattern[y][x] == 'S')
             {
                 for (int i = x * size; i < x * size + size; i++)
                     for (int j = y * size; j < y * size + size; j++)
-                        mlx_pixel_put(window.ptr, window.win, offset_x + i, offset_y + j, RED);
+                        mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, RED);
             }
 
             x++;

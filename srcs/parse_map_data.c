@@ -7,7 +7,7 @@ int is_map_start(char *line)
     return (0);
 }
 
-int parse_res(char *line, t_map_data *data)
+int parse_res(char *line, t_map *map)
 {
     int i;
 
@@ -16,10 +16,10 @@ int parse_res(char *line, t_map_data *data)
         return (0);
     while (!ft_isdigit(line[i]))
         i++;
-    data->res_x = ft_atoi(&line[i]);
+    map->res_x = ft_atoi(&line[i]);
     while (!ft_isspace(line[i]))
         i++;
-    data->res_y = ft_atoi(&line[i]);
+    map->res_y = ft_atoi(&line[i]);
     return (1);
 }
 
@@ -39,7 +39,7 @@ int valid_descriptor(char a, char b)
         return (0);
 }
 
-int parse_texture(char *line, t_map_data *data)
+int parse_texture(char *line, t_map *map)
 {
     int i;
 
@@ -47,19 +47,19 @@ int parse_texture(char *line, t_map_data *data)
     while (ft_isspace(line[i]))
         i++;
     if (line[0] == 'N' && line[1] == 'O')
-        data->texture_north = ft_strdup(&line[i]);
+        map->texture_north = ft_strdup(&line[i]);
     else if (line[0] == 'S' && line[1] == 'O')
-        data->texture_south = ft_strdup(&line[i]);
+        map->texture_south = ft_strdup(&line[i]);
     else if (line[0] == 'W' && line[1] == 'E')
-        data->texture_west = ft_strdup(&line[i]);
+        map->texture_west = ft_strdup(&line[i]);
     else if (line[0] == 'E' && line[1] == 'A')
-        data->texture_east = ft_strdup(&line[i]);
+        map->texture_east = ft_strdup(&line[i]);
     else if (line[0] == 'S' && line[1] == ' ')
-        data->texture_sprite = ft_strdup(&line[i]);
+        map->texture_sprite = ft_strdup(&line[i]);
     return (1);
 }
 
-int parse_colors(char *line, t_map_data *data)
+int parse_colors(char *line, t_map *map)
 {
     int i;
     int r;
@@ -79,9 +79,9 @@ int parse_colors(char *line, t_map_data *data)
         i++;
     b = ft_atoi(&line[i]);
     if (line[0] == 'F')
-        data->floor_color = rgb(r, g, b);
+        map->floor_color = rgb(r, g, b);
     else if (line[0] == 'C')
-        data->ceiling_color = rgb(r, g, b);
+        map->ceiling_color = rgb(r, g, b);
     return (1);
 }
 
@@ -90,16 +90,16 @@ int rgb(int r, int g, int b)
     return (65536 * r + 256 * g + b);
 }
 
-int parse_map_data(char *line, t_map_data *data)
+int parse_map_data(char *line, t_map *map)
 {
     if (line[0] == 'R')
-        return (parse_res(line, data));
+        return (parse_res(line, map));
     else if (valid_descriptor(line[0], line[1]))
     {
-        return (parse_texture(line, data));
+        return (parse_texture(line, map));
     }
     else if (line[0] == 'C' || line[0] == 'F')
-        return (parse_colors(line, data));
+        return (parse_colors(line, map));
     else
         return (1);
 }

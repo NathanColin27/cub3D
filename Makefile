@@ -2,7 +2,7 @@ NAME =	cub3D
 
 FLAGS = -Wall -Wextra -Werror -O2
 
-GCC = gcc $(FLAGS)
+GCC = gcc 
 
 SRCS = 	srcs/parser.c \
 		srcs/error_handling.c \
@@ -38,7 +38,7 @@ LIBFT = libft.a
 all: $(NAME) 
 
 %.o: %.c
-	$(GCC) $(FLAGS) -c -o $@ $<
+	$(GCC) -c -o $@ $<
 
 re_libs:
 	$(MAKE) -C libft re

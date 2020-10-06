@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/02 17:51:35 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/23 20:45:39 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/03 23:21:38 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int delay_time = 3; // in millisec
 
-int color_map_1(t_session data, int w, int h)
+int color_map_1(t_window window, int w, int h)
 {
     int x;
     int y;
@@ -28,7 +28,7 @@ int color_map_1(t_session data, int w, int h)
         while (y--)
         {
             color = (x * 255) / w + ((((w - x) * 255) / w) << 16) + (((y * 255) / h) << 8);
-            mlx_pixel_put(data.session, data.window, x, y, color);
+            mlx_pixel_put(window.ptr, window.win, x, y, color);
         }
     }
     return 0;
@@ -40,7 +40,7 @@ void set_point(t_2D_point *point, int x, int y)
     point->y = y;
 }
 
-int draw_square(t_session data, t_2D_point origin, int lenght, int color)
+int draw_square(t_window window, t_2D_point origin, int lenght, int color)
 {
     t_2D_point right_up;
     t_2D_point right_down;
@@ -50,37 +50,37 @@ int draw_square(t_session data, t_2D_point origin, int lenght, int color)
     set_point(&right_down, origin.x + lenght, origin.y + lenght);
     set_point(&left_down, origin.x, origin.y + lenght);
 
-    draw_line(data, origin.x, origin.y, right_up.x, right_up.y, color);
-    draw_line(data, right_up.x, right_up.y, right_down.x, right_down.y, color);
-    draw_line(data, left_down.x, left_down.y, right_down.x, right_down.y, color);
-    draw_line(data, origin.x, origin.y, left_down.x, left_down.y, color);
+    draw_line(window, origin.x, origin.y, right_up.x, right_up.y, color);
+    draw_line(window, right_up.x, right_up.y, right_down.x, right_down.y, color);
+    draw_line(window, left_down.x, left_down.y, right_down.x, right_down.y, color);
+    draw_line(window, origin.x, origin.y, left_down.x, left_down.y, color);
     return 0;
 }
 
-int draw_pixel(t_session data, t_2D_point pixel, int color)
+int draw_pixel(t_window window, t_2D_point pixel, int color)
 {
-    mlx_pixel_put(data.session, data.window, pixel.x, pixel.y, color);
+    mlx_pixel_put(window.ptr, window.win, pixel.x, pixel.y, color);
     return 0;
 }
 
-int draw_circle_points(t_session data, int xc, int yc, int x, int y, int color)
+int draw_circle_points(t_window window, int xc, int yc, int x, int y, int color)
 {
-    mlx_pixel_put(data.session, data.window, xc + x, yc + y, color);
-    mlx_pixel_put(data.session, data.window, xc - x, yc + y, color);
-    mlx_pixel_put(data.session, data.window, xc + x, yc - y, color);
-    mlx_pixel_put(data.session, data.window, xc - x, yc - y, color);
-    mlx_pixel_put(data.session, data.window, xc + y, yc + x, color);
-    mlx_pixel_put(data.session, data.window, xc - y, yc + x, color);
-    mlx_pixel_put(data.session, data.window, xc + y, yc - x, color);
-    mlx_pixel_put(data.session, data.window, xc - y, yc - x, color);
+    mlx_pixel_put(window.ptr, window.win, xc + x, yc + y, color);
+    mlx_pixel_put(window.ptr, window.win, xc - x, yc + y, color);
+    mlx_pixel_put(window.ptr, window.win, xc + x, yc - y, color);
+    mlx_pixel_put(window.ptr, window.win, xc - x, yc - y, color);
+    mlx_pixel_put(window.ptr, window.win, xc + y, yc + x, color);
+    mlx_pixel_put(window.ptr, window.win, xc - y, yc + x, color);
+    mlx_pixel_put(window.ptr, window.win, xc + y, yc - x, color);
+    mlx_pixel_put(window.ptr, window.win, xc - y, yc - x, color);
     return 0;
 }
 
-int draw_circle(t_session data, t_2D_point center, int r, int color)
+int draw_circle(t_window window, t_2D_point center, int r, int color)
 {
     int x = 0, y = r;
     int d = 3 - 2 * r;
-    draw_circle_points(data, center.x, center.y, x, y, color);
+    draw_circle_points(window, center.x, center.y, x, y, color);
     while (y >= x)
     {
         // for each pixel we will
@@ -98,7 +98,7 @@ int draw_circle(t_session data, t_2D_point center, int r, int color)
         }
         else
             d = d + 4 * x + 6;
-        draw_circle_points(data, center.x, center.y, x, y, color);
+        draw_circle_points(window, center.x, center.y, x, y, color);
         
     }
     return (0);
@@ -114,14 +114,14 @@ void ft_swap(float *a, float *b)
 }
 
 
-void draw_line(t_session data, float x1,float y1,float x2,float y2,int c )
+void draw_line(t_window window, float x1,float y1,float x2,float y2,int c )
 {
 	const float dx = x2 - x1;
 	const float dy = y2 - y1;
 
 	if( dy == 0.0f && dx == 0.0f )
 	{
-		mlx_pixel_put(data.session, data.window , (int)x1 ,(int)y1,c );
+		mlx_pixel_put(window.ptr, window.win , (int)x1 ,(int)y1,c );
 	}
 	else if( fabsf( dy ) > fabsf( dx ) )
 	{
@@ -137,12 +137,12 @@ void draw_line(t_session data, float x1,float y1,float x2,float y2,int c )
 		for( float x = x1; y < y2; y += 1.0f,x += m )
 		{
 			lastIntY = (int)y;
-			mlx_pixel_put(data.session, data.window ,(int)x,lastIntY,c );
+			mlx_pixel_put(window.ptr, window.win ,(int)x,lastIntY,c );
 		}
 		if( (int)y2  > lastIntY )
 		{
             
-			mlx_pixel_put(data.session, data.window ,(int)x2,(int)y2,c );
+			mlx_pixel_put(window.ptr, window.win ,(int)x2,(int)y2,c );
 		}
 	}
 	else
@@ -160,12 +160,12 @@ void draw_line(t_session data, float x1,float y1,float x2,float y2,int c )
 		{
 			lastIntX = (int)x;
            
-			mlx_pixel_put(data.session, data.window ,lastIntX,(int)y,c );
+			mlx_pixel_put(window.ptr, window.win ,lastIntX,(int)y,c );
 		}
 		if( (int)x2  > lastIntX )
 		{
            
-			mlx_pixel_put(data.session, data.window ,(int)x2,(int)y2 ,c );
+			mlx_pixel_put(window.ptr, window.win ,(int)x2,(int)y2 ,c );
 		}
 	}
 }

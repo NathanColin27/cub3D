@@ -26,11 +26,11 @@ typedef struct s_map
 
 } t_map;
 
-typedef struct s_session
+typedef struct s_window
 {
-    void *session;
-    void *window;
-} t_session;
+    void *ptr;
+    void *win;
+} t_window;
 
 typedef struct s_sprite
 {
@@ -61,7 +61,7 @@ typedef struct s_map_data
 typedef struct s_main
 {
     t_map_data data;
-    t_session  session;
+    t_window  window;
     t_map      map;
 }              t_main;
 
@@ -71,25 +71,14 @@ typedef struct s_2D_point
     int y;
 } t_2D_point;
 
-typedef struct s_vec3d
-{
-    float x;
-    float y;
-    float z;
-} t_vec3d;
 
-typedef struct s_triangle
-{
-    t_vec3d p[3];
-} t_triangle;
-
-int draw_pixel(t_session data, t_2D_point pixel, int color);
-void draw_line(t_session data, float x1, float y1, float x2, float y2, int c);
-int draw_circle_points(t_session data, int xc, int yc, int x, int y, int color);
+int draw_pixel(t_window data, t_2D_point pixel, int color);
+void draw_line(t_window data, float x1, float y1, float x2, float y2, int c);
+int draw_circle_points(t_window data, int xc, int yc, int x, int y, int color);
 void set_point(t_2D_point *point, int x, int y);
-int draw_circle(t_session data, t_2D_point center, int r, int color);
-int color_map_1(t_session data, int w, int h);
-int draw_square(t_session data, t_2D_point origin, int lenght, int color);
+int draw_circle(t_window data, t_2D_point center, int r, int color);
+int color_map_1(t_window data, int w, int h);
+int draw_square(t_window data, t_2D_point origin, int lenght, int color);
 void delay(int number_of_seconds);
 int rgb(int r, int g, int b);
 int valid_extension(char *map_name);
@@ -112,9 +101,13 @@ int elem_type(t_map_data *data, int x, int y);
 void get_map_height(t_map_data *data);
 int map_check(t_map_data *data);
 void check_adjacent_elem(t_map_data *data,int x, int y);
-int		set_sprite(t_map_data *data);
+int set_sprite(t_map_data *data);
 int windows(t_map_data *data);
 void delay(int number_of_seconds);
 void remove_spaces (char *s);
+void info_and_map(t_map_data *data, t_window session);
+int key_press(int keycode, t_window *data);
+int key_release(int keycode, t_window *data);
+int main_loop(t_map_data *data);
 
 #endif

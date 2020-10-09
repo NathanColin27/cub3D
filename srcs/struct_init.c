@@ -16,4 +16,9 @@ void data_init(t_main *main)
     main->map.start_direction = '\0';
     main->map.sprite_number = 0;
     main->map.height = 0;
+
+    main->move.up = 0;
+    main->move.down = 0;
+    main->move.left = 0;
+    main->move.right= 0;
 }

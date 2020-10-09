@@ -1,5 +1,32 @@
 #include "../includes/cub3d.h"
 
+int set_start_pos(t_main *main)
+{
+    char dir = main->map.start_direction;
+
+    set_pos(&main->camera.pos, main->map.start_x + 0.5, main->map.start_y + 0.5);
+	if (dir == 'N')
+	{
+		set_pos(&main->camera.dir, 0, -1);
+		set_pos(&main->camera.plane, -FOV, 0);
+	}
+	else if (dir == 'S')
+	{
+		set_pos(&main->camera.dir, 0, 1);
+		set_pos(&main->camera.plane, FOV, 0);
+	}
+	else if (dir == 'E')
+	{
+		set_pos(&main->camera.dir, 1, 0);
+		set_pos(&main->camera.plane, 0, -FOV);
+	}
+	else if (dir == 'W')
+	{
+		set_pos(&main->camera.dir, -1, 0);
+		set_pos(&main->camera.plane, 0, FOV);
+	}
+}
+
 
 
 int		set_sprite(t_main *main)
@@ -110,5 +137,6 @@ int map_check(t_main *main)
         y++;
     }
     set_sprite(main);
+    set_start_pos(main);
     return 0;
 }

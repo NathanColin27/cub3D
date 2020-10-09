@@ -11,18 +11,64 @@
 #include <fcntl.h>
 #include "../libft/includes/libft.h"
 
+
+#define X_EVENT_KEY_PRESS 2
+#define X_EVENT_KEY_RELEASE 3
+#define X_EVENT_KEY_EXIT 17
+
+
+#define FOV 0.66
+#define KEY_w 119
+#define KEY_a 97
+#define KEY_s 115
+#define KEY_d 100
+#define KEY_UP 65362
+#define KEY_DOWN 65364
+#define KEY_RIGHT 65363
+#define KEY_LEFT 65361
+#define KEY_ESC 65307
+
 #define RED 16711680
 #define GREEN 65280
 #define BLUE 255
 #define WHITE 16777215
 
-typedef struct  s_movement
+typedef struct	s_pos
 {
-    int move_x;
-    int move_y;
-    int rotate_x;
-    int rotate_y;
-}               t_movement;
+	double	x;
+	double	y;
+}				t_pos;
+
+typedef struct s_ray
+{
+    int iter;
+    double distance;
+    int side_int;
+    t_pos dir;
+    t_pos pos;
+    t_pos map_pos;
+    t_pos delta;
+    t_pos side;
+    t_pos step;
+}           t_ray;
+
+typedef struct  s_move
+{
+    int up;
+    int down;
+    int left;
+    int right;
+}               t_move;
+
+
+
+typedef struct	s_camera
+{
+	t_pos	pos;
+	t_pos	dir;
+	t_pos	x_dir;
+	t_pos	plane;
+}				t_camera;
 
 typedef struct  s_window
 {
@@ -60,13 +106,11 @@ typedef struct s_main
     t_map       map;
     t_window    window;
     t_sprite    *sprites;
+    t_move      move;
+    t_camera    camera;
+    t_ray       ray;
 }              t_main;
 
-
-void draw_line(t_window data, float x1, float y1, float x2, float y2, int c);
-int draw_circle_points(t_window data, int xc, int yc, int x, int y, int color);
-int color_map_1(t_window data, int w, int h);
-void delay(int number_of_seconds);
 int rgb(int r, int g, int b);
 int valid_extension(char *map_name);
 void error(char *s);
@@ -93,8 +137,12 @@ int windows(t_main *main);
 void delay(int number_of_seconds);
 void remove_spaces (char *s);
 void info_and_map(t_main *main);
-int key_press(int keycode, t_window *data);
-int key_release(int keycode, t_window *data);
+int key_press(int keycode, t_main *main);
+int key_release(int keycode, t_main *main);
 int main_loop(t_main *main);
-
+int exit_pressed(t_window *window);
+int set_start_pos(t_main *main);
+int set_pos(t_pos *pos, double x, double y);
+int raycasting(t_main *main);
+int set_ray(t_main *main);
 #endif

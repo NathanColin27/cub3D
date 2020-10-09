@@ -6,60 +6,26 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:25:46 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/06 22:52:11 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/09 22:09:23 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+#include <time.h> 
 
-#define X_EVENT_KEY_PRESS 2
-#define X_EVENT_KEY_RELEASE 3
-#define X_EVENT_KEY_EXIT 17
+void delay(int number_of_seconds) 
+{ 
+    // Converting time into milli_seconds 
+    int milli_seconds = 1000 * number_of_seconds; 
+  
+    // Storing start time 
+    clock_t start_time = clock(); 
+  
+    // looping till required time is not achieved 
+    while (clock() < start_time + milli_seconds) 
+        ; 
+} 
 
-#define KEY_w 119
-#define KEY_a 97
-#define KEY_s 115
-#define KEY_d 100
-#define KEY_UP 65362
-#define KEY_DOWN 65364
-#define KEY_RIGHT 65363
-#define KEY_LEFT 65361
-#define KEY_ESC 65307
-
-int key_press(int keycode, t_window *window)
-{
-    if (keycode == KEY_w)
-        write(1, "up", 3);
-    if (keycode == KEY_a)
-        write(1, "left", 4);
-    if (keycode == KEY_s)
-        write(1, "down", 4);
-    if (keycode == KEY_d)
-        write(1, "right", 5);
-    if (keycode == KEY_UP)
-        write(1, "UP", 2);
-    if (keycode == KEY_DOWN)
-        write(1, "DOWN", 4);
-    if (keycode == KEY_RIGHT)
-        write(1, "RIGHT", 5);
-    if (keycode == KEY_LEFT)
-        write(1, "LEFT", 4);
-    if (keycode == KEY_ESC)
-        write(1, "ESC", 3);
-    return 1;
-}
-
-int key_release(int keycode, t_window *window)
-{
-    return 1;
-}
-
-int exit_pressed(t_window *window)
-{
-    write(1, "bye", 5);
-    exit(0);
-    return (1);
-}
 
 int windows(t_main *main)
 {
@@ -71,24 +37,100 @@ int windows(t_main *main)
         return (EXIT_FAILURE);
     main->window = window;
     info_and_map(main);
-    mlx_hook(window.win, X_EVENT_KEY_PRESS, 1L<<0, key_press, &window);
-    mlx_hook(window.win, X_EVENT_KEY_RELEASE, 0, key_release, &window);
-    //mlx_hook(window.win, X_EVENT_KEY_EXIT, 0, exit_pressed, &window);
-    //mlx_loop_hook(window.ptr, main_loop, data);
+    mlx_hook(window.win, X_EVENT_KEY_PRESS, 1L<<0, key_press, &main);
+    mlx_hook(window.win, X_EVENT_KEY_RELEASE, 1L<<1, key_release, &main);
+    mlx_hook(window.win, X_EVENT_KEY_EXIT, 1L<<15, exit_pressed, &main);
+    mlx_loop_hook(window.ptr, main_loop, &main);
     mlx_loop(window.ptr);
     return (EXIT_SUCCESS);
 }
 
-// int main_loop(t_main *main)
-// {
-//     printf("test");
-//     raycasting(data);
-//     return 1;
-// }
+int main_loop(t_main *main)
+{
+    int update = 1;
+    delay(100);
+    if (update)
+    {
+        raycasting(main);
+        // screen_update();
+        // window_update();
+        update = 0;
+    }
+    if(main->move.up == 1)
+        update = 1;
+    if(main->move.down == 1)
+    {
+        update = 1;
+    }
+    
+    if(main->move.left == 1 || main->move.right == 1)
+    {
+        write(1, "rotating", 9);
+    }
+  
+    update = 0;
+    return 1;
+}
 
-// int raycasting(t_map_data *data)
-// {
-// }
+int set_side_distance(t_camera *cam, t_ray *ray)
+{
+    if(ray->dir.x < 0)
+    {
+        ray->step.x = -1;
+        ray->side.x = ((int)cam->pos.x - cam->pos.x) * ray->delta.x;
+    }
+    else 
+    {
+        ray->step.x = 1;
+        ray->side.x = (cam->pos.x + 1.0 -(int)cam->pos.x) *ray->delta.x;
+    }
+    if(ray->dir.y < 0)
+    {
+        ray->step.y = -1;
+        ray->side.y = ((int)cam->pos.y - cam->pos.y) * ray->delta.y;
+    }
+    else 
+    {
+        ray->step.y = 1;
+        ray->side.y = (cam->pos.y + 1.0 -(int)cam->pos.y) *ray->delta.y;
+    }
+    return 1;
+}
+
+
+int dda(t_main *main, t_ray *ray)
+{
+}
+
+int set_ray(t_main *main)
+{
+    t_ray *r;
+
+    r = &main->ray;
+    set_pos(&r->delta, abs(1/ r->dir.x), abs(1/ r->dir.y));
+    set_side_distance(&main->camera, &main->ray);
+    
+    return 1;
+}
+
+int raycasting(t_main *main)
+{
+    t_camera *c;
+    double cam_x;
+    int i;
+    
+    i = 0;
+    c = &main->camera;
+    while (i< main->map.res_x)
+    {
+        cam_x = 1 - 2 * i/(double)(main->map.res_x);
+        set_pos(&main->ray.dir, c->dir.x + c->plane.x * cam_x, c->dir.y + c->plane.y * cam_x);
+        set_ray(main);
+        i++;
+    }
+    write(1, "DONE", 5);
+    
+}
 
 void info_and_map(t_main *main)
 {

@@ -25,6 +25,7 @@ int set_start_pos(t_main *main)
 		set_pos(&main->camera.dir, -1, 0);
 		set_pos(&main->camera.plane, 0, FOV);
 	}
+    return 1;
 }
 
 

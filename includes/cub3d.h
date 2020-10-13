@@ -4,7 +4,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include "../minilibx-linux/mlx.h"
-//#include <mlx.h>
+#include <mlx.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -18,15 +18,15 @@
 
 
 #define FOV 0.66
-#define KEY_w 119
-#define KEY_a 97
-#define KEY_s 115
-#define KEY_d 100
-#define KEY_UP 65362
-#define KEY_DOWN 65364
-#define KEY_RIGHT 65363
-#define KEY_LEFT 65361
-#define KEY_ESC 65307
+#define KEY_W 13
+#define KEY_A 0
+#define KEY_S 1
+#define KEY_D 2
+#define KEY_UP 126
+#define KEY_DOWN 125
+#define KEY_RIGHT 124
+#define KEY_LEFT 123
+#define KEY_ESC 53
 
 #define RED 16711680
 #define GREEN 65280
@@ -41,14 +41,17 @@ typedef struct	s_pos
 
 typedef struct s_ray
 {
-    int iter;
+    int id;
+    int side;
+    int hit;
+    int map_x;
+    int map_y;
     double distance;
-    int side_int;
+    double perp_wall_dist;
     t_pos dir;
     t_pos pos;
-    t_pos map_pos;
     t_pos delta;
-    t_pos side;
+    t_pos side_dist;
     t_pos step;
 }           t_ray;
 
@@ -68,6 +71,7 @@ typedef struct	s_camera
 	t_pos	dir;
 	t_pos	x_dir;
 	t_pos	plane;
+    double cam_x;
 }				t_camera;
 
 typedef struct  s_window
@@ -142,7 +146,10 @@ int key_release(int keycode, t_main *main);
 int main_loop(t_main *main);
 int exit_pressed(t_window *window);
 int set_start_pos(t_main *main);
-int set_pos(t_pos *pos, double x, double y);
+void set_pos(t_pos *pos, double x, double y);
 int raycasting(t_main *main);
-int set_ray(t_main *main);
+void  dda(t_main *main, t_ray *r);
+void draw_line(t_window data, float x1,float y1,float x2,float y2,int c );
+void wall_size(t_main *main, t_ray *r, t_camera *c);
+
 #endif

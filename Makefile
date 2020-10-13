@@ -23,7 +23,7 @@ OSNAME = $(shell uname)
 
 ifeq ($(OSNAME),Darwin)
 	MLX_PATH = 
-	MLX_FLAGS = -L../mlx -lmlx -framework OpenGL -framework AppKit
+	MLX_FLAGS = -L./mlx -lmlx -framework OpenGL -framework AppKit
 	MLX = 
 else
 	MLX = libmlx.a

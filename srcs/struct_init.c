@@ -21,4 +21,7 @@ void data_init(t_main *main)
     main->move.down = 0;
     main->move.left = 0;
     main->move.right= 0;
+
+    main->camera.plane.x = 0;
+    main->camera.plane.y = FOV;
 }

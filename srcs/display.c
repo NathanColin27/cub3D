@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:25:46 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/09 22:09:23 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/13 16:18:37 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 #include <time.h> 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+ 
 
 void delay(int number_of_seconds) 
 { 
@@ -37,38 +41,18 @@ int windows(t_main *main)
         return (EXIT_FAILURE);
     main->window = window;
     info_and_map(main);
-    mlx_hook(window.win, X_EVENT_KEY_PRESS, 1L<<0, key_press, &main);
-    mlx_hook(window.win, X_EVENT_KEY_RELEASE, 1L<<1, key_release, &main);
-    mlx_hook(window.win, X_EVENT_KEY_EXIT, 1L<<15, exit_pressed, &main);
-    mlx_loop_hook(window.ptr, main_loop, &main);
+    mlx_hook(window.win, X_EVENT_KEY_PRESS, 0, key_press, &main);
+    mlx_hook(window.win, X_EVENT_KEY_RELEASE, 0, key_release, &main);
+    mlx_hook(window.win, X_EVENT_KEY_EXIT, 0, exit_pressed, &main);
+    mlx_loop_hook(window.ptr, main_loop, main);
     mlx_loop(window.ptr);
     return (EXIT_SUCCESS);
 }
 
 int main_loop(t_main *main)
 {
-    int update = 1;
-    delay(100);
-    if (update)
-    {
-        raycasting(main);
-        // screen_update();
-        // window_update();
-        update = 0;
-    }
-    if(main->move.up == 1)
-        update = 1;
-    if(main->move.down == 1)
-    {
-        update = 1;
-    }
+    raycasting(main);
     
-    if(main->move.left == 1 || main->move.right == 1)
-    {
-        write(1, "rotating", 9);
-    }
-  
-    update = 0;
     return 1;
 }
 
@@ -77,127 +61,178 @@ int set_side_distance(t_camera *cam, t_ray *ray)
     if(ray->dir.x < 0)
     {
         ray->step.x = -1;
-        ray->side.x = ((int)cam->pos.x - cam->pos.x) * ray->delta.x;
+        ray->side_dist.x = ((int)cam->pos.x - cam->pos.x) * ray->delta.x;
     }
     else 
     {
         ray->step.x = 1;
-        ray->side.x = (cam->pos.x + 1.0 -(int)cam->pos.x) *ray->delta.x;
+        ray->side_dist.x = (cam->pos.x + 1.0 -(int)cam->pos.x) *ray->delta.x;
     }
     if(ray->dir.y < 0)
     {
         ray->step.y = -1;
-        ray->side.y = ((int)cam->pos.y - cam->pos.y) * ray->delta.y;
+        ray->side_dist.y = ((int)cam->pos.y - cam->pos.y) * ray->delta.y;
     }
     else 
     {
         ray->step.y = 1;
-        ray->side.y = (cam->pos.y + 1.0 -(int)cam->pos.y) *ray->delta.y;
+        ray->side_dist.y = (cam->pos.y + 1.0 -(int)cam->pos.y) *ray->delta.y;
     }
     return 1;
 }
 
-
-int dda(t_main *main, t_ray *ray)
+void check_side(t_ray *ray)
 {
+    if (ray->side_dist.x < ray->side_dist.y)
+	{
+		ray->side_dist.x += ray->delta.x;
+		ray->map_x += ray->step.x;
+		if (ray->step.x == 1)
+			ray->side = 0;
+		else if (ray->step.x == -1)
+			ray->side = 1;
+	}
+	else
+	{
+		ray->side_dist.y += ray->delta.y;
+		ray->map_y += ray->step.y;
+		if (ray->step.y == 1)
+			ray->side = 2;
+		else if (ray->step.y == -1)
+			ray->side = 3;
+	}
 }
 
-int set_ray(t_main *main)
-{
-    t_ray *r;
 
-    r = &main->ray;
-    set_pos(&r->delta, abs(1/ r->dir.x), abs(1/ r->dir.y));
-    set_side_distance(&main->camera, &main->ray);
+
+
+
+
+void  dda(t_main *main, t_ray *r)
+{
     
-    return 1;
+    int size = 25;
+    int offset_x = main->map.res_x / 2 - (size * ft_strlen(main->map.pattern[0]) / 2);
+    int offset_y = main->map.res_y / 2 - (size * main->map.height / 2);
+    while(r->hit == 0)
+    {
+        
+        if (r->side_dist.x < r->side_dist.y)
+		{
+		    r->side_dist.x += r->delta.x;
+			r->map_x += r->step.x;
+			if (r->step.x == 1)
+			    r->side = 0;
+		    else if (r->step.x == -1)
+			    r->side = 1;
+		}
+		else
+		{
+            
+			r->side_dist.y += r->delta.y;
+			r->map_y += r->step.y;
+            if (r->step.y == 1)
+			    r->side = 2;
+		    else if (r->step.y == -1)
+			    r->side = 3;
+		}
+        if (main->map.pattern[r->map_y][r->map_x] == '1')
+        {   
+            r->hit = 1;
+        
+        }
+    }
 }
+
+void wall_size(t_main *main, t_ray *r, t_camera *c)
+{
+    delay(500);
+    setvbuf(stdout, NULL, _IOLBF, 0);  
+    printf("MAP_X -> %d\nMAP_Y -> %d\nPOS_X -> %f\nPOS_Y -> %f\nSTEP_X -> %f\nSTEP_X -> %f\nDIR_X -> %f\nDIR_Y -> %f\n",\
+            r->map_x, r->map_y, c->pos.x, c->pos.y, r->step.x, r->step.y, r->dir.x, r->dir.y);
+    printf("Wall hit in [%d][%d]     Dist = %f\n",r->map_x, r->map_y, r->perp_wall_dist);
+
+
+
+
+    if(r->side == 0 || r->side == 1)
+        r->perp_wall_dist =  (r->map_x - c->pos.x + (1 - r->step.x)/2) / r->dir.x; 
+    else
+        r->perp_wall_dist =  (r->map_y - c->pos.y + (1 - r->step.y)/2) / r->dir.y;
+}
+
+
 
 int raycasting(t_main *main)
 {
-    t_camera *c;
-    double cam_x;
-    int i;
     
+    int i;
+    t_camera *c;
+    t_ray    *r;
     i = 0;
     c = &main->camera;
-    while (i< main->map.res_x)
+    r = &main->ray;
+    int test = 0;
+    test++;
+    while (i < main->map.res_x)
     {
-        cam_x = 1 - 2 * i/(double)(main->map.res_x);
-        set_pos(&main->ray.dir, c->dir.x + c->plane.x * cam_x, c->dir.y + c->plane.y * cam_x);
-        set_ray(main);
+        c->cam_x = 1 - 2 * i/(double)(main->map.res_x);
+        r->map_x = (int)c->pos.x;
+        r->map_y = (int)c->pos.y;
+        set_pos(&main->ray.dir, c->dir.x + c->plane.x * c->cam_x, c->dir.y + c->plane.y * c->cam_x);
+        set_pos(&r->delta, fabs(1/ r->dir.x), fabs(1/ r->dir.y));
+        r->hit = 0;
+        r->id  = i;
+        set_side_distance(c, r); 
+        dda(main, r);
+        wall_size(main, r, c);
         i++;
     }
-    write(1, "DONE", 5);
-    
+    return 1;
 }
 
 void info_and_map(t_main *main)
 {
-
-    // int y = 10;
-    // mlx_string_put(window.ptr, window.win, 15, y, BLUE, ft_strjoin("res x = ", ft_itoa(data->res_x)));
-    // y += 20;
-    // mlx_string_put(window.ptr, window.win, 15, y, BLUE, ft_strjoin("res y = ", ft_itoa(data->res_y)));
-    // y += 20;
-    // mlx_string_put(window.ptr, window.win, 15, y, BLUE, ft_strjoin("texture_north = ", data->texture_north));
-    // y += 20;
-    // mlx_string_put(window.ptr, window.win, 15, y, BLUE, ft_strjoin("texture_south = ", data->texture_south));
-    // y += 20;
-    // mlx_string_put(window.ptr, window.win, 15, y, BLUE, ft_strjoin("texture_east = ", data->texture_east));
-    // y += 20;
-    // mlx_string_put(window.ptr, window.win, 15, y, BLUE, ft_strjoin("texture_west = ", data->texture_west));
-    // y += 20;
-    // mlx_string_put(window.ptr, window.win, 15, y, BLUE, ft_strjoin("texture_sprite = ", data->texture_sprite));
-    // y += 20;
-    // mlx_string_put(window.ptr, window.win, 15, y, BLUE, ft_strjoin("floor_color = ", ft_itoa(data->floor_color)));
-    // y += 20;
-    // mlx_string_put(window.ptr, window.win, 15, y, BLUE, ft_strjoin("ceiling_color = ", ft_itoa(data->ceiling_color)));
-    // y += 20;
-    // mlx_string_put(window.ptr, window.win, 15, y, BLUE, ft_strjoin("start_x = ", ft_itoa(data->start_x)));
-    // y += 20;
-    // mlx_string_put(window.ptr, window.win, 15, y, BLUE, ft_strjoin("start_y = ", ft_itoa(data->start_y)));
-    // y += 20;
-    // for (int i = 0; i < data->sprite_number; i++)
-    // {
-    //     mlx_string_put(window.ptr, window.win, 15, y, BLUE, ft_strjoin("sprite : x = ", ft_itoa(data->sprites[i].x)));
-    //     mlx_string_put(window.ptr, window.win, 170, y, BLUE, ft_strjoin(", y = ", ft_itoa(data->sprites[i].y)));
-    //     y += 20;
-    // }
-
     int x;
     int size = 25;
     int offset_x = main->map.res_x / 2 - (size * ft_strlen(main->map.pattern[0]) / 2);
     int offset_y = main->map.res_y / 2 - (size * main->map.height / 2);
     int y = 0;
 
+    
     while (y < main->map.height)
     {
         x = 0;
         while (x < ((int)ft_strlen(main->map.pattern[y])))
         {
-
             if (main->map.pattern[y][x] == '1')
             {
-                for (int i = x * size; i < x * size + size; i++)
-                    for (int j = y * size; j < y * size + size; j++)
+                for (int i = x * size; i < x * size + size-1; i++)
+                    for (int j = y * size; j < y * size + size-1; j++)
                         mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, GREEN);
             }
             else if (main->map.pattern[y][x] == '2')
             {
-                for (int i = x * size; i < x * size + size; i++)
-                    for (int j = y * size; j < y * size + size; j++)
+                for (int i = x * size; i < x * size + size-1; i++)
+                    for (int j = y * size; j < y * size + size-1; j++)
                         mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, BLUE);
             }
             else if (main->map.pattern[y][x] == 'N' || main->map.pattern[y][x] == 'E' || main->map.pattern[y][x] == 'W' || main->map.pattern[y][x] == 'S')
             {
-                for (int i = x * size; i < x * size + size; i++)
-                    for (int j = y * size; j < y * size + size; j++)
+                for (int i = x * size; i < x * size + size-1; i++)
+                    for (int j = y * size; j < y * size + size-1; j++)
                         mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, RED);
+            }
+            else
+            {
+                for (int i = x * size; i < x * size + size -1; i++)
+                    for (int j = y * size; j < y * size + size-1; j++)
+                        mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, WHITE);
             }
 
             x++;
         }
         y++;
     }
+    
 }

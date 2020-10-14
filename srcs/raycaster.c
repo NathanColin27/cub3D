@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:40:31 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/14 14:47:15 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/14 18:31:54 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ int raycasting(t_main *main)
     i = 0;
     c = &main->camera;
     r = &main->ray;
-    
+    clock_t tic = clock();
     while (i++ < main->map.res_x)
     {
+        
         c->cam_x = 2 * i / (double)(main->map.res_x) - 1;
         set_pos(&r->dir, c->dir.x + c->plane.x * c->cam_x, c->dir.y + c->plane.y * c->cam_x);
         set_pos(&r->delta, fabs(1/ r->dir.x), fabs(1/ r->dir.y));
@@ -32,20 +33,51 @@ int raycasting(t_main *main)
         r->map_y = (int)c->pos.y;
         r->hit = 0;
         r->id  = i;
+        
         set_side_distance(c, r); 
+       
         dda(main, r);
+         
         wall_size(main, r, c);
+        
         draw(main,r);
+        
     }
+
+    
     return 1;
 }
 
 
 void draw(t_main *main, t_ray *r)
 {
-    draw_line(main->window, main->map.res_x - r->id, r->wall_start + r->wall_size, main->map.res_x - r->id, r->wall_start, RED);
-    draw_line(main->window, main->map.res_x - r->id, 0 , main->map.res_x - r->id, r->wall_start, BLUE);
-    draw_line(main->window, main->map.res_x - r->id, r->wall_start + r->wall_size , main->map.res_x - r->id, main->map.res_x -1, GREEN);
+    
+
+
+   
+    int color;
+    int x = main->map.res_x - r->id;
+    int i = 0;
+    if(r->side == 0)
+        color = 0;
+    else if(r->side == 1)
+        color = 16711935;
+    else if(r->side == 2)
+        color = RED;
+    else if(r->side == 3)
+        color = 51300;
+    while(i++ < r->wall_start)
+        mlx_pixel_put(main->window.ptr, main->window.win, x, i, BLUE);
+    while(i++ < r->wall_start + r->wall_size)
+        mlx_pixel_put(main->window.ptr, main->window.win, x, i, color);
+    while(i++ < main->map.res_y)
+        mlx_pixel_put(main->window.ptr, main->window.win, x, i, GREEN);
+
+  
+
+    //draw_line(main->window, main->map.res_x - r->id, r->wall_start + r->wall_size, main->map.res_x - r->id, r->wall_start, color);
+    // draw_line(main->window, main->map.res_x - r->id, 0 , main->map.res_x - r->id, r->wall_start, BLUE);
+    //draw_line(main->window, main->map.res_x - r->id, r->wall_start + r->wall_size , main->map.res_x - r->id, main->map.res_x -1, GREEN);
 }
 
 

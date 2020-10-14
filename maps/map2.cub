@@ -1,4 +1,4 @@
-R 1920 1080
+R 300 200
 
 SO  ./textures/south.xpm
 NO  ./textures/north.xpm

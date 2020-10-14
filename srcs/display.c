@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:25:46 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/14 17:41:58 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/14 18:31:58 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int windows(t_main *main)
 
 int main_loop(t_main *main)
 {
+    clock_t tic = clock();
     t_camera *c;
     static int update;
     
@@ -52,7 +53,8 @@ int main_loop(t_main *main)
         update = rotate_cam(main);
     if(c->move_dir)
         update = move_cam(main);
-
+    clock_t toc = clock();
+        printf("Elapsed: %f seconds\n", (double)(toc - tic) / CLOCKS_PER_SEC);
     return (0);
 }
 
@@ -86,48 +88,48 @@ int move_cam(t_main *main)
     return (1);
 }
 
-void info_and_map(t_main *main)
-{
-    int x;
-    int size = 25;
-    int offset_x = main->map.res_x / 2 - (size * ft_strlen(main->map.pattern[0]) / 2);
-    int offset_y = main->map.res_y / 2 - (size * main->map.height / 2);
-    int y = 0;
+// void info_and_map(t_main *main)
+// {
+//     int x;
+//     int size = 25;
+//     int offset_x = main->map.res_x / 2 - (size * ft_strlen(main->map.pattern[0]) / 2);
+//     int offset_y = main->map.res_y / 2 - (size * main->map.height / 2);
+//     int y = 0;
 
     
-    while (y < main->map.height)
-    {
-        x = 0;
-        while (x < ((int)ft_strlen(main->map.pattern[y])))
-        {
-            if (main->map.pattern[y][x] == '1')
-            {
-                for (int i = x * size; i < x * size + size-1; i++)
-                    for (int j = y * size; j < y * size + size-1; j++)
-                        mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, GREEN);
-            }
-            else if (main->map.pattern[y][x] == '2')
-            {
-                for (int i = x * size; i < x * size + size-1; i++)
-                    for (int j = y * size; j < y * size + size-1; j++)
-                        mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, BLUE);
-            }
-            else if (main->map.pattern[y][x] == 'N' || main->map.pattern[y][x] == 'E' || main->map.pattern[y][x] == 'W' || main->map.pattern[y][x] == 'S')
-            {
-                for (int i = x * size; i < x * size + size-1; i++)
-                    for (int j = y * size; j < y * size + size-1; j++)
-                        mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, RED);
-            }
-            else
-            {
-                for (int i = x * size; i < x * size + size -1; i++)
-                    for (int j = y * size; j < y * size + size-1; j++)
-                        mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, WHITE);
-            }
+//     while (y < main->map.height)
+//     {
+//         x = 0;
+//         while (x < ((int)ft_strlen(main->map.pattern[y])))
+//         {
+//             if (main->map.pattern[y][x] == '1')
+//             {
+//                 for (int i = x * size; i < x * size + size-1; i++)
+//                     for (int j = y * size; j < y * size + size-1; j++)
+//                         mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, GREEN);
+//             }
+//             else if (main->map.pattern[y][x] == '2')
+//             {
+//                 for (int i = x * size; i < x * size + size-1; i++)
+//                     for (int j = y * size; j < y * size + size-1; j++)
+//                         mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, BLUE);
+//             }
+//             else if (main->map.pattern[y][x] == 'N' || main->map.pattern[y][x] == 'E' || main->map.pattern[y][x] == 'W' || main->map.pattern[y][x] == 'S')
+//             {
+//                 for (int i = x * size; i < x * size + size-1; i++)
+//                     for (int j = y * size; j < y * size + size-1; j++)
+//                         mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, RED);
+//             }
+//             else
+//             {
+//                 for (int i = x * size; i < x * size + size -1; i++)
+//                     for (int j = y * size; j < y * size + size-1; j++)
+//                         mlx_pixel_put(main->window.ptr, main->window.win, offset_x + i, offset_y + j, WHITE);
+//             }
 
-            x++;
-        }
-        y++;
-    }
+//             x++;
+//         }
+//         y++;
+//     }
     
-}
+// }

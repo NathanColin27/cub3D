@@ -12,7 +12,8 @@ SRCS = 	srcs/parser.c \
 		srcs/map_checker.c \
 		srcs/display.c \
 		srcs/keys.c \
-		srcs/utils.c
+		srcs/utils.c \
+		srcs/raycaster.c
 
 
 OBJS =	$(SRCS:.c=.o)

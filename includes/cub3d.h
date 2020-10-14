@@ -16,7 +16,7 @@
 #define X_EVENT_KEY_RELEASE 3
 #define X_EVENT_KEY_EXIT 17
 
-
+#define SPEED 0.20
 #define FOV 0.66
 #define KEY_W 13
 #define KEY_A 0
@@ -46,24 +46,15 @@ typedef struct s_ray
     int hit;
     int map_x;
     int map_y;
-    double distance;
+    int wall_size;
+    int wall_start;
+    int wall_end;
     double perp_wall_dist;
     t_pos dir;
-    t_pos pos;
     t_pos delta;
     t_pos side_dist;
     t_pos step;
 }           t_ray;
-
-typedef struct  s_move
-{
-    int up;
-    int down;
-    int left;
-    int right;
-}               t_move;
-
-
 
 typedef struct	s_camera
 {
@@ -71,7 +62,9 @@ typedef struct	s_camera
 	t_pos	dir;
 	t_pos	x_dir;
 	t_pos	plane;
-    double cam_x;
+    double  cam_x;
+    int     move_dir;
+    int     rot_dir;
 }				t_camera;
 
 typedef struct  s_window
@@ -110,7 +103,6 @@ typedef struct s_main
     t_map       map;
     t_window    window;
     t_sprite    *sprites;
-    t_move      move;
     t_camera    camera;
     t_ray       ray;
 }              t_main;
@@ -151,5 +143,8 @@ int raycasting(t_main *main);
 void  dda(t_main *main, t_ray *r);
 void draw_line(t_window data, float x1,float y1,float x2,float y2,int c );
 void wall_size(t_main *main, t_ray *r, t_camera *c);
-
+void draw(t_main *main, t_ray *r);
+int move_cam(t_main *main);
+int set_side_distance(t_camera *cam, t_ray *ray);
+int rotate_cam(t_main *main);
 #endif

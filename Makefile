@@ -13,7 +13,8 @@ SRCS = 	srcs/parser.c \
 		srcs/display.c \
 		srcs/keys.c \
 		srcs/utils.c \
-		srcs/raycaster.c
+		srcs/raycaster.c \
+		srcs/free.c
 
 
 OBJS =	$(SRCS:.c=.o)

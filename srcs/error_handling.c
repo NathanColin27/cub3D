@@ -54,15 +54,15 @@ int valid_extension(char *map_name)
 
 int valid_file(t_map *map)
 {
-    if ((open(map->texture_north, O_RDONLY)) == -1)
+    if ((open(map->tex_n, O_RDONLY)) == -1)
         error("Could not open North texture");
-    else if (open(map->texture_south, O_RDONLY) == -1)
+    else if (open(map->tex_s, O_RDONLY) == -1)
         error("Could not open South texture");
-    else if (open(map->texture_east, O_RDONLY) == -1)
+    else if (open(map->tex_e, O_RDONLY) == -1)
         error("Could not open East texture");
-    else if (open(map->texture_west, O_RDONLY) == -1)
+    else if (open(map->tex_w, O_RDONLY) == -1)
         error("Could not open West texture");
-    else if (open(map->texture_sprite, O_RDONLY) == -1)
+    else if (open(map->tex_sp, O_RDONLY) == -1)
         error("Could not open Sprite texture");
     return (1);
 }

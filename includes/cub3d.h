@@ -16,7 +16,7 @@
 #define X_EVENT_KEY_RELEASE 3
 #define X_EVENT_KEY_EXIT 17
 
-#define SPEED 0.20
+#define SPEED 0.1
 #define FOV 0.66
 #define KEY_W 13
 #define KEY_A 0
@@ -27,11 +27,12 @@
 #define KEY_RIGHT 124
 #define KEY_LEFT 123
 #define KEY_ESC 53
-
 #define RED 16711680
 #define GREEN 65280
 #define BLUE 255
 #define WHITE 16777215
+#define MAX_WIDTH 1920
+#define XPM mlx_xpm_file_to_image
 
 typedef struct	s_pos
 {
@@ -65,6 +66,7 @@ typedef struct	s_camera
     double  cam_x;
     int     move_dir;
     int     rot_dir;
+
 }				t_camera;
 
 typedef struct  s_window
@@ -77,7 +79,16 @@ typedef struct s_sprite
 {
     int x;
     int y;
-} t_sprite;
+}              t_sprite;
+
+typedef struct s_img
+{
+    void *img;
+    char *addr;
+    int bpp;
+    int line_size;
+    int endian;
+}               t_img;
 
 typedef struct s_map
 {
@@ -86,17 +97,20 @@ typedef struct s_map
     int floor_color;
     int height;
     int ceiling_color;
-    char *texture_south;
-    char *texture_north;
-    char *texture_east;
-    char *texture_west;
-    char *texture_sprite;
+    char *tex_s;
+    char *tex_n;
+    char *tex_e;
+    char *tex_w;
+    char *tex_sp;
+    int tex_x;
+    int tex_y;
     char **pattern;
     char start_direction;
     int start_x;
     int start_y;
     int sprite_number;
-} t_map;
+
+}               t_map;
 
 typedef struct s_main
 {
@@ -105,6 +119,10 @@ typedef struct s_main
     t_sprite    *sprites;
     t_camera    camera;
     t_ray       ray;
+    t_img       tex[5];
+    
+    double  z_buff[MAX_WIDTH];
+
 }              t_main;
 
 int rgb(int r, int g, int b);
@@ -147,4 +165,7 @@ void draw(t_main *main, t_ray *r);
 int move_cam(t_main *main);
 int set_side_distance(t_camera *cam, t_ray *ray);
 int rotate_cam(t_main *main);
+void init_textures(t_main *m);
+void free_text_path(t_map *map);
+
 #endif

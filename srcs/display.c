@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:25:46 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/14 18:31:58 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/15 11:48:14 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int windows(t_main *main)
 
 int main_loop(t_main *main)
 {
-    clock_t tic = clock();
+   
     t_camera *c;
     static int update;
     
@@ -45,6 +45,7 @@ int main_loop(t_main *main)
     if(update)
     {
         raycasting(main);
+       
         update =0;
     }
     if(!c->move_dir || !c->rot_dir )
@@ -53,8 +54,7 @@ int main_loop(t_main *main)
         update = rotate_cam(main);
     if(c->move_dir)
         update = move_cam(main);
-    clock_t toc = clock();
-        printf("Elapsed: %f seconds\n", (double)(toc - tic) / CLOCKS_PER_SEC);
+    
     return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:25:46 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/15 11:48:14 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/16 12:33:19 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int main_loop(t_main *main)
     if(update)
     {
         raycasting(main);
-       
         update =0;
     }
     if(!c->move_dir || !c->rot_dir )
@@ -64,7 +63,7 @@ int rotate_cam(t_main *main)
     double rot;
     
     c = &main->camera;
-    rot = 0.1 * c->rot_dir;
+    rot = ROT_SPEED * c->rot_dir;
 
     set_pos(&c->plane,  cos(rot) * c->plane.x - sin(rot) * c->plane.y,\
                         sin(rot) * c->plane.x + cos(rot) * c->plane.y);

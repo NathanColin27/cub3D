@@ -15,8 +15,8 @@
 #define X_EVENT_KEY_PRESS 2
 #define X_EVENT_KEY_RELEASE 3
 #define X_EVENT_KEY_EXIT 17
-
-#define SPEED 0.1
+#define ROT_SPEED 0.03
+#define SPEED 0.05
 #define FOV 0.66
 #define KEY_W 13
 #define KEY_A 0
@@ -83,8 +83,8 @@ typedef struct s_sprite
 
 typedef struct s_img
 {
-    void *img;
-    char *addr;
+    void *img_ptr;
+    int  *addr;
     int bpp;
     int line_size;
     int endian;
@@ -120,7 +120,7 @@ typedef struct s_main
     t_camera    camera;
     t_ray       ray;
     t_img       tex[5];
-    
+    t_img       screen;
     double  z_buff[MAX_WIDTH];
 
 }              t_main;
@@ -167,5 +167,5 @@ int set_side_distance(t_camera *cam, t_ray *ray);
 int rotate_cam(t_main *main);
 void init_textures(t_main *m);
 void free_text_path(t_map *map);
-
+void pxl_to_img(t_main *main, int x, int y, int color);
 #endif

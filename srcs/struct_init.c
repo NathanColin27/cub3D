@@ -26,17 +26,22 @@ void data_init(t_main *main)
 
 void init_textures(t_main *m)
 {
-    m->tex[0].img = XPM(&m->window.ptr, m->map.tex_n, &m->map.tex_x, &m->map.tex_y);
-    m->tex[1].img = XPM(&m->window.ptr, m->map.tex_s, &m->map.tex_x, &m->map.tex_y);
-    m->tex[2].img = XPM(&m->window.ptr, m->map.tex_e, &m->map.tex_x, &m->map.tex_y);
-    m->tex[3].img = XPM(&m->window.ptr, m->map.tex_w, &m->map.tex_x, &m->map.tex_y);
-    m->tex[4].img = XPM(&m->window.ptr, m->map.tex_sp, &m->map.tex_x, &m->map.tex_y);
-    if(!m->tex[0].img || !m->tex[1].img ||!m->tex[2].img ||!m->tex[3].img ||!m->tex[4].img)
+    m->tex[0].img_ptr = XPM(&m->window.ptr, m->map.tex_n, &m->map.tex_x, &m->map.tex_y);
+    m->tex[1].img_ptr = XPM(&m->window.ptr, m->map.tex_s, &m->map.tex_x, &m->map.tex_y);
+    m->tex[2].img_ptr = XPM(&m->window.ptr, m->map.tex_e, &m->map.tex_x, &m->map.tex_y);
+    m->tex[3].img_ptr = XPM(&m->window.ptr, m->map.tex_w, &m->map.tex_x, &m->map.tex_y);
+    m->tex[4].img_ptr = XPM(&m->window.ptr, m->map.tex_sp, &m->map.tex_x, &m->map.tex_y);
+    if(!m->tex[0].img_ptr || !m->tex[1].img_ptr ||!m->tex[2].img_ptr ||!m->tex[3].img_ptr ||!m->tex[4].img_ptr)
         error("Couldn't load textures");
     free_text_path(&m->map);
-    m->tex[0].addr = mlx_get_data_addr(m->tex[0].img, &m->tex[0].bpp, m->tex[0].line_size, m->tex[0].endian);
-    m->tex[1].addr = mlx_get_data_addr(m->tex[1].img, &m->tex[1].bpp, m->tex[1].line_size, m->tex[1].endian);
-    m->tex[2].addr = mlx_get_data_addr(m->tex[2].img, &m->tex[2].bpp, m->tex[2].line_size, m->tex[2].endian);
-    m->tex[3].addr = mlx_get_data_addr(m->tex[3].img, &m->tex[3].bpp, m->tex[3].line_size, m->tex[3].endian);
-    m->tex[4].addr = mlx_get_data_addr(m->tex[4].img, &m->tex[4].bpp, m->tex[4].line_size, m->tex[4].endian);
+    // m->tex[0].addr = mlx_get_data_addr(m->tex[0].img_ptr, &m->tex[0].bpp, &m->tex[0].line_size, &m->tex[0].endian);
+    // m->tex[1].addr = mlx_get_data_addr(m->tex[1].img_ptr, &m->tex[1].bpp, &m->tex[1].line_size, &m->tex[1].endian);
+    // m->tex[2].addr = mlx_get_data_addr(m->tex[2].img_ptr, &m->tex[2].bpp, &m->tex[2].line_size, &m->tex[2].endian);
+    // m->tex[3].addr = mlx_get_data_addr(m->tex[3].img_ptr, &m->tex[3].bpp, &m->tex[3].line_size, &m->tex[3].endian);
+    // m->tex[4].addr = mlx_get_data_addr(m->tex[4].img_ptr, &m->tex[4].bpp, &m->tex[4].line_size, &m->tex[4].endian);
+
+    m->screen.img_ptr = mlx_new_image(&m->window.ptr,m->map.res_x, m->map.res_y);
+    m->screen.addr = (int *)mlx_get_data_addr(m->screen.img_ptr, &m->screen.bpp, &m->screen.line_size, &m->screen.endian);
+    
 }
+

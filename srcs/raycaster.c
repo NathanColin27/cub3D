@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:40:31 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/15 17:12:53 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/16 12:50:47 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int raycasting(t_main *main)
 {
-    
+    clock_t tic = clock();
     int i;
     t_camera *c;
     t_ray    *r;
@@ -22,9 +22,9 @@ int raycasting(t_main *main)
     i = 0;
     c = &main->camera;
     r = &main->ray;
+    
     while (i++ < main->map.res_x)
-    {
-        
+    {      
         c->cam_x = 2 * i / (double)(main->map.res_x) - 1;
         set_pos(&r->dir, c->dir.x + c->plane.x * c->cam_x, c->dir.y + c->plane.y * c->cam_x);
         set_pos(&r->delta, fabs(1/ r->dir.x), fabs(1/ r->dir.y));
@@ -38,38 +38,44 @@ int raycasting(t_main *main)
         main->z_buff[i] = r->perp_wall_dist;
         draw(main, &main->ray);
     }
+    mlx_put_image_to_window(main->window.ptr, main->window.win, main->screen.img_ptr,0,0);
+    clock_t toc = clock();
+    printf("FPS : %d\n", (int)(1/((double)(toc - tic) / CLOCKS_PER_SEC)));
     return 1;
+}
+
+void pxl_to_img(t_main *main, int x, int y, int color)
+{
+    main->screen.addr[x + (y * main->map.res_x)] = color;
 }
 
 
 void draw(t_main *main, t_ray *r)
 {
 
-    clock_t tic = clock();
-    // int color;
-    // int x = main->map.res_x - r->id;
-    // int i = 0;
-    // if(r->side == 0)
-    //     color = 0;
-    // else if(r->side == 1)
-    //     color = 16711935;
-    // else if(r->side == 2)
-    //     color = RED;
-    // else if(r->side == 3)
-    //     color = 51300;
-    // while(i++ < r->wall_start)
-    //     mlx_pixel_put(main->window.ptr, main->window.win, x, i, main->map.ceiling_color);
-    // while(i++ < r->wall_start + r->wall_size)
-    //     mlx_pixel_put(main->window.ptr, main->window.win, x, i, color);
-    // while(i++ < main->map.res_y)
-    //     mlx_pixel_put(main->window.ptr, main->window.win, x, i, main->map.floor_color);
-    clock_t toc = clock();
-        printf("Elapsed: %f seconds\n", (double)(toc - tic) / CLOCKS_PER_SEC);
     
+    int color;
+    int x = main->map.res_x - r->id;
+    int y = 0;
 
-    //draw_line(main->window, main->map.res_x - r->id, r->wall_start + r->wall_size, main->map.res_x - r->id, r->wall_start, color);
-    // draw_line(main->window, main->map.res_x - r->id, 0 , main->map.res_x - r->id, r->wall_start, BLUE);
-    //draw_line(main->window, main->map.res_x - r->id, r->wall_start + r->wall_size , main->map.res_x - r->id, main->map.res_x -1, GREEN);
+    if(r->side == 0)
+        color = 0;
+    else if(r->side == 1)
+        color = 16711935;
+    else if(r->side == 2)
+        color = RED;
+    else if(r->side == 3)
+        color = 51300;
+    
+    while(y < r->wall_start)
+        pxl_to_img(main, x, y++, main->map.ceiling_color );
+    while(y < r->wall_start + r->wall_size)
+        pxl_to_img(main, x, y++, color);
+    while(y < main->map.res_y)
+        pxl_to_img(main, x, y++, main->map.floor_color);
+   
+   
+    
 }
 
 
@@ -157,8 +163,8 @@ void wall_size(t_main *main, t_ray *r, t_camera *c)
         r->perp_wall_dist =  ((double)r->map_x - c->pos.x + (1 - r->step.x)/2) / r->dir.x; 
     else
         r->perp_wall_dist =  ((double)r->map_y - c->pos.y + (1 - r->step.y)/2) / r->dir.y;
-    if(r->perp_wall_dist <= 0.5)
-        r->perp_wall_dist = 0.5;
+    if(r->perp_wall_dist <= 1)
+        r->perp_wall_dist = 1;
     r->wall_size = (int)(main->map.res_y / r->perp_wall_dist);
     r->wall_start = (-r->wall_size / 2 + (main->map.res_y / 2));
     if (r->wall_start <= 0)

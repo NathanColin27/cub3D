@@ -15,8 +15,8 @@
 #define X_EVENT_KEY_PRESS 2
 #define X_EVENT_KEY_RELEASE 3
 #define X_EVENT_KEY_EXIT 17
-#define ROT_SPEED 0.03
-#define SPEED 0.05
+#define ROT_SPEED 0.05
+#define SPEED 0.1
 #define FOV 0.66
 #define KEY_W 13
 #define KEY_A 0
@@ -31,7 +31,10 @@
 #define GREEN 65280
 #define BLUE 255
 #define WHITE 16777215
-#define MAX_WIDTH 1920
+#define MAX_WIDTH 50000
+#define MAX_HEIGHT 1440
+#define MIN_WIDTH 640
+#define MIN_HEIGHT 480
 #define XPM mlx_xpm_file_to_image
 
 typedef struct	s_pos

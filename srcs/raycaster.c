@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:40:31 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/16 12:50:47 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/16 18:05:11 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,18 @@ void pxl_to_img(t_main *main, int x, int y, int color)
     main->screen.addr[x + (y * main->map.res_x)] = color;
 }
 
+// unsigned int	my_mlx_pixel_get(t_img img, int x, int y)
+// {
+// 	unsigned int	color;
+// 	char			*ptr;
+
+// 	ptr = img.addr + (y * img.line_length + x * (img.bpp / 8));
+// 	color = *(unsigned int *)ptr;
+// 	return (color);
+// }
 
 void draw(t_main *main, t_ray *r)
 {
-
-    
     int color;
     int x = main->map.res_x - r->id;
     int y = 0;
@@ -70,7 +77,9 @@ void draw(t_main *main, t_ray *r)
     while(y < r->wall_start)
         pxl_to_img(main, x, y++, main->map.ceiling_color );
     while(y < r->wall_start + r->wall_size)
+    {
         pxl_to_img(main, x, y++, color);
+    }
     while(y < main->map.res_y)
         pxl_to_img(main, x, y++, main->map.floor_color);
    

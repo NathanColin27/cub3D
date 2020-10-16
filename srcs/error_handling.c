@@ -26,10 +26,14 @@ int valid_res(t_map *map)
 {
     if (map->res_x <= 0 || map->res_y <= 0)
         error("Wrong resolution");
-    if (map->res_x > 1920)
-        map->res_x = 1920;
-    if (map->res_y > 1080)
-        map->res_y = 1080;
+    if (map->res_x > MAX_WIDTH)
+        map->res_x = MAX_WIDTH;
+    if (map->res_y > MAX_HEIGHT)
+        map->res_y = MAX_HEIGHT;
+    if (map->res_x < MIN_WIDTH)
+        map->res_x = MIN_WIDTH;
+    if (map->res_y < MIN_HEIGHT)
+        map->res_y = MIN_HEIGHT;
     return (1);
 }
 

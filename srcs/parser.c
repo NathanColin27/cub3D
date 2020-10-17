@@ -6,52 +6,27 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:39:34 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/15 16:10:49 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/17 11:26:00 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int main(int ac, char **av)
+
+void parse(t_main *main, int fd)
 {
-	int fd;
-	int ret;
+    int ret;
 	char *buff;
-	t_main main;
-
-	valid_args(ac);
-	valid_extension(av[1]);
-	data_init(&main);
-	fd = open(av[1], O_RDONLY);
-	while ((ret = get_next_line(fd, &buff)) >= 0 && !is_map_start(buff))
-	{
-		parse_map_data(buff, &main.map);
-		free(buff);
-	}
-	
-	if(valid_map_data(&main.map))
-	parse_map_pattern(buff, &main.map, fd);
-	map_check(&main);
-	init_textures(&main);
-
-	// printf("res_x %d\n", main.map.res_x);
-	// printf("res_y %d\n", main.map.res_y);
-	// printf("texture_north %s\n", main.map.texture_north);
-	// printf("texture_south %s\n", main.map.texture_south);
-	// printf("texture_east %s\n", main.map.texture_east);
-	// printf("texture_west %s\n", main.map.texture_west);
-	// printf("texture_sprite %s\n", main.map.texture_sprite);
-	// printf("floor_color %d\n", main.map.floor_color);
-	// printf("ceiling_color %d\n", main.map.ceiling_color);
-	// printf("start x %d, start y %d\n", main.map.start_x, main.map.start_y);
-	// printf("start dir %c\n", main.map.start_direction);
-	// printf("map_height %d\n", main.map.height);
-	// printf("sprite number %d\n", main.map.sprite_number);
-	// for (int i = 0; i < main.map.sprite_number; i++)
-	// {
-	// 	printf("Sprite number %d --> x = %d, y = %d\n", i + 1, main.sprites[i].x, main.sprites[i].y);
-	// }
-	close(fd);
-	windows(&main);
-	return (0); 
+    while ((ret = get_next_line(fd, &buff)) >= 0 && !is_map_start(buff))
+    {
+        parse_map_data(buff, &main->map);
+        free(buff);
+    }
+    
+    if(valid_map_data(&main->map))
+        parse_map_pattern(buff, &main->map, fd);
+    map_check(main);
+    
+    close(fd);
+   
 }

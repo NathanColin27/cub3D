@@ -93,6 +93,14 @@ typedef struct s_img
     int endian;
 }               t_img;
 
+typedef struct s_pxl
+{
+    unsigned char b;
+    unsigned char g;
+    unsigned char r;
+}               t_pxl;
+
+
 typedef struct s_map
 {
     int res_x;
@@ -112,7 +120,6 @@ typedef struct s_map
     int start_x;
     int start_y;
     int sprite_number;
-
 }               t_map;
 
 typedef struct s_main
@@ -125,7 +132,7 @@ typedef struct s_main
     t_img       tex[5];
     t_img       screen;
     double  z_buff[MAX_WIDTH];
-
+    int         bmp;
 }              t_main;
 
 int rgb(int r, int g, int b);
@@ -171,4 +178,7 @@ int rotate_cam(t_main *main);
 void init_textures(t_main *m);
 void free_text_path(t_map *map);
 void pxl_to_img(t_main *main, int x, int y, int color);
+void parse(t_main *main, int fd);
+void save_bmp(t_main *main);
+unsigned int get_pxl(t_img screen, int x, int y);
 #endif

@@ -4,7 +4,8 @@ FLAGS = -Wall -Wextra -Werror -O2
 
 GCC = gcc 
 
-SRCS = 	srcs/parser.c \
+SRCS = 	srcs/main.c \
+		srcs/parser.c \
 		srcs/error_handling.c \
 		srcs/struct_init.c \
 		srcs/parse_map_data.c \
@@ -14,7 +15,8 @@ SRCS = 	srcs/parser.c \
 		srcs/keys.c \
 		srcs/utils.c \
 		srcs/raycaster.c \
-		srcs/free.c
+		srcs/free.c \
+		srcs/bmp.c
 
 
 OBJS =	$(SRCS:.c=.o)

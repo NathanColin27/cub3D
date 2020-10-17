@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:40:31 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/16 18:05:11 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/17 11:47:30 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int raycasting(t_main *main)
         draw(main, &main->ray);
     }
     mlx_put_image_to_window(main->window.ptr, main->window.win, main->screen.img_ptr,0,0);
+    if (main->bmp)
+        save_bmp(main);
     clock_t toc = clock();
     printf("FPS : %d\n", (int)(1/((double)(toc - tic) / CLOCKS_PER_SEC)));
     return 1;
@@ -82,9 +84,6 @@ void draw(t_main *main, t_ray *r)
     }
     while(y < main->map.res_y)
         pxl_to_img(main, x, y++, main->map.floor_color);
-   
-   
-    
 }
 
 

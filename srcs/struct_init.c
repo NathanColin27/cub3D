@@ -2,6 +2,7 @@
 
 void data_init(t_main *main)
 {
+    main->bmp = 0;
     main->map.ceiling_color = 0;
     main->map.floor_color = 0;
     main->map.res_x = 0;
@@ -16,8 +17,6 @@ void data_init(t_main *main)
     main->map.start_direction = '\0';
     main->map.sprite_number = 0;
     main->map.height = 0;
-    main->map.tex_x = 64;
-    main->map.tex_y = 64;
     main->camera.rot_dir =0;
     main->camera.move_dir = 0;
     main->camera.plane.x = 0;
@@ -42,7 +41,5 @@ void init_textures(t_main *m)
 
     m->screen.img_ptr = mlx_new_image(&m->window.ptr,m->map.res_x, m->map.res_y);
     m->screen.addr = (int *)mlx_get_data_addr(m->screen.img_ptr, &m->screen.bpp, &m->screen.line_size, &m->screen.endian);
-    m->ray.tex_h = 64;
-    m->ray.tex_w = 64;
 }
 

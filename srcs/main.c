@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:05:53 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/17 11:45:39 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/19 12:57:26 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int main(int ac, char **av)
 	return (0); 
 }
 
-      // printf("res_x %d\n", main.map.res_x);
+        //       printf("res_x %d\n", main.map.res_x);
         // printf("res_y %d\n", main.map.res_y);
-        // printf("texture_north %s\n", main.map.texture_north);
-        // printf("texture_south %s\n", main.map.texture_south);
-        // printf("texture_east %s\n", main.map.texture_east);
-        // printf("texture_west %s\n", main.map.texture_west);
-        // printf("texture_sprite %s\n", main.map.texture_sprite);
+        // printf("texture_north %s\n", main.map.tex_n);
+        // printf("texture_south %s\n", main.map.tex_s);
+        // printf("texture_east %s\n", main.map.tex_e);
+        // printf("texture_west %s\n", main.map.tex_w);
+        // printf("texture_sprite %s\n", main.map.tex_sp);
         // printf("floor_color %d\n", main.map.floor_color);
         // printf("ceiling_color %d\n", main.map.ceiling_color);
         // printf("start x %d, start y %d\n", main.map.start_x, main.map.start_y);

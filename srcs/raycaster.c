@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:40:31 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/17 11:47:30 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/19 18:28:36 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int raycasting(t_main *main)
         dda(main, r);
         wall_size(main, r, c);
         main->z_buff[i] = r->perp_wall_dist;
+        calc_textures(main, r, c);
         draw(main, &main->ray);
     }
     mlx_put_image_to_window(main->window.ptr, main->window.win, main->screen.img_ptr,0,0);
@@ -51,40 +52,69 @@ void pxl_to_img(t_main *main, int x, int y, int color)
     main->screen.addr[x + (y * main->map.res_x)] = color;
 }
 
-// unsigned int	my_mlx_pixel_get(t_img img, int x, int y)
-// {
-// 	unsigned int	color;
-// 	char			*ptr;
 
-// 	ptr = img.addr + (y * img.line_length + x * (img.bpp / 8));
-// 	color = *(unsigned int *)ptr;
-// 	return (color);
-// }
+
+void calc_textures(t_main *m, t_ray *r, t_camera *c)
+{
+    double w_hit;
+    t_img   *texture;
+    int y;
+    int tex_x;
+    int tex_y;
+    double step;
+    double tex_pos;
+    int x = m->map.res_x - r->id;
+     int color;
+
+    texture = &m->tex[r->side];
+    if(r->side == 0 || r->side == 1)
+        w_hit = c->pos.y + r->perp_wall_dist * r->dir.y;
+    else
+        w_hit = c->pos.x + r->perp_wall_dist * r->dir.x;
+    w_hit -= floor(w_hit);
+    tex_x = (int)(w_hit * (double)texture->img_x);
+	if ((r->side == 0 ) && r->dir.x > 0)
+		tex_x = texture->img_x - tex_x - 1;
+	if ((r->side == 2 ) && r->dir.y < 0)
+		tex_x = texture->img_x - tex_x - 1;
+	step = 1.0 * texture->img_y / r->wall_size;
+	tex_pos = (r->wall_start - m->map.res_y / 2 + r->wall_size / 2) * step;
+
+    y = 0;
+    while(y < r->wall_start)
+        pxl_to_img(m, x, y++, m->map.ceiling_color );
+    while(y < r->wall_start + r->wall_size)
+    {
+        r->tex_y = (int)r->tex_pos & (texture->img_y - 1);
+        r->tex_pos += r->tex_step;
+        // color = my_mlx_pixel_get(*texture, tex_x, tex_y);
+    
+        // pxl_to_img(m, x, y++, color);
+        m->screen.addr[y++ * m->map.res_x + x] = texture->addr[texture->img_y * tex_y + tex_x ];
+    }
+    while(y < m->map.res_y)
+        pxl_to_img(m, x, y++, m->map.floor_color);
+}
+
 
 void draw(t_main *main, t_ray *r)
 {
-    int color;
-    int x = main->map.res_x - r->id;
+   
+    
     int y = 0;
 
-    if(r->side == 0)
-        color = 0;
-    else if(r->side == 1)
-        color = 16711935;
-    else if(r->side == 2)
-        color = RED;
-    else if(r->side == 3)
-        color = 51300;
+    // if(r->side == 0)
+    //     color = 0;
+    // else if(r->side == 1)
+    //     color = 16711935;
+    // else if(r->side == 2)
+    //     color = RED;
+    // else if(r->side == 3)
+    //     color = 51300;
     
-    while(y < r->wall_start)
-        pxl_to_img(main, x, y++, main->map.ceiling_color );
-    while(y < r->wall_start + r->wall_size)
-    {
-        pxl_to_img(main, x, y++, color);
-    }
-    while(y < main->map.res_y)
-        pxl_to_img(main, x, y++, main->map.floor_color);
+   
 }
+
 
 
 int set_side_distance(t_camera *cam, t_ray *ray)

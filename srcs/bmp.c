@@ -3,40 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   bmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 17:31:15 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/19 17:46:03 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/20 22:52:11 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void write_header(t_main *m, unsigned char header[54], int fd)
+void	write_header(t_main *m, unsigned char header[54], int fd)
 {
-    unsigned int	*size;
+	unsigned int	*size;
 	unsigned int	*width;
 	unsigned int	*height;
 
-    header[0] = 'B';
+	header[0] = 'B';
 	header[1] = 'M';
 	header[10] = 54;
 	header[14] = 40;
 	header[26] = 1;
 	header[28] = 32;
-
-    size = (unsigned int *)&header[2];
+	size = (unsigned int *)&header[2];
 	*size = 54 + ((m->map.res_x * sizeof(t_pxl)) * m->map.res_y);
 	width = (unsigned int *)&header[18];
 	*width = m->map.res_x;
 	height = (unsigned int *)&header[22];
 	*height = m->map.res_y;
-    write(fd, header, 54);
+	write(fd, header, 54);
 }
 
-void write_bmp(t_main *m, int fd)
+void	write_bmp(t_main *m, int fd)
 {
-    int				i;
+	int				i;
 	int				j;
 	unsigned char	buffer[4];
 
@@ -57,19 +56,19 @@ void write_bmp(t_main *m, int fd)
 		i -= 2 * m->map.res_x;
 	}
 }
-void save_bmp(t_main *m)
+
+void	save_bmp(t_main *m)
 {
-    int fd;
-    static unsigned char header[54];
+	int						fd;
+	static unsigned char	header[54];
 
-    if((fd = open("cube.bmp",O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR \
-            | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)) < 0)
-        error("couldn't create bmp");
-    write_header(m, header, fd);
-    write_bmp(m,fd);
-    close(fd);
-    m->bmp = 0;
-    write(1, "Screenshot saved\n", 18);
-    exit(0);
+	if ((fd = open("cube.bmp", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR\
+			| S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)) < 0)
+		error("couldn't create bmp");
+	write_header(m, header, fd);
+	write_bmp(m, fd);
+	close(fd);
+	m->bmp = 0;
+	write(1, "Screenshot saved\n", 18);
+	exit(0);
 }
-

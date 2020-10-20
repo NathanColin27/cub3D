@@ -11,8 +11,8 @@
 #include <fcntl.h>
 #include "../libft/includes/libft.h"
 
-#define TEX_X 64
-#define TEX_Y 64
+#define TEX_WIDTH 64
+#define TEX_HEIGHT 64
 #define X_EVENT_KEY_PRESS 2
 #define X_EVENT_KEY_RELEASE 3
 #define X_EVENT_KEY_EXIT 17
@@ -139,8 +139,9 @@ typedef struct s_main
     t_ray       ray;
     t_img       tex[5];
     t_img       screen;
-    double  z_buff[MAX_WIDTH];
+    double      *z_buff;
     int         bmp;
+    int         **buff; 
 }              t_main;
 
 int rgb(int r, int g, int b);
@@ -190,6 +191,9 @@ void parse(t_main *main, int fd);
 void save_bmp(t_main *main);
 void write_header(t_main *m, unsigned char header[54], int fd);
 void write_bmp(t_main *m, int fd);
-void calc_textures(t_main *m, t_ray *r, t_camera *c);
+void calc_textures(t_main *m, t_ray *r, t_camera *c, int x);
+void	get_wall_color(t_main *m, t_ray *ray, int x);
+void	get_wall_texture(t_camera *c, t_ray *ray);
+void	cast_floor_ceiling(t_main *m);
 
 #endif

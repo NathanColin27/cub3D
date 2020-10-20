@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 09:38:13 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/14 17:24:29 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/20 10:58:35 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int key_press(int keycode, t_main *main)
     else if (keycode == KEY_S || keycode == KEY_DOWN)
         main->camera.move_dir = -1;
     if (keycode == KEY_A || keycode == KEY_LEFT)
-        main->camera.rot_dir = -1;
-    else if (keycode == KEY_D || keycode == KEY_RIGHT)
         main->camera.rot_dir = 1;
+    else if (keycode == KEY_D || keycode == KEY_RIGHT)
+        main->camera.rot_dir = -1;
     return (0);
 }
 

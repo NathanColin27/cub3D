@@ -1,5 +1,24 @@
 #include "../includes/cub3d.h"
 
+
+int		init_buffer(t_main *m)
+{
+	int	i;
+
+	i = 0;
+	if (!(m->buff = ft_calloc(m->map.res_y, sizeof(int **))))
+		error("Buff init failed");
+	while (i < m->map.res_y)
+	{
+		if (!(m->buff[i] = ft_calloc(m->map.res_x, sizeof(int *))))
+			error("Buff init failed");
+		i++;
+	}
+	if (!(m->z_buff = ft_calloc(m->map.res_x, sizeof(double *))))
+		error("Z_buff init failed");
+	return (1);
+}
+
 void data_init(t_main *main)
 {
     main->bmp = 0;
@@ -21,10 +40,13 @@ void data_init(t_main *main)
     main->camera.move_dir = 0;
     main->camera.plane.x = 0;
     main->camera.plane.y = FOV;
+
+    
 }
 
 void init_textures(t_main *m)
 {
+    init_buffer(m);
     m->tex[0].img_ptr = XPM(&m->window.ptr, m->map.tex_n, &m->tex[0].img_x, &m->tex[0].img_y);
     m->tex[1].img_ptr = XPM(&m->window.ptr, m->map.tex_s, &m->tex[1].img_x, &m->tex[1].img_y);
     m->tex[2].img_ptr = XPM(&m->window.ptr, m->map.tex_e, &m->tex[2].img_x, &m->tex[2].img_y);

@@ -16,7 +16,8 @@ SRCS = 	srcs/main.c \
 		srcs/utils.c \
 		srcs/raycaster.c \
 		srcs/free.c \
-		srcs/bmp.c
+		srcs/bmp.c \
+		srcs/sprites.c
 
 
 OBJS =	$(SRCS:.c=.o)

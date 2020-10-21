@@ -1,4 +1,4 @@
-R 848 480
+R 1920 1080
 NO textures/east.xpm
 SO textures/west.xpm
 WE textures/north.xpm
@@ -6,6 +6,7 @@ EA textures/south.xpm
 S textures/sprite.xpm
 F 184,113,39
 C 51,198,227
+
 11111111111111111111111111111
 10000000001100000000000000001
 10110000011100000000000010001

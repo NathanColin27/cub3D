@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/20 23:40:36 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/21 15:28:09 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define X_EVENT_KEY_PRESS 2
 # define X_EVENT_KEY_RELEASE 3
 # define X_EVENT_KEY_EXIT 17
-# define ROT_SPEED 0.05
-# define SPEED 0.1
+# define ROT_SPEED 0.03
+# define SPEED 0.08
 # define FOV 0.66
 # define KEY_W 13
 # define KEY_A 0
@@ -44,8 +44,8 @@
 # define GREEN 65280
 # define BLUE 255
 # define WHITE 16777215
-# define MAX_WIDTH 1920
-# define MAX_HEIGHT 1080
+# define MAX_WIDTH 3200
+# define MAX_HEIGHT 1755
 # define MIN_WIDTH 640
 # define MIN_HEIGHT 480
 # define XPM mlx_xpm_file_to_image
@@ -97,8 +97,9 @@ typedef struct	s_window
 
 typedef struct	s_sprite
 {
-	int x;
-	int y;
+	double y;
+	double x;
+	double distance;
 }				t_sprite;
 
 typedef struct	s_img
@@ -143,6 +144,7 @@ typedef struct	s_map
 typedef struct	s_main
 {
 	t_map		map;
+	
 	t_window	window;
 	t_sprite	*sprites;
 	t_camera	camera;
@@ -150,15 +152,17 @@ typedef struct	s_main
 	t_img		tex[5];
 	t_img		screen;
 	double		*z_buff;
+	
 	int			bmp;
 	int			**buff;
+	
 }				t_main;
 
 int		rgb(int r, int g, int b);
 int		valid_extension(char *map_name);
 void	error(char *s);
 int		valid_args(int ac);
-void	data_init(t_main *main);
+void	data_init(t_main *m);
 int		parse_res(char *line, t_map *map);
 int		parse_texture(char *line, t_map *map);
 int		parse_map_data(char *line, t_map *map);
@@ -204,5 +208,6 @@ void	calc_textures(t_main *m, t_ray *r, t_camera *c, int x);
 void	get_wall_color(t_main *m, t_ray *ray, int x);
 void	get_wall_texture(t_camera *c, t_ray *ray);
 void	cast_floor_ceiling(t_main *m);
+void 	sprite(t_main *m, t_camera *c);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:14:20 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/20 23:22:09 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/21 15:27:28 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,44 @@ int		init_buffer(t_main *m)
 	return (1);
 }
 
-void	data_init(t_main *main)
+void init_camera(t_camera *camera)
+{	
+	camera->pos.x = 0;
+	camera->pos.y = 0;
+	camera->dir.x = 0;
+	camera->dir.y = 0;
+	camera->move_dir = 0;
+	camera->move_dir = 0;
+	camera->rot_dir = 0;
+	camera->move_dir = 0;
+	camera->plane.x = 0;
+	camera->plane.y = FOV;
+}
+
+void init_map(t_map *map)
 {
-	main->bmp = 0;
-	main->map.ceiling_color = 0;
-	main->map.floor_color = 0;
-	main->map.res_x = 0;
-	main->map.res_y = 0;
-	main->map.tex_e = NULL;
-	main->map.tex_n = NULL;
-	main->map.tex_s = NULL;
-	main->map.tex_w = NULL;
-	main->map.tex_sp = NULL;
-	main->map.start_x = 0;
-	main->map.start_y = 0;
-	main->map.start_direction = '\0';
-	main->map.sprite_number = 0;
-	main->map.height = 0;
-	main->camera.rot_dir = 0;
-	main->camera.move_dir = 0;
-	main->camera.plane.x = 0;
-	main->camera.plane.y = FOV;
+	map->res_x = 0;
+	map->res_y = 0;
+	map->sprite_number = 0;
+	map->ceiling_color = 0;
+	map->floor_color = 0;
+	map->start_direction = 0;
+	map->start_x = 0;
+	map->start_y = 0;
+	map->tex_n = NULL;
+	map->tex_s = NULL;
+	map->tex_e = NULL;
+	map->tex_w = NULL;
+	map->tex_sp = NULL;
+
+}
+
+void	data_init(t_main *m)
+{	
+	init_camera(&m->camera);
+	init_map(&m->map);
+	m->sprites = NULL;
+	m->buff = NULL;
 }
 
 void	init_textures(t_main *m)

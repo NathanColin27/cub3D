@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:58:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/20 23:03:37 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/21 15:03:59 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int		set_sprite(t_main *m)
 
 	y = 0;
 	i = 0;
-	if (!(m->sprites = (t_sprite *)malloc(sizeof(t_sprite)\
-						* m->map.sprite_number)))
+	if (!(m->sprites = (t_sprite *)malloc(sizeof(t_sprite) * m->map.sprite_number)))
 		error("couldn't initialize sprite struct");
 	while (y < m->map.height)
 	{
@@ -59,8 +58,8 @@ int		set_sprite(t_main *m)
 		{
 			if (m->map.pattern[y][x] == '2')
 			{
-				m->sprites[i].x = x;
-				m->sprites[i].y = y;
+				m->sprites[i].x = (double)x + 0.5;
+				m->sprites[i].y = (double)y + 0.5;
 				i++;
 			}
 			x++;

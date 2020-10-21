@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:05:53 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/20 22:19:49 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/21 15:12:09 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int		main(int ac, char **av)
 {
-	int		fd;
 	t_main	main;
+	int		fd;
 
-	data_init(&main);
 	if (ac == 3 && ft_strncmp(av[2], "--save", 7) == 0)
 		main.bmp = 1;
 	if (ac == 2 || (ac == 3 && main.bmp))
 	{
+		data_init(&main);
 		valid_args(ac);
 		valid_extension(av[1]);
 		fd = open(av[1], O_RDONLY);

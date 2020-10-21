@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:14:20 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/21 15:27:28 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/21 15:40:30 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,15 @@ void init_map(t_map *map)
 	map->start_direction = 0;
 	map->start_x = 0;
 	map->start_y = 0;
+	map->height = 0;
+	map->tex_x = 0;
+	map->tex_y = 0;
 	map->tex_n = NULL;
 	map->tex_s = NULL;
 	map->tex_e = NULL;
 	map->tex_w = NULL;
 	map->tex_sp = NULL;
-
+	map->pattern = NULL;
 }
 
 void	data_init(t_main *m)
@@ -71,10 +74,11 @@ void	data_init(t_main *m)
 	init_map(&m->map);
 	m->sprites = NULL;
 	m->buff = NULL;
+	m->z_buff = NULL;
 }
 
 void	init_textures(t_main *m)
-{
+{	
 	init_buffer(m);
 	T[0].img_ptr = XPM(&m->window.ptr, m->map.tex_n, &T[0].img_x, &T[0].img_y);
 	T[1].img_ptr = XPM(&m->window.ptr, m->map.tex_s, &T[1].img_x, &T[1].img_y);

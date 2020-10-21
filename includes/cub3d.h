@@ -6,12 +6,13 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/21 15:28:09 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/21 16:07:53 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CUB3D_H
 # define FT_CUB3D_H
+# include "../wraloc.h"
 # include <stdio.h>
 # include <math.h>
 # include <stdarg.h>
@@ -146,11 +147,12 @@ typedef struct	s_main
 	t_map		map;
 	
 	t_window	window;
-	t_sprite	*sprites;
+	
 	t_camera	camera;
 	t_ray		ray;
 	t_img		tex[5];
 	t_img		screen;
+	t_sprite	*sprites;
 	double		*z_buff;
 	
 	int			bmp;

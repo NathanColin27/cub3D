@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 17:31:15 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/20 22:52:11 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/23 10:50:17 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	write_header(t_main *m, unsigned char header[54], int fd)
 	header[26] = 1;
 	header[28] = 32;
 	size = (unsigned int *)&header[2];
-	*size = 54 + ((m->map.res_x * sizeof(t_pxl)) * m->map.res_y);
+	*size = 54 + ((m->map->res_x * sizeof(t_pxl)) * m->map->res_y);
 	width = (unsigned int *)&header[18];
-	*width = m->map.res_x;
+	*width = m->map->res_x;
 	height = (unsigned int *)&header[22];
-	*height = m->map.res_y;
+	*height = m->map->res_y;
 	write(fd, header, 54);
 }
 
@@ -39,21 +39,21 @@ void	write_bmp(t_main *m, int fd)
 	int				j;
 	unsigned char	buffer[4];
 
-	i = m->map.res_x * (m->map.res_y - 1);
+	i = m->map->res_x * (m->map->res_y - 1);
 	while (i >= 0)
 	{
 		j = 0;
-		while (j < m->map.res_x)
+		while (j < m->map->res_x)
 		{
-			buffer[0] = (unsigned char)(m->screen.addr[i] % 256);
-			buffer[1] = (unsigned char)(m->screen.addr[i] / 256 % 256);
-			buffer[2] = (unsigned char)(m->screen.addr[i] / 256 / 256 % 256);
+			buffer[0] = (unsigned char)(m->screen->addr[i] % 256);
+			buffer[1] = (unsigned char)(m->screen->addr[i] / 256 % 256);
+			buffer[2] = (unsigned char)(m->screen->addr[i] / 256 / 256 % 256);
 			buffer[3] = (unsigned char)(0);
 			write(fd, buffer, 4);
 			i++;
 			j++;
 		}
-		i -= 2 * m->map.res_x;
+		i -= 2 * m->map->res_x;
 	}
 }
 

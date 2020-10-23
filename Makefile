@@ -1,8 +1,8 @@
 NAME =	cub3D
 
-FLAGS = -Wall -Wextra -Werror -O2
+FLAGS = -Wall -Wextra -Werror -O2 -g
 
-GCC = gcc 
+GCC = gcc $(FLAGS)
 
 SRCS = 	srcs/main.c \
 		srcs/parser.c \

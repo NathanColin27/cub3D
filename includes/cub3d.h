@@ -6,13 +6,13 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/21 16:07:53 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/23 12:13:37 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CUB3D_H
 # define FT_CUB3D_H
-# include "../wraloc.h"
+// # include "../wraloc.h"
 # include <stdio.h>
 # include <math.h>
 # include <stdarg.h>
@@ -29,7 +29,7 @@
 # define X_EVENT_KEY_PRESS 2
 # define X_EVENT_KEY_RELEASE 3
 # define X_EVENT_KEY_EXIT 17
-# define ROT_SPEED 0.03
+# define ROT_SPEED 0.01
 # define SPEED 0.08
 # define FOV 0.66
 # define KEY_W 13
@@ -45,8 +45,8 @@
 # define GREEN 65280
 # define BLUE 255
 # define WHITE 16777215
-# define MAX_WIDTH 3200
-# define MAX_HEIGHT 1755
+# define MAX_WIDTH 1920
+# define MAX_HEIGHT 1080
 # define MIN_WIDTH 640
 # define MIN_HEIGHT 480
 # define XPM mlx_xpm_file_to_image
@@ -59,6 +59,10 @@ typedef struct	s_pos
 
 typedef struct	s_ray
 {
+	t_pos	*dir;
+	t_pos	*delta;
+	t_pos	*side_dist;
+	t_pos	*step;
 	int		id;
 	int		side;
 	int		hit;
@@ -73,28 +77,18 @@ typedef struct	s_ray
 	double	wall_x;
 	double	tex_step;
 	double	tex_pos;
-	t_pos	dir;
-	t_pos	delta;
-	t_pos	side_dist;
-	t_pos	step;
 }				t_ray;
 
 typedef struct	s_camera
 {
-	t_pos	pos;
-	t_pos	dir;
-	t_pos	x_dir;
-	t_pos	plane;
+	t_pos	*pos;
+	t_pos	*dir;
+	t_pos	*x_dir;
+	t_pos	*plane;
 	double	cam_x;
 	int		move_dir;
 	int		rot_dir;
 }				t_camera;
-
-typedef struct	s_window
-{
-	void *ptr;
-	void *win;
-}				t_window;
 
 typedef struct	s_sprite
 {
@@ -126,45 +120,41 @@ typedef struct	s_map
 	int		res_x;
 	int		res_y;
 	int		floor_color;
-	int		height;
 	int		ceiling_color;
+	int		height;
+	char	start_direction;
+	int		start_x;
+	int		start_y;
+	int		sprite_number;
 	char	*tex_s;
 	char	*tex_n;
 	char	*tex_e;
 	char	*tex_w;
 	char	*tex_sp;
-	int		tex_x;
-	int		tex_y;
 	char	**pattern;
-	char	start_direction;
-	int		start_x;
-	int		start_y;
-	int		sprite_number;
+
 }				t_map;
 
 typedef struct	s_main
 {
-	t_map		map;
-	
-	t_window	window;
-	
-	t_camera	camera;
-	t_ray		ray;
-	t_img		tex[5];
-	t_img		screen;
+	t_map		*map;
+	t_camera	*camera;
+	t_img		*tex;
+	t_img		*screen;
 	t_sprite	*sprites;
+	t_ray		*ray;
+	void 		*mlx_ptr;
+	void 		*mlx_win;
 	double		*z_buff;
-	
 	int			bmp;
 	int			**buff;
-	
 }				t_main;
 
 int		rgb(int r, int g, int b);
 int		valid_extension(char *map_name);
 void	error(char *s);
 int		valid_args(int ac);
-void	data_init(t_main *m);
+int		data_init(t_main *m);
 int		parse_res(char *line, t_map *map);
 int		parse_texture(char *line, t_map *map);
 int		parse_map_data(char *line, t_map *map);
@@ -179,34 +169,34 @@ char	*space_to_wall(char *line);
 char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del);
 int		elem_type(t_map *map, int x, int y);
 void	get_map_height(t_map *map);
-int		map_check(t_main *main);
+int		map_check(t_main *m);
 void	check_adjacent_elem(t_map *map, int x, int y);
-int		set_sprite(t_main *main);
-int		windows(t_main *main);
+int		set_sprite(t_main *m);
+int		windows(t_main *m);
 void	delay(int number_of_seconds);
 void	remove_spaces (char *s);
-void	info_and_map(t_main *main);
-int		key_press(int keycode, t_main *main);
-int		key_release(int keycode, t_main *main);
-int		main_loop(t_main *main);
-int		exit_pressed(t_window *window);
-int		set_start_pos(t_main *main);
+void	info_and_map(t_main *m);
+int		key_press(int keycode, t_main *m);
+int		key_release(int keycode, t_main *m);
+int		main_loop(t_main *m);
+int		exit_pressed(t_main *m);
+int		set_start_pos(t_main *m);
 void	set_pos(t_pos *pos, double x, double y);
-int		raycasting(t_main *main);
-void	dda(t_main *main, t_ray *r);
-void	wall_size(t_main *main, t_ray *r, t_camera *c);
-void	draw(t_main *main, t_ray *r);
-int		move_cam(t_main *main);
+int		raycasting(t_main *m);
+void	dda(t_main *m, t_ray *r);
+void	wall_size(t_main *m, t_ray *r, t_camera *c);
+void	draw(t_main *m, t_ray *r);
+int		move_cam(t_main *m);
 void	set_side_distance(t_camera *cam, t_ray *ray);
-int		rotate_cam(t_main *main);
+int		rotate_cam(t_main *m);
 void	init_textures(t_main *m);
 void	free_text_path(t_map *map);
-void	pxl_to_img(t_main *main, int x, int y, int color);
-void	parse(t_main *main, int fd);
-void	save_bmp(t_main *main);
+void	pxl_to_img(t_main *m, int x, int y, int color);
+void	parse(t_main *m, int fd);
+void	save_bmp(t_main *m);
 void	write_header(t_main *m, unsigned char header[54], int fd);
 void	write_bmp(t_main *m, int fd);
-void	calc_textures(t_main *m, t_ray *r, t_camera *c, int x);
+void	calc_textures(t_main *m, t_ray *r, int x);
 void	get_wall_color(t_main *m, t_ray *ray, int x);
 void	get_wall_texture(t_camera *c, t_ray *ray);
 void	cast_floor_ceiling(t_main *m);

@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:58:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/21 15:03:59 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/23 11:21:39 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,27 @@ int		set_start_pos(t_main *m)
 {
 	char dir;
 
-	dir = m->map.start_direction;
-	set_pos(&m->camera.pos, m->map.start_x + 0.5, m->map.start_y + 0.5);
+	dir = m->map->start_direction;
+	set_pos(m->camera->pos, m->map->start_x + 0.5, m->map->start_y + 0.5);
 	if (dir == 'N')
 	{
-		set_pos(&m->camera.dir, 0, -1);
-		set_pos(&m->camera.plane, -FOV, 0);
+		set_pos(m->camera->dir, 0, -1);
+		set_pos(m->camera->plane, -FOV, 0);
 	}
 	else if (dir == 'S')
 	{
-		set_pos(&m->camera.dir, 0, 1);
-		set_pos(&m->camera.plane, FOV, 0);
+		set_pos(m->camera->dir, 0, 1);
+		set_pos(m->camera->plane, FOV, 0);
 	}
 	else if (dir == 'E')
 	{
-		set_pos(&m->camera.dir, 1, 0);
-		set_pos(&m->camera.plane, 0, -FOV);
+		set_pos(m->camera->dir, 1, 0);
+		set_pos(m->camera->plane, 0, -FOV);
 	}
 	else if (dir == 'W')
 	{
-		set_pos(&m->camera.dir, -1, 0);
-		set_pos(&m->camera.plane, 0, FOV);
+		set_pos(m->camera->dir, -1, 0);
+		set_pos(m->camera->plane, 0, FOV);
 	}
 	return (1);
 }
@@ -49,14 +49,14 @@ int		set_sprite(t_main *m)
 
 	y = 0;
 	i = 0;
-	if (!(m->sprites = (t_sprite *)malloc(sizeof(t_sprite) * m->map.sprite_number)))
+	if (!(m->sprites = (t_sprite *)malloc(sizeof(t_sprite) * m->map->sprite_number)))
 		error("couldn't initialize sprite struct");
-	while (y < m->map.height)
+	while (y < m->map->height)
 	{
 		x = 0;
-		while (x < ((int)ft_strlen(m->map.pattern[y])))
+		while (x < ((int)ft_strlen(m->map->pattern[y])))
 		{
-			if (m->map.pattern[y][x] == '2')
+			if (m->map->pattern[y][x] == '2')
 			{
 				m->sprites[i].x = (double)x + 0.5;
 				m->sprites[i].y = (double)y + 0.5;
@@ -132,18 +132,18 @@ int		map_check(t_main *m)
 	int y;
 
 	y = 0;
-	while (y < m->map.height)
+	while (y < m->map->height)
 	{
 		x = 0;
-		while (x < ((int)ft_strlen(m->map.pattern[y])))
+		while (x < ((int)ft_strlen(m->map->pattern[y])))
 		{
-			if (!elem_type(&m->map, x, y))
+			if (!elem_type(m->map, x, y))
 				error("Unrecognized objet in map");
-			if ((y == 0 || y == m->map.height - 1) \
-				&& elem_type(&m->map, x, y) > 2)
+			if ((y == 0 || y == m->map->height - 1) \
+				&& elem_type(m->map, x, y) > 2)
 				error("Map isn't closed on top or bottom wall");
-			if (elem_type(&m->map, x, y) >= 3)
-				check_adjacent_elem(&m->map, x, y);
+			if (elem_type(m->map, x, y) >= 3)
+				check_adjacent_elem(m->map, x, y);
 			x++;
 		}
 		y++;

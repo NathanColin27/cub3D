@@ -3,35 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:05:53 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/23 11:30:29 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/29 15:16:50 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int		main(int ac, char **av)
+int main(int ac, char **av)
 {
-	t_main	m;
-	int		fd;
-	
+	t_main m;
+	int fd;
+
+	data_init(&m);
 	if (ac == 3 && ft_strncmp(av[2], "--save", 7) == 0)
 		m.bmp = 1;
 	if (ac == 2 || (ac == 3 && m.bmp))
 	{
-		data_init(&m);
 		//_get_summary();
 		valid_args(ac);
 		valid_extension(av[1]);
 		fd = open(av[1], O_RDONLY);
 		parse(&m, fd);
-
+		if ((m.mlx_ptr = mlx_init()) == NULL)
+			return (EXIT_FAILURE);
+		if ((m.mlx_win = mlx_new_window(m.mlx_ptr, m.map->res_x, m.map->res_y, "Cub3D")) == NULL)
+			return (EXIT_FAILURE);
 		init_textures(&m);
-
 		windows(&m);
-
 	}
 	else
 		error("args not valid");

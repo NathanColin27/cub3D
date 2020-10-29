@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:25:46 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/23 11:30:57 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/29 14:53:55 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 int		windows(t_main *m)
 {
-	if ((m->mlx_ptr = mlx_init()) == NULL)
-		return (EXIT_FAILURE);
-	if ((m->mlx_win = mlx_new_window(m->mlx_ptr\
-	, m->map->res_x, m->map->res_y, "Cub3D")) == NULL)
-		return (EXIT_FAILURE);
-	mlx_hook(m->mlx_win, X_EVENT_KEY_PRESS, 0, key_press, m);
-	mlx_hook(m->mlx_win, X_EVENT_KEY_RELEASE, 0, key_release, m);
-	mlx_hook(m->mlx_win, X_EVENT_KEY_EXIT, 0, exit_pressed, m);
+	mlx_hook(m->mlx_win, X_EVENT_KEY_PRESS, 1L<<0, key_press, m);
+	mlx_hook(m->mlx_win, X_EVENT_KEY_RELEASE, 1L<<1, key_release, m);
+	mlx_hook(m->mlx_win, X_EVENT_KEY_EXIT, 0L<<17, exit_pressed, m);
 	mlx_loop_hook(m->mlx_ptr, main_loop, m);
 	mlx_loop(m->mlx_ptr);
 	return (EXIT_SUCCESS);

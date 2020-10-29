@@ -1,8 +1,8 @@
 NAME =	cub3D
 
-FLAGS = -Wall -Wextra -Werror -O2 -g
+FLAGS = -Wall -Wextra -O2 -g
 
-GCC = gcc $(FLAGS)
+GCC = clang $(FLAGS)
 
 SRCS = 	srcs/main.c \
 		srcs/parser.c \
@@ -50,12 +50,13 @@ all: $(NAME)
 re_libs:
 	$(MAKE) -C libft re
 	$(MAKE) -C libft clean
+	$(MAKE) -C minilibx-linux re
 
 $(NAME): 
-	$(GCC) $(SRCS) $(LIBFT_PATH)$(LIBFT) $(MLX_PATH)$(MLX) $(MLX_FLAGS) 
+	$(GCC) $(SRCS) $(LIBFT_PATH)$(LIBFT) $(MLX_PATH)$(MLX) $(MLX_FLAGS) -o $(NAME)
 
 clean:
-	@rm -rf *.o test
+	@rm -rf *.o
 
 fclean: clean
 	@rm -rf $(NAME)

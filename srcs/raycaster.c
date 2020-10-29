@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:40:31 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/23 12:14:21 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/29 15:15:44 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int		raycasting(t_main *m)
 		get_wall_color(m, r, i);
 		calc_textures(m, r, i);
 	}
-
-	//sprite(m, c);
-	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->screen->img_ptr, 0, 0);
 	if (m->bmp)
 		save_bmp(m);
+	//sprite(m, c);
+	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->screen->img_ptr, 0, 0);
+	
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:14:20 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/23 12:05:11 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/29 15:17:35 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int		init_ray(t_ray *ray)
 	ray->tex_step = 0;
 	ray->tex_pos = 0;
 	return (1);
-
 }
 
 int	data_init(t_main *m)
@@ -103,18 +102,16 @@ int	data_init(t_main *m)
 		return (0);
 	if (!(m->camera = malloc(sizeof(t_camera))))
 		return (0);
-	if (!(m->tex = malloc(sizeof(t_img) *  5)))
-		return (0);
 	if (!(m->screen = malloc(sizeof(t_img))))
 		return (0);
 	if (!(m->ray = malloc(sizeof(t_ray))))
 		return (0);
+	m->bmp = 0;
 	m->sprites = NULL;
 	m->buff = NULL;
 	m->z_buff = NULL;
 	m->mlx_ptr = NULL;
 	m->mlx_win = NULL;
-	m->bmp = 0;
 	init_camera(m->camera);
 	init_ray(m->ray);
 	init_map(m->map);
@@ -124,20 +121,29 @@ int	data_init(t_main *m)
 void	init_textures(t_main *m)
 {	
 	init_buffer(m);
-	T[0].img_ptr = XPM(&m->mlx_ptr, m->map->tex_n, &T[0].img_x, &T[0].img_y);
-	T[1].img_ptr = XPM(&m->mlx_ptr, m->map->tex_s, &T[1].img_x, &T[1].img_y);
-	T[2].img_ptr = XPM(&m->mlx_ptr, m->map->tex_e, &T[2].img_x, &T[2].img_y);
-	T[3].img_ptr = XPM(&m->mlx_ptr, m->map->tex_w, &T[3].img_x, &T[3].img_y);
-	T[4].img_ptr = XPM(&m->mlx_ptr, m->map->tex_sp, &T[4].img_x, &T[4].img_y);
+	int width;
+	int height;
+	
+	
+
+	m->tex[0].img_ptr = mlx_xpm_file_to_image(m->mlx_ptr, m->map->tex_n, &width, &height);
+	T[1].img_ptr = XPM(m->mlx_ptr, m->map->tex_s, &T[1].img_x, &T[1].img_y);
+	T[2].img_ptr = XPM(m->mlx_ptr, m->map->tex_e, &T[2].img_x, &T[2].img_y);
+	T[3].img_ptr = XPM(m->mlx_ptr, m->map->tex_w, &T[3].img_x, &T[3].img_y);
+	T[4].img_ptr = XPM(m->mlx_ptr, m->map->tex_sp, &T[4].img_x, &T[4].img_y);
 	if (!T[0].img_ptr || !T[1].img_ptr ||\
 		!T[2].img_ptr || !T[3].img_ptr || !T[4].img_ptr)
 		error("Couldn't load textures");
+	
 	free_text_path(m->map);
 	T[0].addr = (UI *)ADDR(T[0].img_ptr, &T[0].bpp, &T[0].line_size, &T[0].endian);
 	T[1].addr = (UI *)ADDR(T[1].img_ptr, &T[1].bpp, &T[1].line_size, &T[1].endian);
 	T[2].addr = (UI *)ADDR(T[2].img_ptr, &T[2].bpp, &T[2].line_size, &T[2].endian);
 	T[3].addr = (UI *)ADDR(T[3].img_ptr, &T[3].bpp, &T[3].line_size, &T[3].endian);
 	T[4].addr = (UI *)ADDR(T[4].img_ptr, &T[4].bpp, &T[4].line_size, &T[4].endian);
-	m->screen->img_ptr = mlx_new_image(&m->mlx_ptr, m->map->res_x, m->map->res_y);
+
+
+	m->screen->img_ptr = mlx_new_image(m->mlx_ptr, m->map->res_x, m->map->res_y);
 	m->screen->addr = (unsigned int *)ADDR(m->screen->img_ptr, &m->screen->bpp, &m->screen->line_size, &m->screen->endian);
+
 }

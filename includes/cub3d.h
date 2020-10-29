@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/23 12:13:37 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/29 15:31:41 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 # include <math.h>
 # include <stdarg.h>
 # include "../minilibx-linux/mlx.h"
-# include <mlx.h>
+// # include <mlx.h>
+# include <sys/stat.h>
 # include <stdlib.h>
 # include <string.h>
-# include <time.h>
 # include <fcntl.h>
 # include "../libft/includes/libft.h"
 
@@ -29,18 +29,27 @@
 # define X_EVENT_KEY_PRESS 2
 # define X_EVENT_KEY_RELEASE 3
 # define X_EVENT_KEY_EXIT 17
-# define ROT_SPEED 0.01
-# define SPEED 0.08
+# define ROT_SPEED 0.005
+# define SPEED 0.02
 # define FOV 0.66
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_UP 126
-# define KEY_DOWN 125
-# define KEY_RIGHT 124
-# define KEY_LEFT 123
-# define KEY_ESC 53
+// # define KEY_W 13
+// # define KEY_A 0
+// # define KEY_S 1
+// # define KEY_D 2
+// # define KEY_UP 126
+// # define KEY_DOWN 125
+// # define KEY_RIGHT 124
+// # define KEY_LEFT 123
+// # define KEY_ESC 53
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_RIGHT 65363
+# define KEY_LEFT 65361
+# define KEY_ESC 65307
 # define RED 16711680
 # define GREEN 65280
 # define BLUE 255
@@ -139,7 +148,7 @@ typedef struct	s_main
 {
 	t_map		*map;
 	t_camera	*camera;
-	t_img		*tex;
+	t_img		tex[5];
 	t_img		*screen;
 	t_sprite	*sprites;
 	t_ray		*ray;

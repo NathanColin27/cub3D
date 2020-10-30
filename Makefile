@@ -7,7 +7,8 @@ GCC = clang $(FLAGS)
 SRCS = 	srcs/main.c \
 		srcs/parser.c \
 		srcs/error_handling.c \
-		srcs/struct_init.c \
+		srcs/init.c \
+		srcs/init2.c \
 		srcs/parse_map_data.c \
 		srcs/map_parser.c \
 		srcs/map_checker.c \
@@ -15,6 +16,7 @@ SRCS = 	srcs/main.c \
 		srcs/keys.c \
 		srcs/utils.c \
 		srcs/raycaster.c \
+		srcs/raycaster2.c \
 		srcs/free.c \
 		srcs/bmp.c \
 		srcs/sprites.c

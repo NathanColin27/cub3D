@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/29 15:31:41 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/30 12:36:24 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define X_EVENT_KEY_PRESS 2
 # define X_EVENT_KEY_RELEASE 3
 # define X_EVENT_KEY_EXIT 17
-# define ROT_SPEED 0.005
-# define SPEED 0.02
+# define ROT_SPEED 0.01
+# define SPEED 0.03
 # define FOV 0.66
 // # define KEY_W 13
 // # define KEY_A 0
@@ -50,14 +50,11 @@
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
 # define KEY_ESC 65307
-# define RED 16711680
-# define GREEN 65280
-# define BLUE 255
-# define WHITE 16777215
 # define MAX_WIDTH 1920
 # define MAX_HEIGHT 1080
 # define MIN_WIDTH 640
 # define MIN_HEIGHT 480
+# define ADDR (unsigned int *)mlx_get_data_addr
 # define XPM mlx_xpm_file_to_image
 
 typedef struct	s_pos
@@ -108,7 +105,7 @@ typedef struct	s_sprite
 
 typedef struct	s_img
 {
-	void			*img_ptr;
+	void			*img;
 	unsigned int	*addr;
 	int				bpp;
 	int				line_size;
@@ -198,7 +195,7 @@ void	draw(t_main *m, t_ray *r);
 int		move_cam(t_main *m);
 void	set_side_distance(t_camera *cam, t_ray *ray);
 int		rotate_cam(t_main *m);
-void	init_textures(t_main *m);
+void	init_images(t_main *m, t_map *mp);
 void	free_text_path(t_map *map);
 void	pxl_to_img(t_main *m, int x, int y, int color);
 void	parse(t_main *m, int fd);

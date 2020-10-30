@@ -6,18 +6,11 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:06:55 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/20 23:09:23 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/30 12:56:26 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-int		is_map_start(char *line)
-{
-	if (line[0] == '1' || line[0] == ' ')
-		return (1);
-	return (0);
-}
 
 int		parse_res(char *line, t_map *map)
 {
@@ -95,11 +88,6 @@ int		parse_colors(char *line, t_map *map)
 	else if (line[0] == 'C')
 		map->ceiling_color = rgb(r, g, b);
 	return (1);
-}
-
-int		rgb(int r, int g, int b)
-{
-	return (65536 * r + 256 * g + b);
 }
 
 int		parse_map_data(char *line, t_map *map)

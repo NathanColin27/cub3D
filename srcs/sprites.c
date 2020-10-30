@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 11:25:51 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/23 11:16:30 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/30 12:59:55 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void sort_sprites(t_main *m)
+void	sort_sprites(t_main *m)
 {
-	int 		i;
+	int			i;
 	int			j;
 	t_sprite	tmp;
 
@@ -38,25 +38,23 @@ void sort_sprites(t_main *m)
 	write(1, "out", 4);
 }
 
-
-void sprite_distance(t_main *m, t_camera *c)
+void	sprite_distance(t_main *m, t_camera *c)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (i < m->map->sprite_number)
-    {
-		m->sprites[i].distance = (c->pos->x - m->sprites[i].x) * \
-                                    (c->pos->x - m->sprites[i].x) + \
-                                        (c->pos->y - m->sprites[i].y) *\
-                                            (c->pos->y - m->sprites[i].y);
-        i++;
-    }
-	
+	i = 0;
+	while (i < m->map->sprite_number)
+	{
+		m->sprites[i].distance = (c->pos->x - m->sprites[i].x) *
+									(c->pos->x - m->sprites[i].x) +
+										(c->pos->y - m->sprites[i].y) *
+											(c->pos->y - m->sprites[i].y);
+		i++;
+	}
 }
 
-void sprite(t_main *m, t_camera *c)
+void	sprite(t_main *m, t_camera *c)
 {
 	sprite_distance(m, c);
-	//sort_sprites(m);
+	sort_sprites(m);
 }

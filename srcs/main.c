@@ -6,16 +6,26 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:05:53 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/29 15:16:50 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/30 13:01:20 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int main(int ac, char **av)
+int		windows(t_main *m)
 {
-	t_main m;
-	int fd;
+	mlx_hook(m->mlx_win, X_EVENT_KEY_PRESS, 1L << 0, key_press, m);
+	mlx_hook(m->mlx_win, X_EVENT_KEY_RELEASE, 1L << 1, key_release, m);
+	mlx_hook(m->mlx_win, X_EVENT_KEY_EXIT, 1L << 17, exit_pressed, m);
+	mlx_loop_hook(m->mlx_ptr, main_loop, m);
+	mlx_loop(m->mlx_ptr);
+	return (EXIT_SUCCESS);
+}
+
+int		main(int ac, char **av)
+{
+	t_main	m;
+	int		fd;
 
 	data_init(&m);
 	if (ac == 3 && ft_strncmp(av[2], "--save", 7) == 0)
@@ -27,36 +37,10 @@ int main(int ac, char **av)
 		valid_extension(av[1]);
 		fd = open(av[1], O_RDONLY);
 		parse(&m, fd);
-		if ((m.mlx_ptr = mlx_init()) == NULL)
-			return (EXIT_FAILURE);
-		if ((m.mlx_win = mlx_new_window(m.mlx_ptr, m.map->res_x, m.map->res_y, "Cub3D")) == NULL)
-			return (EXIT_FAILURE);
-		init_textures(&m);
+		init_images(&m, m.map);
 		windows(&m);
 	}
 	else
 		error("args not valid");
 	return (0);
 }
-
-/*
-**         printf("res_x %d\n", main.map.res_x);
-**         printf("res_y %d\n", main.map.res_y);
-**         printf("texture_north %s\n", main.map.tex_n);
-**         printf("texture_south %s\n", main.map.tex_s);
-**         printf("texture_east %s\n", main.map.tex_e);
-**         printf("texture_west %s\n", main.map.tex_w);
-**         printf("texture_sprite %s\n", main.map.tex_sp);
-**         printf("floor_color %d\n", main.map.floor_color);
-**         printf("ceiling_color %d\n", main.map.ceiling_color);
-**         printf("start x %d, start y %d\n",\
-**			 main.map.start_x, main.map.start_y);
-**         printf("start dir %c\n", main.map.start_direction);
-**         printf("map_height %d\n", main.map.height);
-**         printf("sprite number %d\n", main.map.sprite_number);
-**         for (int i = 0; i < main.map.sprite_number; i++)
-**         {
-**         	printf("Sprite number %d --> x = %d, y = %d\n",\
-**			 i + 1, main.sprites[i].x, main.sprites[i].y);
-**         }
-*/

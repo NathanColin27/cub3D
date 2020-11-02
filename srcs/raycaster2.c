@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:46:56 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/30 12:51:17 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/02 08:40:27 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	calc_textures(t_main *m, t_ray *r, int x)
 
 	y = 0;
 	while (y < r->wall_start)
-		pxl_to_img(m, x, y++, m->map->ceiling_color);
+	{
+		pxl_to_img(m, x, y, m->map->ceiling_color);
+		y++;
+	}
 	while (y < r->wall_end)
 	{
 		pxl_to_img(m, x, y, m->buff[y][x]);

@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:40:31 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/30 12:49:30 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/02 08:27:19 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ int		raycasting(t_main *m)
 		calc_textures(m, r, i);
 	}
 	sprite(m, c);
+
 	if (m->bmp)
 		save_bmp(m);
 	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->screen->img, 0, 0);
+
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:57:33 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/30 13:03:00 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/01 14:34:14 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void 	init_screen(t_main *m, t_map *mp)
 	m->screen->addr = ADDR(m->screen->img, &m->screen->bpp,\
 							&m->screen->line_size, &m->screen->endian);
 }
+
 void	init_images(t_main *m, t_map *mp)
 {	
 	int i;

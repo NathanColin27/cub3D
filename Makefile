@@ -53,6 +53,7 @@ re_libs:
 	$(MAKE) -C libft re
 	$(MAKE) -C libft clean
 	$(MAKE) -C minilibx-linux re
+	$(MAKE) -C minilibx-linux clean
 
 $(NAME): 
 	$(GCC) $(SRCS) $(LIBFT_PATH)$(LIBFT) $(MLX_PATH)$(MLX) $(MLX_FLAGS) -o $(NAME)

@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/30 12:36:24 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/02 08:24:48 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,24 @@ typedef struct	s_sprite
 	double x;
 	double distance;
 }				t_sprite;
+
+typedef struct 	s_sprite_data
+{
+	double	inv_det;
+	double	pos_x;
+	double	pos_y;
+	int		h;
+	int		w;
+	int 	start_x;
+	int	start_y;
+	int	end_x;
+	int	end_y;
+	double	transform_x;
+	double	transform_y;
+	int 	screen_x;
+
+}				t_sprite_data;
+
 
 typedef struct	s_img
 {
@@ -207,5 +225,6 @@ void	get_wall_color(t_main *m, t_ray *ray, int x);
 void	get_wall_texture(t_camera *c, t_ray *ray);
 void	cast_floor_ceiling(t_main *m);
 void 	sprite(t_main *m, t_camera *c);
+int		init_buffer(t_main *m);
 
 #endif

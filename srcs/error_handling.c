@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:52:46 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/30 12:24:08 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/10 09:56:05 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,4 @@ int		valid_file(t_map *map)
 	else if (open(map->tex_sp, O_RDONLY) == -1)
 		error("Could not open Sprite texture");
 	return (1);
-}
-
-int		valid_map_data(t_map *map)
-{
-	return ((valid_color(map) && valid_file(map) && valid_res(map)));
 }

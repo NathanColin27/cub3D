@@ -1,16 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprites.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 09:58:09 by nathan            #+#    #+#             */
+/*   Updated: 2020/11/10 10:21:51 by nathan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
-#include "time.h"
 
-void delay(int milliseconds)
-{
-    long pause;
-    clock_t now,then;
-
-    pause = milliseconds*(CLOCKS_PER_SEC/1000);
-    now = then = clock();
-    while( (now-then) < pause )
-        now = clock();
-}
 
 void	sort_sprites(t_main *m)
 {
@@ -74,8 +75,7 @@ void	sprite_drawing_calculations(t_main *m, t_sprite_data *sprite)
 		sprite->start_x = 0;
 	sprite->end_x = sprite->w / 2 + sprite->screen_x;
 	if (sprite->end_x >= m->map->res_x)
-		sprite->end_x = m->map->res_x - 5;
-	printf("%d\n",sprite->end_x);
+		sprite->end_x = m->map->res_x;
 }
 
 void	draw_vertical_stripe(t_main *m, t_sprite_data *sprite, int stripe)
@@ -91,7 +91,7 @@ void	draw_vertical_stripe(t_main *m, t_sprite_data *sprite, int stripe)
 	if (sprite->transform_y > 0 && stripe > 0 && stripe < m->map->res_x &&
 			sprite->transform_y < m->z_buff[stripe])
 	{
-		y = sprite->start_y + 10;
+		y = sprite->start_y + 5;
 		while (y < sprite->end_y)
 		{
 			d = (y) * 256 - m->map->res_y * 128 + sprite->h * 128;

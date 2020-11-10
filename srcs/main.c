@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:05:53 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/30 13:01:20 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/10 09:49:42 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int		main(int ac, char **av)
 		m.bmp = 1;
 	if (ac == 2 || (ac == 3 && m.bmp))
 	{
-		//_get_summary();
 		valid_args(ac);
 		valid_extension(av[1]);
 		fd = open(av[1], O_RDONLY);

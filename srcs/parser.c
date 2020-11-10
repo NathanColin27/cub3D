@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:39:34 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/30 12:51:58 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/10 10:00:39 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parse(t_main *m, int fd)
 		parse_map_data(buff, m->map);
 		free(buff);
 	}
-	if (valid_map_data(m->map))
+	if (valid_color(m->map) && valid_file(m->map) && valid_res(m->map))
 		parse_map_pattern(buff, m->map, fd);
 	map_check(m);
 	close(fd);

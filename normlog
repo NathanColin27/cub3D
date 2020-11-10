@@ -1,0 +1,25 @@
+Norme: ./srcs/free.c
+Norme: ./srcs/parser.c
+Norme: ./srcs/init.c
+Norme: ./srcs/raycaster.c
+Norme: ./srcs/utils.c
+Norme: ./srcs/raycaster2.c
+Norme: ./srcs/display.c
+Norme: ./srcs/init2.c
+Error (line 24): must begin only by tabulations
+Norme: ./srcs/map_checker.c
+Norme: ./srcs/keys.c
+Norme: ./srcs/error_handling.c
+Norme: ./srcs/bmp.c
+Norme: ./srcs/main.c
+Norme: ./srcs/map_parser.c
+Norme: ./srcs/parse_map_data.c
+Norme: ./srcs/sprites.c
+Error: global scope bad aligned
+Error: file must end with a single empty line
+Error: 6 functions in the file
+Error (line 15): multiple empty lines
+Error (line 16): bad spacing before sort_sprites
+Error (line 103): C++ comment
+Error (line 110): Space before function name
+Error (line 138, col 0): no newline after block

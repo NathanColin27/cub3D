@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:58:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/23 11:21:39 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/11/10 09:51:26 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,34 +37,6 @@ int		set_start_pos(t_main *m)
 	{
 		set_pos(m->camera->dir, -1, 0);
 		set_pos(m->camera->plane, 0, FOV);
-	}
-	return (1);
-}
-
-int		set_sprite(t_main *m)
-{
-	int x;
-	int y;
-	int i;
-
-	y = 0;
-	i = 0;
-	if (!(m->sprites = (t_sprite *)malloc(sizeof(t_sprite) * m->map->sprite_number)))
-		error("couldn't initialize sprite struct");
-	while (y < m->map->height)
-	{
-		x = 0;
-		while (x < ((int)ft_strlen(m->map->pattern[y])))
-		{
-			if (m->map->pattern[y][x] == '2')
-			{
-				m->sprites[i].x = (double)x + 0.5;
-				m->sprites[i].y = (double)y + 0.5;
-				i++;
-			}
-			x++;
-		}
-		y++;
 	}
 	return (1);
 }
@@ -148,7 +120,6 @@ int		map_check(t_main *m)
 		}
 		y++;
 	}
-	set_sprite(m);
 	set_start_pos(m);
 	return (0);
 }

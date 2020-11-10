@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/02 08:24:48 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/10 10:02:33 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define X_EVENT_KEY_RELEASE 3
 # define X_EVENT_KEY_EXIT 17
 # define ROT_SPEED 0.01
-# define SPEED 0.03
+# define SPEED 0.1
 # define FOV 0.66
 // # define KEY_W 13
 // # define KEY_A 0
@@ -195,7 +195,7 @@ int		elem_type(t_map *map, int x, int y);
 void	get_map_height(t_map *map);
 int		map_check(t_main *m);
 void	check_adjacent_elem(t_map *map, int x, int y);
-int		set_sprite(t_main *m);
+void	init_sprite(t_main *m);
 int		windows(t_main *m);
 void	delay(int number_of_seconds);
 void	remove_spaces (char *s);
@@ -226,5 +226,6 @@ void	get_wall_texture(t_camera *c, t_ray *ray);
 void	cast_floor_ceiling(t_main *m);
 void 	sprite(t_main *m, t_camera *c);
 int		init_buffer(t_main *m);
+int		valid_res(t_map *map);
 
 #endif

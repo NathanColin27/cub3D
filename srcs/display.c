@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:25:46 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/10 09:41:55 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/29 12:50:04 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ int		move_cam(t_main *m)
 	c = m->camera;
 	new_x = c->pos->x + c->dir->x * SPEED * c->move_dir;
 	new_y = c->pos->y + c->dir->y * SPEED * c->move_dir;
-	if (m->map->pattern[(int)new_y][(int)new_x] != '1')
+	if (m->map->pattern[(int)new_y][(int)new_x] != '1' && m->map->pattern[(int)new_y][(int)new_x] != '2')
 		set_pos(c->pos, new_x, new_y);
+	else if (m->map->pattern[(int)c->pos->y][(int)new_x] != '1' && m->map->pattern[(int)c->pos->y][(int)new_x] != '2')
+		set_pos(c->pos, new_x, c->pos->y);
+	else if (m->map->pattern[(int)new_y][(int)c->pos->x] != '1' && m->map->pattern[(int)new_y][(int)c->pos->x] != '2')
+		set_pos(c->pos, c->pos->x, new_y);
 	return (1);
 }

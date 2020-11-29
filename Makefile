@@ -38,8 +38,6 @@ else
 	MLX_FLAGS = -lm -lX11 -lXext
 endif
 
-
-
 LIBFT_PATH = ./libft/
 
 LIBFT = libft.a

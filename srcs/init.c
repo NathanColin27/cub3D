@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:14:20 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/10 09:42:46 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/29 13:30:08 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ int		init_camera(t_camera *camera)
 		return (0);
 	if (!(camera->plane = malloc(sizeof(t_pos))))
 		return (0);
-	camera->move_dir = 0;
-	camera->move_dir = 0;
+	camera->move_dir_x = 0;
+	camera->move_dir_y = 0;
 	camera->rot_dir = 0;
-	camera->move_dir = 0;
 	return (1);
 }
 

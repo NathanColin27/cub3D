@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 09:38:13 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/23 10:58:50 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/11/29 13:26:38 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,34 @@
 int		key_press(int keycode, t_main *m)
 {
 	if (keycode == KEY_W || keycode == KEY_UP)
-		m->camera->move_dir = 1;
+		m->camera->move_dir_y = 1;
 	else if (keycode == KEY_S || keycode == KEY_DOWN)
-		m->camera->move_dir = -1;
-	if (keycode == KEY_A || keycode == KEY_LEFT)
+		m->camera->move_dir_y = -1;
+	if (keycode == KEY_LEFT)
 		m->camera->rot_dir = 1;
-	else if (keycode == KEY_D || keycode == KEY_RIGHT)
+	else if (keycode == KEY_RIGHT)
 		m->camera->rot_dir = -1;
+	if (keycode == KEY_A)
+		m->camera->move_dir_x = 1;
+	else if (keycode == KEY_D)
+		m->camera->move_dir_x = -1;
 	return (0);
 }
 
 int		key_release(int keycode, t_main *m)
 {
 	if (keycode == KEY_W || keycode == KEY_UP)
-		m->camera->move_dir = 0;
+		m->camera->move_dir_y = 0;
 	else if (keycode == KEY_S || keycode == KEY_DOWN)
-		m->camera->move_dir = 0;
-	else if (keycode == KEY_A || keycode == KEY_LEFT)
+		m->camera->move_dir_y = 0;
+	else if (keycode == KEY_LEFT)
 		m->camera->rot_dir = 0;
-	else if (keycode == KEY_D || keycode == KEY_RIGHT)
+	else if (keycode == KEY_RIGHT)
 		m->camera->rot_dir = 0;
+	else if (keycode == KEY_A)
+		m->camera->move_dir_x = 0;
+	else if (keycode == KEY_D)
+		m->camera->move_dir_x = 0;
 	else if (keycode == KEY_ESC)
 		exit_pressed(m);
 	return (1);

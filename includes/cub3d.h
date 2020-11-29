@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/10 10:02:33 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/29 13:29:31 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ typedef struct	s_camera
 	t_pos	*x_dir;
 	t_pos	*plane;
 	double	cam_x;
-	int		move_dir;
+	int		move_dir_y;
+	int		move_dir_x;
 	int		rot_dir;
 }				t_camera;
 
@@ -210,7 +211,8 @@ int		raycasting(t_main *m);
 void	dda(t_main *m, t_ray *r);
 void	wall_size(t_main *m, t_ray *r, t_camera *c);
 void	draw(t_main *m, t_ray *r);
-int		move_cam(t_main *m);
+int		move_cam_x(t_main *m);
+int		move_cam_y(t_main *m);
 void	set_side_distance(t_camera *cam, t_ray *ray);
 int		rotate_cam(t_main *m);
 void	init_images(t_main *m, t_map *mp);

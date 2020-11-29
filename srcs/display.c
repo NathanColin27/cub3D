@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 11:25:46 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/29 12:50:04 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/29 13:47:49 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ int		main_loop(t_main *m)
 		raycasting(m);
 		update = 0;
 	}
-	if (!c->move_dir || !c->rot_dir)
+	if (!c->move_dir_x || !c->move_dir_y || !c->rot_dir)
 		update = 0;
 	if (c->rot_dir)
 		update = rotate_cam(m);
-	if (c->move_dir)
-		update = move_cam(m);
+	if (c->move_dir_x)
+		update = move_cam_x(m);
+	if (c->move_dir_y)
+		update = move_cam_y(m);
 	return (0);
 }
 
@@ -47,15 +49,33 @@ int		rotate_cam(t_main *m)
 	return (1);
 }
 
-int		move_cam(t_main *m)
+int		move_cam_y(t_main *m)
 {
 	double		new_x;
 	double		new_y;
 	t_camera	*c;
 
 	c = m->camera;
-	new_x = c->pos->x + c->dir->x * SPEED * c->move_dir;
-	new_y = c->pos->y + c->dir->y * SPEED * c->move_dir;
+	new_x = c->pos->x + c->dir->x * SPEED * c->move_dir_y;
+	new_y = c->pos->y + c->dir->y * SPEED * c->move_dir_y;
+	if (m->map->pattern[(int)new_y][(int)new_x] != '1' && m->map->pattern[(int)new_y][(int)new_x] != '2')
+		set_pos(c->pos, new_x, new_y);
+	else if (m->map->pattern[(int)c->pos->y][(int)new_x] != '1' && m->map->pattern[(int)c->pos->y][(int)new_x] != '2')
+		set_pos(c->pos, new_x, c->pos->y);
+	else if (m->map->pattern[(int)new_y][(int)c->pos->x] != '1' && m->map->pattern[(int)new_y][(int)c->pos->x] != '2')
+		set_pos(c->pos, c->pos->x, new_y);
+	return (1);
+}
+
+int		move_cam_x(t_main *m)
+{
+	double		new_x;
+	double		new_y;
+	t_camera	*c;
+
+	c = m->camera;
+	new_x = c->pos->x - c->dir->y * SPEED * 0.75 * c->move_dir_x;
+	new_y = c->pos->y + c->dir->x * SPEED * 0.75 * c->move_dir_x;
 	if (m->map->pattern[(int)new_y][(int)new_x] != '1' && m->map->pattern[(int)new_y][(int)new_x] != '2')
 		set_pos(c->pos, new_x, new_y);
 	else if (m->map->pattern[(int)c->pos->y][(int)new_x] != '1' && m->map->pattern[(int)c->pos->y][(int)new_x] != '2')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:40:31 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/10 09:45:04 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:37:06 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,19 @@ void	dda(t_main *m, t_ray *r)
 		}
 		if (m->map->pattern[r->map_y][r->map_x] == '1')
 			r->hit = 1;
+	}
+}
+
+void	sprite(t_main *m, t_camera *c)
+{
+	int i;
+
+	sprite_distance(m, c);
+	sort_sprites(m);
+	i = 0;
+	while (i < m->map->sprite_number)
+	{
+		draw_sprite(m, i);
+		i++;
 	}
 }

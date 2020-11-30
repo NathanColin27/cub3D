@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:57:33 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/10 09:55:20 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/30 11:10:20 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_sprite(t_main *m)
 	y = 0;
 	i = 0;
 	if (!(m->sprites = (t_sprite *)malloc(sizeof(t_sprite)\
-								 * m->map->sprite_number)))
+								* m->map->sprite_number)))
 		error("couldn't initialize sprite struct");
 	while (y < m->map->height)
 	{

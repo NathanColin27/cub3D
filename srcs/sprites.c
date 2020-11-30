@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 09:58:09 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/10 10:21:51 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:29:22 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
 
 void	sort_sprites(t_main *m)
 {
@@ -98,16 +97,13 @@ void	draw_vertical_stripe(t_main *m, t_sprite_data *sprite, int stripe)
 			tex_y = ((d * TEX_HEIGHT) / sprite->h) / 256;
 			color = m->tex[4].addr[TEX_HEIGHT * tex_y + tex_x];
 			if ((color & 0x00FFFFFF) != 0)
-			{
 				pxl_to_img(m, stripe, y, color);
-				//mlx_pixel_put(m->mlx_ptr,  m->mlx_win, stripe, y, color);
-			}
 			y++;
 		}
 	}
 }
 
-void draw_sprite(t_main *m, int i)
+void	draw_sprite(t_main *m, int i)
 {
 	t_sprite_data	sprite;
 	int				stripe;
@@ -120,19 +116,5 @@ void draw_sprite(t_main *m, int i)
 	{
 		draw_vertical_stripe(m, &sprite, stripe);
 		stripe++;
-	}
-}
-
-void	sprite(t_main *m, t_camera *c)
-{
-	int i;
-
-	sprite_distance(m, c);
-	sort_sprites(m);
-	i = 0;
-	while (i < m->map->sprite_number)
-	{
-		draw_sprite(m, i);
-		i++;
 	}
 }

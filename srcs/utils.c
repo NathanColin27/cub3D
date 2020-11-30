@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 14:14:59 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/30 12:56:38 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/30 13:39:30 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	error(char *message)
 {
 	ft_putstr_fd("Error\n", 1);
 	ft_putstr_fd(message, 1);
+	// ft_free_all();
 	exit(0);
 }
 

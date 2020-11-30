@@ -4,24 +4,26 @@ FLAGS = -Wall -Wextra -O2 -g
 
 GCC = clang $(FLAGS)
 
-SRCS = 	srcs/main.c \
-		srcs/parser.c \
-		srcs/error_handling.c \
-		srcs/init.c \
-		srcs/init2.c \
-		srcs/parse_map_data.c \
-		srcs/map_parser.c \
-		srcs/map_checker.c \
-		srcs/display.c \
-		srcs/keys.c \
-		srcs/utils.c \
-		srcs/raycaster.c \
-		srcs/raycaster2.c \
-		srcs/free.c \
-		srcs/bmp.c \
-		srcs/sprites.c
+SRC_PATH =	srcs/
+SRC_NAME = 	main.c \
+			parser.c \
+			error_handling.c \
+			init.c \
+			init2.c \
+			parse_map_data.c \
+			map_parser.c \
+			map_checker.c \
+			display.c \
+			keys.c \
+			utils.c \
+			raycaster.c \
+			raycaster2.c \
+			free.c \
+			bmp.c \
+			sprites.c
 
 
+SRCS =	$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJS =	$(SRCS:.c=.o)
 
 INCLUDES =	includes/cub3d.h
@@ -48,12 +50,13 @@ all: $(NAME)
 	$(GCC) -c -o $@ $<
 
 re_libs:
-	$(MAKE) -C libft re
-	$(MAKE) -C libft clean
-	$(MAKE) -C minilibx-linux re
-	$(MAKE) -C minilibx-linux clean
+	@$(MAKE) -C libft re
+	@$(MAKE) -C libft clean
+	@$(MAKE) -C minilibx-linux re
+	@$(MAKE) -C minilibx-linux clean
 
 $(NAME): re_libs
+	@rm -rf cube.bmp
 	$(GCC) $(SRCS) $(LIBFT_PATH)$(LIBFT) $(MLX_PATH)$(MLX) $(MLX_FLAGS) -o $(NAME)
 
 clean:

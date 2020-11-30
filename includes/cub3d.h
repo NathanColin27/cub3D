@@ -6,13 +6,12 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/30 12:31:42 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/11/30 16:29:37 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CUB3D_H
 # define FT_CUB3D_H
-# include "../wraloc.h"
 # include <stdio.h>
 # include <math.h>
 # include <stdarg.h>
@@ -174,75 +173,104 @@ typedef struct	s_main
 	int			**buff;
 }				t_main;
 
-/*
-**	Parsing
-*/
+
 
 /*
-**	Raycasting
+** 	Init
 */
 
-/*
-**	Sprites
-*/
-
-void draw_sprite(t_main *m, int i);
-void	sort_sprites(t_main *m);
-void	sprite_distance(t_main *m, t_camera *c);
-
-int		rgb(int r, int g, int b);
-int		valid_extension(char *map_name);
-void	error(char *s);
-int		valid_args(int ac);
 int		data_init(t_main *m);
+void	init_images(t_main *m, t_map *mp);
+void	init_sprite(t_main *m);
+int		init_buffer(t_main *m);
+
+
+/*
+** 	Parsing
+*/
+
+char	*space_to_wall(char *line);
+int		valid_extension(char *map_name);
+int		valid_args(int ac);
 int		parse_res(char *line, t_map *map);
 int		parse_texture(char *line, t_map *map);
 int		parse_map_data(char *line, t_map *map);
 int		parse_colors(char *line, t_map *map);
 int		valid_file(t_map *map);
 int		valid_descriptor(char a, char b);
+int		valid_res(t_map *map);
 int		valid_color(t_map *map);
 int		valid_map_data(t_map *map);
 int		is_map_start(char *line);
 int		parse_map_pattern(char *line, t_map *map, int fd);
-char	*space_to_wall(char *line);
-char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del);
+int		map_check(t_main *m);
 int		elem_type(t_map *map, int x, int y);
 void	get_map_height(t_map *map);
-int		map_check(t_main *m);
 void	check_adjacent_elem(t_map *map, int x, int y);
-void	init_sprite(t_main *m);
-int		windows(t_main *m);
-void	delay(int number_of_seconds);
-void	remove_spaces (char *s);
-void	info_and_map(t_main *m);
-int		key_press(int keycode, t_main *m);
-int		key_release(int keycode, t_main *m);
-int		main_loop(t_main *m);
-int		exit_pressed(t_main *m);
 int		set_start_pos(t_main *m);
-void	set_pos(t_pos *pos, double x, double y);
+
+/*
+**	Raycasting
+*/
+
 int		raycasting(t_main *m);
 void	dda(t_main *m, t_ray *r);
 void	wall_size(t_main *m, t_ray *r, t_camera *c);
 void	draw(t_main *m, t_ray *r);
 int		move_cam_x(t_main *m);
 int		move_cam_y(t_main *m);
-void	set_side_distance(t_camera *cam, t_ray *ray);
+
+/*
+**	Sprites
+*/
+
+void 	draw_sprite(t_main *m, int i);
+void	sort_sprites(t_main *m);
+void	sprite_distance(t_main *m, t_camera *c);
+
+/*
+**	Error
+*/
+
+void	error(char *s);
+
+/*
+**  Utils
+*/
+
+char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del);
+int		rgb(int r, int g, int b);
+void	remove_spaces (char *s);
+int		key_press(int keycode, t_main *m);
+int		key_release(int keycode, t_main *m);
 int		rotate_cam(t_main *m);
-void	init_images(t_main *m, t_map *mp);
-void	free_text_path(t_map *map);
-void	pxl_to_img(t_main *m, int x, int y, int color);
-void	parse(t_main *m, int fd);
-void	save_bmp(t_main *m);
-void	write_header(t_main *m, unsigned char header[54], int fd);
-void	write_bmp(t_main *m, int fd);
+int		exit_pressed(t_main *m);
+void	set_pos(t_pos *pos, double x, double y);
+
+/*
+**	Textures
+*/
+
 void	calc_textures(t_main *m, t_ray *r, int x);
 void	get_wall_color(t_main *m, t_ray *ray, int x);
 void	get_wall_texture(t_camera *c, t_ray *ray);
+void	pxl_to_img(t_main *m, int x, int y, int color);
+
+
+/*
+**	Screenshot
+*/
+
+void	save_bmp(t_main *m);
+void	write_header(t_main *m, unsigned char header[54], int fd);
+void	write_bmp(t_main *m, int fd);
+
+int		windows(t_main *m);
+int		main_loop(t_main *m);
+void	set_side_distance(t_camera *cam, t_ray *ray);
+void	free_text_path(t_map *map);
+void	parse(t_main *m, int fd);
 void	cast_floor_ceiling(t_main *m);
 void 	sprite(t_main *m, t_camera *c);
-int		init_buffer(t_main *m);
-int		valid_res(t_map *map);
 
 #endif

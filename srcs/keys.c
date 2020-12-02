@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 09:38:13 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/29 13:26:38 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/02 23:48:56 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		key_release(int keycode, t_main *m)
 int		exit_pressed(t_main *m)
 {
 	mlx_destroy_window(m->mlx_ptr, m->mlx_win);
+	free_all(m);
 	exit(0);
 	return (1);
 }

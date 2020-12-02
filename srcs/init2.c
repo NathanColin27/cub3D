@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:57:33 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/30 11:10:20 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/02 23:28:59 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	init_images(t_main *m, t_map *mp)
 	if (!m->tex[0].img || !m->tex[1].img ||\
 		!m->tex[2].img || !m->tex[3].img || !m->tex[4].img)
 		error("Couldn't load textures");
-	free_text_path(mp);
 	i = -1;
 	while (++i < 5)
 		m->tex[i].addr = ADDR(m->tex[i].img, &m->tex[i].bpp,\

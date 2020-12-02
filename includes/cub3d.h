@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/30 16:29:37 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/02 23:48:41 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,27 @@
 # define X_EVENT_KEY_PRESS 2
 # define X_EVENT_KEY_RELEASE 3
 # define X_EVENT_KEY_EXIT 17
-# define ROT_SPEED 0.02
-# define SPEED 0.1
+# define ROT_SPEED 0.01
+# define SPEED 0.04
 # define FOV 0.66
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_UP 126
-# define KEY_DOWN 125
-# define KEY_RIGHT 124
-# define KEY_LEFT 123
-# define KEY_ESC 53
-// # define KEY_W 119
-// # define KEY_A 97
-// # define KEY_S 115
-// # define KEY_D 100
-// # define KEY_UP 65362
-// # define KEY_DOWN 65364
-// # define KEY_RIGHT 65363
-// # define KEY_LEFT 65361
-// # define KEY_ESC 65307
+// # define KEY_W 13
+// # define KEY_A 0
+// # define KEY_S 1
+// # define KEY_D 2
+// # define KEY_UP 126
+// # define KEY_DOWN 125
+// # define KEY_RIGHT 124
+// # define KEY_LEFT 123
+// # define KEY_ESC 53
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_RIGHT 65363
+# define KEY_LEFT 65361
+# define KEY_ESC 65307
 # define MAX_WIDTH 3200
 # define MAX_HEIGHT 1800
 # define MIN_WIDTH 640
@@ -110,9 +110,9 @@ typedef struct 	s_sprite_data
 	int		h;
 	int		w;
 	int 	start_x;
-	int	start_y;
-	int	end_x;
-	int	end_y;
+	int		start_y;
+	int		end_x;
+	int		end_y;
 	double	transform_x;
 	double	transform_y;
 	int 	screen_x;
@@ -246,6 +246,7 @@ int		key_release(int keycode, t_main *m);
 int		rotate_cam(t_main *m);
 int		exit_pressed(t_main *m);
 void	set_pos(t_pos *pos, double x, double y);
+void 	free_all(t_main *m);
 
 /*
 **	Textures

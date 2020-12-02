@@ -3,14 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 16:20:41 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/30 13:41:07 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/02 23:54:27 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int		ft_free_array(char **array)
+{
+	int i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		array[i] = NULL;
+		i++;
+	}
+	free(array);
+	array = NULL;
+	return (0);
+}
+
+int		ft_free_int_array(int **array)
+{
+	int i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		array[i] = NULL;
+		i++;
+	}
+	free(array);
+	array = NULL;
+	return (0);
+}
 
 void	free_text_path(t_map *map)
 {
@@ -26,11 +58,40 @@ void	free_text_path(t_map *map)
 	map->tex_sp = NULL;
 }
 
-// void free_all(t_main *m)
-// {
-// 	ft_free_map();
-// 	ft_free_player();
-// 	ft_free_camera();
-// 	ft_free_sprite();
-// 	ft_free_map();
-// }
+void	ft_free_camera(t_camera *c)
+{
+	free(c->pos);
+	free(c->plane);
+	free(c->dir);
+	free(c->x_dir);
+}
+
+void ft_free_map(t_map *m)
+{
+	free_text_path(m);
+	ft_free_array(m->pattern);
+}
+
+void ft_free_sprites(t_sprite *s)
+{
+	free(s);
+}
+
+void ft_free_ray(t_ray *r)
+{
+	free(r->dir);
+	free(r->delta);
+	free(r->side_dist);
+	free(r->step);
+}
+
+void free_all(t_main *m)
+{
+	ft_free_map(m->map);
+	ft_free_ray(m->ray);
+	ft_free_camera(m->camera);
+	ft_free_sprites(m->sprites);
+	ft_free_int_array(m->buff);
+	ft_free_screen(m->screen);
+	free(m->z_buff);
+}

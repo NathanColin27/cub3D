@@ -6,13 +6,13 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:04:03 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/27 22:35:54 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/03 19:18:42 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del)
+char	*ft_strjoin_delimiter(char *s1, char *s2, char del)
 {
 	char	*str;
 	int		total;
@@ -36,20 +36,29 @@ char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del)
 int		parse_map_pattern(char *buff, t_map *map, int fd)
 {
 	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
 	int		ret;
 
 	if (buff[0] == '\0')
 		error("map not found");
 	tmp = space_to_wall(buff);
+	tmp2 = ft_strdup("");
 	while ((ret = get_next_line(fd, &buff)) >= 0)
 	{
-		tmp = ft_strjoin_delimiter(tmp, space_to_wall(buff), '|');
+		free(tmp2);
+		tmp3 = space_to_wall(buff);
+		tmp2 = ft_strjoin_delimiter(tmp, tmp3, '|');
+		free(tmp);
+		free(tmp3);
+		tmp = ft_strdup(tmp2);
 		free(buff);
 		if (ret == 0)
 			break ;
 	}
 	ret = 0;
-	map->pattern = ft_split(tmp, '|');
+	map->pattern = ft_split(tmp2, '|');
+	free(tmp2);
 	free(tmp);
 	get_map_height(map);
 	return (0);

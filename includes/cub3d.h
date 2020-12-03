@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/02 23:48:41 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/03 19:06:12 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ void	error(char *s);
 **  Utils
 */
 
-char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del);
+char	*ft_strjoin_delimiter(char *s1, char *s2, char del);
 int		rgb(int r, int g, int b);
 void	remove_spaces (char *s);
 int		key_press(int keycode, t_main *m);

@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 16:20:41 by ncolin            #+#    #+#             */
-/*   Updated: 2020/12/02 23:54:27 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/03 19:06:32 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ void free_all(t_main *m)
 	ft_free_camera(m->camera);
 	ft_free_sprites(m->sprites);
 	ft_free_int_array(m->buff);
-	ft_free_screen(m->screen);
+	// ft_free_screen(m->screen);
 	free(m->z_buff);
 }

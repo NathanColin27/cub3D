@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 09:38:13 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/02 23:48:56 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/05 16:14:14 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int		key_press(int keycode, t_main *m)
 	else if (keycode == KEY_S || keycode == KEY_DOWN)
 		m->camera->move_dir_y = -1;
 	if (keycode == KEY_LEFT)
-		m->camera->rot_dir = 1;
-	else if (keycode == KEY_RIGHT)
 		m->camera->rot_dir = -1;
+	else if (keycode == KEY_RIGHT)
+		m->camera->rot_dir = 1;
 	if (keycode == KEY_A)
-		m->camera->move_dir_x = 1;
-	else if (keycode == KEY_D)
 		m->camera->move_dir_x = -1;
+	else if (keycode == KEY_D)
+		m->camera->move_dir_x = 1;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:40:31 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/30 12:37:06 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/05 16:07:28 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		raycasting(t_main *m)
 	r = m->ray;
 	while (i++ < m->map->res_x)
 	{
-		ray_data_init(m, c, r, i);
+		ray_data_init(m, c, r, m->map->res_x - i);
 		dda(m, r);
 		wall_size(m, r, c);
 		m->z_buff[i] = r->perp_wall_dist;

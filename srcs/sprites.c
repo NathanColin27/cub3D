@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 09:58:09 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/30 12:29:22 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/05 16:12:19 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	sprite_drawing_calculations(t_main *m, t_sprite_data *sprite)
 {
 	sprite->inv_det = 1.0 / (m->camera->plane->x * m->camera->dir->y -
 			m->camera->dir->x * m->camera->plane->y);
-	sprite->transform_x = sprite->inv_det * (m->camera->dir->y *
+	sprite->transform_x = -sprite->inv_det * (m->camera->dir->y *
 			sprite->pos_x - m->camera->dir->x * sprite->pos_y);
 	sprite->transform_y = sprite->inv_det * (-m->camera->plane->y *
 			sprite->pos_x + m->camera->plane->x * sprite->pos_y);

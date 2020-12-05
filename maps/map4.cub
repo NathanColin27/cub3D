@@ -1,12 +1,12 @@
-WE textures/west.xpm
-EA textures/east.xpm
+WE textures/mossy.xpm
+EA textures/eagle.xpm
 
 S textures/pillar.xpm
-R 2000 1000
+R 3000 3000
 F 184,113,39
 C 51,198,227
-NO textures/north.xpm
-SO textures/south.xpm
+NO textures/redbrick.xpm
+SO textures/purplestone.xpm
 
 11111111111111111111111111111
 10000000001100000000000000001

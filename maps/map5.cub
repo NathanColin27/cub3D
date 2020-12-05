@@ -4,7 +4,7 @@ NO textures/east.xpm
 SO textures/west.xpm
 WE textures/north.xpm
 EA textures/south.xpm
-S textures/sprite.xpm
+S textures/pillar.xpm
 
 F 51,46,96
 C 239,238,143

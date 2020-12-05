@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/03 19:06:12 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/03 22:13:28 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define X_EVENT_KEY_RELEASE 3
 # define X_EVENT_KEY_EXIT 17
 # define ROT_SPEED 0.01
-# define SPEED 0.04
+# define SPEED 0.22
 # define FOV 0.66
 // # define KEY_W 13
 // # define KEY_A 0

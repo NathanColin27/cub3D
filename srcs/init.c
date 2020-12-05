@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:14:20 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/29 13:30:08 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/05 17:26:33 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ int		init_buffer(t_main *m)
 
 	i = 0;
 	if (!(m->buff = ft_calloc(m->map->res_y, sizeof(int **))))
-		error("Buff init failed");
+		error(m, "Buff init failed");
 	while (i < m->map->res_y)
 	{
 		if (!(m->buff[i] = ft_calloc(m->map->res_x, sizeof(int *))))
-			error("Buff init failed");
+			error(m, "Buff init failed");
 		i++;
 	}
 	if (!(m->z_buff = ft_calloc(m->map->res_x, sizeof(double *))))
-		error("Z_buff init failed");
+		error(m, "Z_buff init failed");
 	return (1);
 }
 

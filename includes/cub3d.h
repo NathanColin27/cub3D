@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/05 15:37:50 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/05 17:28:49 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct	s_sprite
 	double distance;
 }				t_sprite;
 
-typedef struct 	s_sprite_data
+typedef struct	s_sprite_data
 {
 	double	inv_det;
 	double	pos_x;
@@ -116,9 +116,7 @@ typedef struct 	s_sprite_data
 	double	transform_x;
 	double	transform_y;
 	int 	screen_x;
-
 }				t_sprite_data;
-
 
 typedef struct	s_img
 {
@@ -173,8 +171,6 @@ typedef struct	s_main
 	int			**buff;
 }				t_main;
 
-
-
 /*
 ** 	Init
 */
@@ -184,29 +180,28 @@ void	init_images(t_main *m, t_map *mp);
 void	init_sprite(t_main *m);
 int		init_buffer(t_main *m);
 
-
 /*
 ** 	Parsing
 */
 
 char	*space_to_wall(char *line);
-int		valid_extension(char *map_name);
-int		valid_args(int ac);
+int		valid_extension(t_main *m, char *map_name);
+int		valid_args(t_main *m, int ac);
 int		parse_res(char *line, t_map *map);
 int		parse_texture(char *line, t_map *map);
 int		parse_map_data(char *line, t_map *map);
 int		parse_colors(char *line, t_map *map);
-int		valid_file(t_map *map);
+int		valid_file(t_main *m, t_map *map);
 int		valid_descriptor(char a, char b);
-int		valid_res(t_map *map);
-int		valid_color(t_map *map);
+int		valid_res(t_main *m, t_map *map);
+int		valid_color(t_main *m, t_map *map);
 int		valid_map_data(t_map *map);
 int		is_map_start(char *line);
-int		parse_map_pattern(char *line, t_map *map, int fd);
+int		parse_map_pattern(t_main *m, char *line, t_map *map, int fd);
 int		map_check(t_main *m);
-int		elem_type(t_map *map, int x, int y);
+int		elem_type(t_main *m,t_map *map, int x, int y);
 void	get_map_height(t_map *map);
-void	check_adjacent_elem(t_map *map, int x, int y);
+void	check_adjacent_elem(t_main *m, t_map *map, int x, int y);
 int		set_start_pos(t_main *m);
 
 /*
@@ -232,7 +227,7 @@ void	sprite_distance(t_main *m, t_camera *c);
 **	Error
 */
 
-void	error(char *s);
+void	error(t_main *m, char *s);
 
 /*
 **  Utils
@@ -257,7 +252,6 @@ void	get_wall_color(t_main *m, t_ray *ray, int x);
 void	get_wall_texture(t_camera *c, t_ray *ray);
 void	pxl_to_img(t_main *m, int x, int y, int color);
 
-
 /*
 **	Screenshot
 */
@@ -265,7 +259,6 @@ void	pxl_to_img(t_main *m, int x, int y, int color);
 void	save_bmp(t_main *m);
 void	write_header(t_main *m, unsigned char header[54], int fd);
 void	write_bmp(t_main *m, int fd);
-
 int		windows(t_main *m);
 int		main_loop(t_main *m);
 void	set_side_distance(t_camera *cam, t_ray *ray);

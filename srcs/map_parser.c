@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:04:03 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/03 19:18:42 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/05 17:25:37 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_strjoin_delimiter(char *s1, char *s2, char del)
 	return (str);
 }
 
-int		parse_map_pattern(char *buff, t_map *map, int fd)
+int		parse_map_pattern(t_main *m, char *buff, t_map *map, int fd)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -41,7 +41,7 @@ int		parse_map_pattern(char *buff, t_map *map, int fd)
 	int		ret;
 
 	if (buff[0] == '\0')
-		error("map not found");
+		error(m, "map not found");
 	tmp = space_to_wall(buff);
 	tmp2 = ft_strdup("");
 	while ((ret = get_next_line(fd, &buff)) >= 0)

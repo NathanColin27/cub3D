@@ -3,10 +3,10 @@ NO textures/east.xpm
 SO textures/west.xpm
 WE textures/north.xpm
 EA textures/south.xpm
-S textures/sprite.xpm
+S textures/pillar.xpm
 
-F 184,113,39
-C 51,198,227
+F 0, 0, 0
+C 51, 198, 227
 
 11111111111111111111 11111111111111111111
 10000000000000000001 10000000000000000001

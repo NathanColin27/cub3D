@@ -1,4 +1,4 @@
-R 5000 5000
+R 2000 2000
 
 NO ./textures/wood.xpm
 SO ./textures/brick.xpm
@@ -6,8 +6,8 @@ WE ./textures/brick.xpm
 EA ./textures/wood.xpm
 S ./textures/cow.xpm
 
-F   0, 100, 0
-C   30, 140, 255
+F   255, 0, 0
+C   0, 0, 255
 
      11111111111111111111111111111
      10000000000000000000000000001

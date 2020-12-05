@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:39:34 by ncolin            #+#    #+#             */
-/*   Updated: 2020/12/03 19:21:54 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/05 17:29:25 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	parse(t_main *m, int fd)
 		parse_map_data(buff, m->map);
 		free(buff);
 	}
-	if (valid_color(m->map) && valid_file(m->map) && valid_res(m->map))
-		parse_map_pattern(buff, m->map, fd);
+	if (valid_color(m, m->map) && valid_file(m, m->map) && valid_res(m, m->map))
+		parse_map_pattern(m, buff, m->map, fd);
 	free(buff);
 	map_check(m);
 	close(fd);

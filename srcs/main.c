@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 11:05:53 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/10 09:49:42 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/05 17:30:01 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int		main(int ac, char **av)
 		m.bmp = 1;
 	if (ac == 2 || (ac == 3 && m.bmp))
 	{
-		valid_args(ac);
-		valid_extension(av[1]);
+		valid_args(&m, ac);
+		valid_extension(&m, av[1]);
 		fd = open(av[1], O_RDONLY);
 		parse(&m, fd);
 		init_images(&m, m.map);
 		windows(&m);
 	}
 	else
-		error("args not valid");
+		error(&m, "args not valid");
 	return (0);
 }

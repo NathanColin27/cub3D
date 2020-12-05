@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 18:05:50 by nathan            #+#    #+#             */
-/*   Updated: 2020/06/28 18:13:22 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/05 17:14:18 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 **     BUGS.)
 */
 
-char    *ft_strcpy (char *dest, const char *src)
+char	*ft_strcpy(char *dest, const char *src)
 {
-  return (ft_memcpy (dest, src, ft_strlen(src) + 1));
+	return (ft_memcpy(dest, src, ft_strlen(src) + 1));
 }

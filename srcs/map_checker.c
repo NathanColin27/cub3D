@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:58:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/10 09:51:26 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/05 17:23:24 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		set_start_pos(t_main *m)
 	return (1);
 }
 
-int		elem_type(t_map *map, int x, int y)
+int		elem_type(t_main *m, t_map *map, int x, int y)
 {
 	char elem;
 
@@ -61,7 +61,7 @@ int		elem_type(t_map *map, int x, int y)
 			map->start_direction = elem;
 		}
 		else if (map->start_x != x || map->start_y != y)
-			error("Start position declared more than once");
+			error(m, "Start position declared more than once");
 		return (4);
 	}
 	return (0);
@@ -77,7 +77,7 @@ void	get_map_height(t_map *map)
 	map->height = i;
 }
 
-void	check_adjacent_elem(t_map *map, int x, int y)
+void	check_adjacent_elem(t_main *m, t_map *map, int x, int y)
 {
 	int i;
 	int j;
@@ -91,7 +91,7 @@ void	check_adjacent_elem(t_map *map, int x, int y)
 		while (j <= y + 1)
 		{
 			if (map->pattern[j][i] == '\0' || map->pattern[j][i] == 'X')
-				error("map isn't totaly surrounded by walls");
+				error(m, "map isn't totaly surrounded by walls");
 			j++;
 		}
 		i++;
@@ -109,13 +109,13 @@ int		map_check(t_main *m)
 		x = 0;
 		while (x < ((int)ft_strlen(m->map->pattern[y])))
 		{
-			if (!elem_type(m->map, x, y))
-				error("Unrecognized objet in map");
+			if (!elem_type(m, m->map, x, y))
+				error(m, "Unrecognized objet in map");
 			if ((y == 0 || y == m->map->height - 1) \
-				&& elem_type(m->map, x, y) > 2)
-				error("Map isn't closed on top or bottom wall");
-			if (elem_type(m->map, x, y) >= 3)
-				check_adjacent_elem(m->map, x, y);
+				&& elem_type(m, m->map, x, y) > 2)
+				error(m, "Map isn't closed on top or bottom wall");
+			if (elem_type(m, m->map, x, y) >= 3)
+				check_adjacent_elem(m, m->map, x, y);
 			x++;
 		}
 		y++;

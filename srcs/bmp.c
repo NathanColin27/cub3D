@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 17:31:15 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/29 15:12:00 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/05 17:20:18 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	save_bmp(t_main *m)
 
 	if ((fd = open("cube.bmp", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR\
 			| S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)) < 0)
-		error("couldn't create bmp");
+		error(m,"couldn't create bmp");
 	write_header(m, header, fd);
 	write_bmp(m, fd);
 	close(fd);

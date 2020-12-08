@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:58:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/05 17:23:24 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 10:42:20 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int		set_start_pos(t_main *m)
 	char dir;
 
 	dir = m->map->start_direction;
+	if (dir == 0)
+		error(m, "Player position not declared");
 	set_pos(m->camera->pos, m->map->start_x + 0.5, m->map->start_y + 0.5);
 	if (dir == 'N')
 	{

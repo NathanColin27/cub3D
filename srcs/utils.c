@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 14:14:59 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/05 17:19:35 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 09:46:53 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	error(t_main *m,char *message)
 {
 	ft_putstr_fd("Error\n", 1);
 	ft_putstr_fd(message, 1);
+	ft_putstr_fd("\n", 1);
 	free_all(m);
 	exit(0);
 }

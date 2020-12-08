@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/05 17:28:49 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 11:28:35 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@
 // # define KEY_RIGHT 65363
 // # define KEY_LEFT 65361
 // # define KEY_ESC 65307
-# define MAX_WIDTH 3200
-# define MAX_HEIGHT 1800
+# define MAX_WIDTH 2560
+# define MAX_HEIGHT 1440
 # define MIN_WIDTH 640
 # define MIN_HEIGHT 480
 # define ADDR (unsigned int *)mlx_get_data_addr
@@ -189,8 +189,8 @@ int		valid_extension(t_main *m, char *map_name);
 int		valid_args(t_main *m, int ac);
 int		parse_res(char *line, t_map *map);
 int		parse_texture(char *line, t_map *map);
-int		parse_map_data(char *line, t_map *map);
-int		parse_colors(char *line, t_map *map);
+int		parse_map_data(t_main *m, char *line, t_map *map);
+int		parse_colors(t_main *m, char *line, t_map *map);
 int		valid_file(t_main *m, t_map *map);
 int		valid_descriptor(char a, char b);
 int		valid_res(t_main *m, t_map *map);

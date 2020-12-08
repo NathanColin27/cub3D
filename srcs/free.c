@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 16:20:41 by ncolin            #+#    #+#             */
-/*   Updated: 2020/12/05 16:45:16 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 11:31:34 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,21 @@ void	ft_free_img(t_img *img)
 		free(img->img);
 }
 
-void	ft_free_images(t_main *m)
-{
-	int i;
+// void	ft_free_images(t_main *m)
+// {
+// 	int i;
 
-	i = 0;
-	if (m->screen)
-		ft_free_img(m->screen);
-	free(m->screen);
-	while (i < 5)
-	{
-		if (&m->tex[i])
-			ft_free_img(&m->tex[i]);
-		i++;
-	}
-}
+// 	i = 0;
+// 	if (m->screen)
+// 		ft_free_img(m->screen);
+// 	free(m->screen);
+// 	while (i < 5)
+// 	{
+// 		if (&m->tex[i])
+// 			ft_free_img(&m->tex[i]);
+// 		i++;
+// 	}
+// }
 
 void free_all(t_main *m)
 {
@@ -121,7 +121,8 @@ void free_all(t_main *m)
 	ft_free_ray(m->ray);
 	ft_free_camera(m->camera);
 	ft_free_sprites(m->sprites);
-	ft_free_int_array(m->buff);
-	ft_free_images(m);
-	free(m->z_buff);
+	// if (m->buff)
+	// 	ft_free_int_array(m->buff);
+	if (m->z_buff)
+		free(m->z_buff);
 }

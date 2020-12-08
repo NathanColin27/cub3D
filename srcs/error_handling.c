@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:52:46 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/05 17:28:21 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 11:23:37 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		valid_args(t_main *m, int ac)
 int		valid_res(t_main *m, t_map *map)
 {
 	if (map->res_x <= 0 || map->res_y <= 0)
-		error(m, "Wrong resolution");
+		error(m, "Resolution cannot be negative");
 	if (map->res_x > MAX_WIDTH)
 		map->res_x = MAX_WIDTH;
 	if (map->res_y > MAX_HEIGHT)

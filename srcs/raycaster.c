@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:40:31 by ncolin            #+#    #+#             */
-/*   Updated: 2020/12/05 16:07:28 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 10:41:03 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		raycasting(t_main *m)
 	t_camera	*c;
 	t_ray		*r;
 
-	i = 0;
+	i = -1;
 	c = m->camera;
 	r = m->ray;
 	while (i++ < m->map->res_x)

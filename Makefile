@@ -1,6 +1,6 @@
 NAME =	cub3D
 
-FLAGS = -Wall -Wextra -O2 -g
+FLAGS = -Wall -Wextra -O2 -g 
 
 GCC = clang $(FLAGS)
 

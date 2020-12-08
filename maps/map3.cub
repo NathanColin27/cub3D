@@ -1,11 +1,12 @@
 R 1920 1080
+
 NO textures/east.xpm
 SO textures/west.xpm
 WE textures/north.xpm
 EA textures/south.xpm
 S textures/pillar.xpm
 
-F 0, 0, 0
+F 3, 4, 5
 C 51, 198, 227
 
 11111111111111111111 11111111111111111111

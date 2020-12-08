@@ -1,25 +1,27 @@
 NAME =	cub3D
 
-FLAGS = -Wall -Wextra -O2 -g 
+FLAGS = -Wall -Wextra -Werror -O2 -g -fsanitize=address
 
 GCC = clang $(FLAGS)
 
 SRC_PATH =	srcs/
-SRC_NAME = 	main.c \
-			parser.c \
-			error_handling.c \
-			init.c \
-			init2.c \
-			parse_map_data.c \
-			map_parser.c \
-			map_checker.c \
-			display.c \
-			keys.c \
-			utils.c \
-			raycaster.c \
-			raycaster2.c \
-			free.c \
-			bmp.c \
+SRC_NAME = 	main.c 				\
+			parser.c			\
+			error_handling.c	\
+			init.c				\
+			init2.c				\
+			parse_map_data.c	\
+			map_parser.c		\
+			map_checker.c		\
+			display.c			\
+			keys.c				\
+			utils.c				\
+			utils2.c			\
+			raycaster.c			\
+			raycaster2.c		\
+			free.c				\
+			free2.c				\
+			bmp.c				\
 			sprites.c
 
 

@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 12:37:53 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 14:26:18 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,11 @@
 # define KEY_RIGHT 124
 # define KEY_LEFT 123
 # define KEY_ESC 53
-// # define KEY_W 119
-// # define KEY_A 97
-// # define KEY_S 115
-// # define KEY_D 100
-// # define KEY_UP 65362
-// # define KEY_DOWN 65364
-// # define KEY_RIGHT 65363
-// # define KEY_LEFT 65361
-// # define KEY_ESC 65307
 # define MAX_WIDTH 2560
 # define MAX_HEIGHT 1440
 # define MIN_WIDTH 640
 # define MIN_HEIGHT 480
-# define ADDR (unsigned int *)mlx_get_data_addr
+# define ADDR mlx_get_data_addr
 # define XPM mlx_xpm_file_to_image
 
 typedef struct	s_pos
@@ -109,16 +100,16 @@ typedef struct	s_sprite_data
 	double	pos_y;
 	int		h;
 	int		w;
-	int 	start_x;
+	int		start_x;
 	int		start_y;
 	int		end_x;
 	int		end_y;
 	double	transform_x;
 	double	transform_y;
-	int 	screen_x;
+	int		screen_x;
 }				t_sprite_data;
 
-typedef struct	s_img
+typedef	struct	s_img
 {
 	void			*img;
 	unsigned int	*addr;
@@ -164,107 +155,119 @@ typedef struct	s_main
 	t_img		*screen;
 	t_sprite	*sprites;
 	t_ray		*ray;
-	void 		*mlx_ptr;
-	void 		*mlx_win;
+	void		*mlx_ptr;
+	void		*mlx_win;
 	double		*z_buff;
 	int			bmp;
 	int			**buff;
 }				t_main;
 
 /*
-** 	Init
+**	Init
 */
 
-int		data_init(t_main *m);
-void	init_images(t_main *m, t_map *mp);
-void	init_sprite(t_main *m);
-int		init_buffer(t_main *m);
+int				data_init(t_main *m);
+void			init_images(t_main *m, t_map *mp);
+void			init_sprite(t_main *m);
+int				init_buffer(t_main *m);
 
 /*
 ** 	Parsing
 */
 
-char	*space_to_wall(char *line);
-int		valid_extension(t_main *m, char *map_name);
-int		valid_args(t_main *m, int ac);
-int		parse_res(char *line, t_map *map);
-int		parse_texture(char *line, t_map *map);
-void	parse_map_data(t_main *m, char *line, t_map *map);
-int		parse_colors(t_main *m, char *line, t_map *map);
-int		valid_file(t_main *m, t_map *map);
-int		valid_descriptor(char a, char b);
-int		valid_res(t_main *m, t_map *map);
-int		valid_color(t_main *m, t_map *map);
-int		valid_map_data(t_map *map);
-int		is_map_start(t_main *m, char *line);
-int		parse_map_pattern(t_main *m, char *line, t_map *map, int fd);
-int		map_check(t_main *m);
-int		elem_type(t_main *m,t_map *map, int x, int y);
-void	get_map_height(t_map *map);
-void	check_adjacent_elem(t_main *m, t_map *map, int x, int y);
-int		set_start_pos(t_main *m);
+char			*space_to_wall(char *line);
+int				valid_extension(t_main *m, char *map_name);
+int				valid_args(t_main *m, int ac);
+int				parse_res(char *line, t_map *map);
+int				parse_texture(char *line, t_map *map);
+void			parse_map_data(t_main *m, char *line, t_map *map);
+void			parse_colors(t_main *m, char *line, t_map *map);
+int				valid_file(t_main *m, t_map *map);
+int				valid_descriptor(char a, char b);
+int				valid_res(t_main *m, t_map *map);
+int				valid_color(t_main *m, t_map *map);
+int				valid_map_data(t_map *map);
+int				is_map_start(t_main *m, char *line);
+void			parse_map_pattern(t_main *m, char *line, t_map *map, int fd);
+int				map_check(t_main *m);
+int				elem_type(t_main *m, t_map *map, int x, int y);
+void			get_map_height(t_map *map);
+void			check_adjacent_elem(t_main *m, t_map *map, int x, int y);
+void			set_start_pos(t_main *m);
 
 /*
 **	Raycasting
 */
 
-int		raycasting(t_main *m);
-void	dda(t_main *m, t_ray *r);
-void	wall_size(t_main *m, t_ray *r, t_camera *c);
-void	draw(t_main *m, t_ray *r);
-int		move_cam_x(t_main *m);
-int		move_cam_y(t_main *m);
+int				raycasting(t_main *m);
+void			dda(t_main *m, t_ray *r);
+void			wall_size(t_main *m, t_ray *r, t_camera *c);
+void			draw(t_main *m, t_ray *r);
+int				move_cam_x(t_main *m);
+int				move_cam_y(t_main *m);
+void			cast_floor_ceiling(t_main *m);
 
 /*
 **	Sprites
 */
 
-void 	draw_sprite(t_main *m, int i);
-void	sort_sprites(t_main *m);
-void	sprite_distance(t_main *m, t_camera *c);
+void			sprite(t_main *m, t_camera *c);
+void			draw_sprite(t_main *m, int i);
+void			sort_sprites(t_main *m);
+void			sprite_distance(t_main *m, t_camera *c);
 
 /*
 **	Error
 */
 
-void	error(t_main *m, char *s);
+void			error(t_main *m, char *s);
 
 /*
 **  Utils
 */
 
-char	*ft_strjoin_delimiter(char *s1, char *s2, char del);
-int		rgb(int r, int g, int b);
-void	remove_spaces (char *s);
-int		key_press(int keycode, t_main *m);
-int		key_release(int keycode, t_main *m);
-int		rotate_cam(t_main *m);
-int		exit_pressed(t_main *m);
-void	set_pos(t_pos *pos, double x, double y);
-void 	free_all(t_main *m);
+char			*ft_strjoin_delimiter(char *s1, char *s2, char del);
+int				rgb(int r, int g, int b);
+void			remove_spaces (char *s);
+int				key_press(int keycode, t_main *m);
+int				key_release(int keycode, t_main *m);
+int				rotate_cam(t_main *m);
+int				exit_pressed(t_main *m);
+void			set_pos(t_pos *pos, double x, double y);
+int				ft_skip(t_main *m, char *line, int i, int color);
+int				ft_haschr(const char *s, int c);
 
 /*
 **	Textures
 */
 
-void	calc_textures(t_main *m, t_ray *r, int x);
-void	get_wall_color(t_main *m, t_ray *ray, int x);
-void	get_wall_texture(t_camera *c, t_ray *ray);
-void	pxl_to_img(t_main *m, int x, int y, int color);
+void			calc_textures(t_main *m, t_ray *r, int x);
+void			get_wall_color(t_main *m, t_ray *ray, int x);
+void			get_wall_texture(t_camera *c, t_ray *ray);
+void			pxl_to_img(t_main *m, int x, int y, int color);
+
+/*
+**	Free
+*/
+
+void			free_all(t_main *m);
+void			free_text_path(t_map *map);
+void			ft_free_img(t_img *img);
+void			ft_free_ray(t_ray *r);
+void			ft_free_sprites(t_sprite *s);
+void			ft_free_map(t_map *m);
+int				ft_free_array(char **array);
 
 /*
 **	Screenshot
 */
 
-void	save_bmp(t_main *m);
-void	write_header(t_main *m, unsigned char header[54], int fd);
-void	write_bmp(t_main *m, int fd);
-int		windows(t_main *m);
-int		main_loop(t_main *m);
-void	set_side_distance(t_camera *cam, t_ray *ray);
-void	free_text_path(t_map *map);
-void	parse(t_main *m, int fd);
-void	cast_floor_ceiling(t_main *m);
-void 	sprite(t_main *m, t_camera *c);
+void			save_bmp(t_main *m);
+void			write_header(t_main *m, unsigned char header[54], int fd);
+void			write_bmp(t_main *m, int fd);
+int				windows(t_main *m);
+int				main_loop(t_main *m);
+void			set_side_distance(t_camera *cam, t_ray *ray);
+void			parse(t_main *m, int fd);
 
 #endif

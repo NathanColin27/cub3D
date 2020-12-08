@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:06:55 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 13:06:49 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 14:36:13 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,53 +64,13 @@ int		parse_texture(char *line, t_map *map)
 	return (1);
 }
 
-int	ft_haschr(const char *s, int c)
-{
-	int i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-int 	ft_skip(t_main *m, char *line, int i, int color)
-{
-	int found;
-
-	found = 0;
-	if (i == 1)
-		found = 1;
-	i += ft_strlen(ft_itoa(color));
-	while (line[i])
-	{
-		if(ft_isspace(line[i]))
-			i++;
-		else if (line[i] == ',' && found == 1)
-			error(m, "COLOR LINE : Invalid format");
-		else if (line[i] == ',' && found == 0)
-		{
-			found = 1;
-			i++;
-		}
-		else if (ft_isdigit(line[i]) && found == 0)
-			error(m, "COLOR LINE : Invalid format");
-		else if (ft_isdigit(line[i]) && found == 1)
-			return (i);
-	}
-	return (-1);
-}
-
-int		parse_colors(t_main *m,char *line, t_map *map)
+void	parse_colors(t_main *m, char *line, t_map *map)
 {
 	int i;
 	int r;
 	int g;
 	int b;
-	
+
 	i = 0;
 	while (line[i])
 	{
@@ -118,21 +78,19 @@ int		parse_colors(t_main *m,char *line, t_map *map)
 			error(m, "Wrong character found in Floor or Ceiling line");
 		i++;
 	}
-	i = 1; 
+	i = 1;
 	i = ft_skip(m, line, i, 0);
 	r = ft_atoi(&line[i]);
 	i = ft_skip(m, line, i, r);
 	g = ft_atoi(&line[i]);
 	i = ft_skip(m, line, i, g);
 	b = ft_atoi(&line[i]);
-	printf("rgb : %d %d %d\n", r, g, b);
 	if (r > 255 || g > 255 || b > 255 || r < 0 || g < 0 || b < 0)
 		error(m, "Incorrect RGB value (must be between 0 and 255)");
 	if (line[0] == 'F')
 		map->floor_color = rgb(r, g, b);
 	else if (line[0] == 'C')
 		map->ceiling_color = rgb(r, g, b);
-	return (1);
 }
 
 void	parse_map_data(t_main *m, char *line, t_map *map)

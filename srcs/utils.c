@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 14:14:59 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 12:25:13 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 13:49:53 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	pxl_to_img(t_main *m, int x, int y, int color)
 	m->screen->addr[x + (y * m->map->res_x)] = color;
 }
 
-void	error(t_main *m,char *message)
+void	error(t_main *m, char *message)
 {
 	ft_putstr_fd("Error\n", 1);
 	ft_putstr_fd(message, 1);

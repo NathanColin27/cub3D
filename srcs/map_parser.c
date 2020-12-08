@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:04:03 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 09:58:55 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 13:37:27 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_strjoin_delimiter(char *s1, char *s2, char del)
 	return (str);
 }
 
-int		parse_map_pattern(t_main *m, char *buff, t_map *map, int fd)
+void	parse_map_pattern(t_main *m, char *buff, t_map *map, int fd)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -56,12 +56,10 @@ int		parse_map_pattern(t_main *m, char *buff, t_map *map, int fd)
 		if (ret == 0)
 			break ;
 	}
-	ret = 0;
 	map->pattern = ft_split(tmp2, '|');
 	free(tmp2);
 	free(tmp);
 	get_map_height(map);
-	return (0);
 }
 
 char	*space_to_wall(char *line)

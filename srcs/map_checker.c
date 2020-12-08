@@ -6,41 +6,37 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:58:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 10:42:20 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 13:40:19 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int		set_start_pos(t_main *m)
+void	set_start_pos(t_main *m)
 {
-	char dir;
-
-	dir = m->map->start_direction;
-	if (dir == 0)
+	if (m->map->start_direction == 0)
 		error(m, "Player position not declared");
 	set_pos(m->camera->pos, m->map->start_x + 0.5, m->map->start_y + 0.5);
-	if (dir == 'N')
+	if (m->map->start_direction == 'N')
 	{
 		set_pos(m->camera->dir, 0, -1);
 		set_pos(m->camera->plane, -FOV, 0);
 	}
-	else if (dir == 'S')
+	else if (m->map->start_direction == 'S')
 	{
 		set_pos(m->camera->dir, 0, 1);
 		set_pos(m->camera->plane, FOV, 0);
 	}
-	else if (dir == 'E')
+	else if (m->map->start_direction == 'E')
 	{
 		set_pos(m->camera->dir, 1, 0);
 		set_pos(m->camera->plane, 0, -FOV);
 	}
-	else if (dir == 'W')
+	else if (m->map->start_direction == 'W')
 	{
 		set_pos(m->camera->dir, -1, 0);
 		set_pos(m->camera->plane, 0, FOV);
 	}
-	return (1);
 }
 
 int		elem_type(t_main *m, t_map *map, int x, int y)

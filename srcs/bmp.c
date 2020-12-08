@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 17:31:15 by ncolin            #+#    #+#             */
-/*   Updated: 2020/12/05 17:20:18 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 13:16:24 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	save_bmp(t_main *m)
 
 	if ((fd = open("cube.bmp", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR\
 			| S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)) < 0)
-		error(m,"couldn't create bmp");
+		error(m, "Couldn't create bmp");
 	write_header(m, header, fd);
 	write_bmp(m, fd);
 	close(fd);

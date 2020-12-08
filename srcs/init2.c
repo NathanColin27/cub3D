@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:57:33 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/05 17:26:16 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 14:23:06 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	init_screen(t_main *m, t_map *mp)
 								mp->res_y, "Cub3D")) == NULL)
 		error(m, "mlx_win not initialized");
 	m->screen->img = mlx_new_image(m->mlx_ptr, mp->res_x, mp->res_y);
-	m->screen->addr = ADDR(m->screen->img, &m->screen->bpp,\
+	m->screen->addr = (unsigned int *)ADDR(m->screen->img, &m->screen->bpp,\
 							&m->screen->line_size, &m->screen->endian);
 }
 
@@ -73,7 +73,7 @@ void	init_images(t_main *m, t_map *mp)
 		error(m, "Couldn't load textures");
 	i = -1;
 	while (++i < 5)
-		m->tex[i].addr = ADDR(m->tex[i].img, &m->tex[i].bpp,\
+		m->tex[i].addr = (unsigned int *)ADDR(m->tex[i].img, &m->tex[i].bpp,\
 								&m->tex[i].line_size, &m->tex[i].endian);
 	init_sprite(m);
 }

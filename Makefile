@@ -1,6 +1,6 @@
 NAME =	cub3D
 
-FLAGS = -Wall -Wextra -Werror -O2 -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -O2 -g 
 
 GCC = clang $(FLAGS)
 

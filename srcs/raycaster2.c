@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:46:56 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 15:48:52 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 16:09:35 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,15 @@ void	get_wall_texture(t_camera *c, t_ray *ray)
 		ray->tex_x = TEX_WIDTH - ray->tex_x - 1;
 }
 
-void	get_wall_color(t_main *m, t_ray *ray, int x)
-{
-	int color;
-	int y;
-
-	ray->tex_step = 1.0 * TEX_HEIGHT / ray->wall_size;
-	ray->tex_pos = (ray->wall_start - m->map->res_y / 2 \
-					+ ray->wall_size / 2) * ray->tex_step;
-	y = ray->wall_start;
-	while (y < ray->wall_end + 1)
-	{
-		ray->tex_y = (int)ray->tex_pos & (TEX_HEIGHT - 1);
-		ray->tex_pos += ray->tex_step;
-		color = m->tex[ray->side].addr[TEX_HEIGHT * ray->tex_y + ray->tex_x];
-		m->buff[y][x] = color;
-		y++;
-	}
-}
-
 void	calc_textures(t_main *m, t_ray *r, int x)
 {
 	int y;
-
+	int color;
+	
 	y = 0;
+	r->tex_step = 1.0 * TEX_HEIGHT / r->wall_size;
+	r->tex_pos = (r->wall_start - m->map->res_y / 2 \
+					+ r->wall_size / 2) * r->tex_step;
 	while (y < r->wall_start)
 	{
 		pxl_to_img(m, x, y, m->map->ceiling_color);
@@ -55,7 +40,10 @@ void	calc_textures(t_main *m, t_ray *r, int x)
 	}
 	while (y < r->wall_end)
 	{
-		pxl_to_img(m, x, y, m->buff[y][x]);
+		r->tex_y = (int)r->tex_pos & (TEX_HEIGHT - 1);
+		r->tex_pos += r->tex_step;
+		color = m->tex[r->side].addr[TEX_HEIGHT * r->tex_y + r->tex_x];
+		pxl_to_img(m, x, y, color);
 		y++;
 	}
 	while (y < m->map->res_y)

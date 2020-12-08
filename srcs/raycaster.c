@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:40:31 by ncolin            #+#    #+#             */
-/*   Updated: 2020/12/08 15:33:23 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 16:08:28 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int		raycasting(t_main *m)
 		wall_size(m, r, c);
 		m->z_buff[i] = r->perp_wall_dist;
 		get_wall_texture(c, r);
-		get_wall_color(m, r, i);
 		calc_textures(m, r, i);
 	}
 	sprite(m, c);

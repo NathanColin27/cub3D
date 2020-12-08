@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:14:20 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 15:58:34 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 16:10:28 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 
 int		init_buffer(t_main *m)
 {
-	int i;
-
-	i = 0;
-	// if (!(m->buff = ft_calloc(m->map->res_y, sizeof(int *))))
-	// 	error(m, "Buff init failed");
-	// while (i < m->map->res_y)
-	// {
-	// 	if (!(m->buff[i] = ft_calloc(m->map->res_x, sizeof(int))))
-	// 		error(m, "Buff init failed");
-	// 	i++;
-	// }
 	if (!(m->z_buff = malloc((m->map->res_x + 1) * sizeof(double))))
 		error(m, "Z_buff init failed");
 	return (1);
@@ -104,7 +93,6 @@ int		data_init(t_main *m)
 		return (0);
 	m->bmp = 0;
 	m->sprites = NULL;
-	m->buff = NULL;
 	m->z_buff = NULL;
 	m->mlx_ptr = NULL;
 	m->mlx_win = NULL;

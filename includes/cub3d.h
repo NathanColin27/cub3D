@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 14:26:18 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 16:10:21 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ typedef struct	s_main
 	void		*mlx_win;
 	double		*z_buff;
 	int			bmp;
-	int			**buff;
 }				t_main;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 16:20:41 by ncolin            #+#    #+#             */
-/*   Updated: 2020/12/08 13:36:49 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 16:35:51 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	free_all(t_main *m)
 	ft_free_ray(m->ray);
 	ft_free_camera(m->camera);
 	ft_free_sprites(m->sprites);
-	// if (m->buff)
-	// 	ft_free_int_array(m->buff);
 	if (m->z_buff)
 		free(m->z_buff);
 }

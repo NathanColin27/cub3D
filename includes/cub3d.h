@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 16:10:21 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 16:35:03 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define X_EVENT_KEY_PRESS 2
 # define X_EVENT_KEY_RELEASE 3
 # define X_EVENT_KEY_EXIT 17
-# define ROT_SPEED 0.02
-# define SPEED 0.2
+# define ROT_SPEED 0.01
+# define SPEED 0.1
 # define FOV 0.66
 # define KEY_W 13
 # define KEY_A 0

@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 11:28:35 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 12:37:53 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,14 +189,14 @@ int		valid_extension(t_main *m, char *map_name);
 int		valid_args(t_main *m, int ac);
 int		parse_res(char *line, t_map *map);
 int		parse_texture(char *line, t_map *map);
-int		parse_map_data(t_main *m, char *line, t_map *map);
+void	parse_map_data(t_main *m, char *line, t_map *map);
 int		parse_colors(t_main *m, char *line, t_map *map);
 int		valid_file(t_main *m, t_map *map);
 int		valid_descriptor(char a, char b);
 int		valid_res(t_main *m, t_map *map);
 int		valid_color(t_main *m, t_map *map);
 int		valid_map_data(t_map *map);
-int		is_map_start(char *line);
+int		is_map_start(t_main *m, char *line);
 int		parse_map_pattern(t_main *m, char *line, t_map *map, int fd);
 int		map_check(t_main *m);
 int		elem_type(t_main *m,t_map *map, int x, int y);

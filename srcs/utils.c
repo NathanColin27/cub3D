@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 14:14:59 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 09:46:53 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 12:25:13 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ void	error(t_main *m,char *message)
 	exit(0);
 }
 
-int		is_map_start(char *line)
+int		is_map_start(t_main *m, char *line)
 {
+	if (!m->map->res_x || !m->map->res_y || !m->map->tex_n || \
+		!m->map->tex_s || !m->map->tex_sp || !m->map->tex_w || \
+		!m->map->tex_w || !m->map->floor_color || !m->map->ceiling_color)
+		return (0);
 	if (line[0] == '1' || line[0] == ' ')
 		return (1);
 	return (0);

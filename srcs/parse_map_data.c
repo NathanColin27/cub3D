@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:06:55 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 12:05:46 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 13:06:49 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,32 @@ int	ft_haschr(const char *s, int c)
 	}
 	return (0);
 }
+int 	ft_skip(t_main *m, char *line, int i, int color)
+{
+	int found;
+
+	found = 0;
+	if (i == 1)
+		found = 1;
+	i += ft_strlen(ft_itoa(color));
+	while (line[i])
+	{
+		if(ft_isspace(line[i]))
+			i++;
+		else if (line[i] == ',' && found == 1)
+			error(m, "COLOR LINE : Invalid format");
+		else if (line[i] == ',' && found == 0)
+		{
+			found = 1;
+			i++;
+		}
+		else if (ft_isdigit(line[i]) && found == 0)
+			error(m, "COLOR LINE : Invalid format");
+		else if (ft_isdigit(line[i]) && found == 1)
+			return (i);
+	}
+	return (-1);
+}
 
 int		parse_colors(t_main *m,char *line, t_map *map)
 {
@@ -92,21 +118,16 @@ int		parse_colors(t_main *m,char *line, t_map *map)
 			error(m, "Wrong character found in Floor or Ceiling line");
 		i++;
 	}
-	i = 2; 
-	while (ft_isspace(line[i]))
-		i++;
+	i = 1; 
+	i = ft_skip(m, line, i, 0);
 	r = ft_atoi(&line[i]);
-	i++;
-	while (!ft_isspace(line[i]))
-		i++;
+	i = ft_skip(m, line, i, r);
 	g = ft_atoi(&line[i]);
-	i++;
-	while (!ft_isspace(line[i]))
-		i++;
+	i = ft_skip(m, line, i, g);
 	b = ft_atoi(&line[i]);
 	printf("rgb : %d %d %d\n", r, g, b);
 	if (r > 255 || g > 255 || b > 255 || r < 0 || g < 0 || b < 0)
-		error(m, "Incorrect rgb values (must be between 0 and 255)");
+		error(m, "Incorrect RGB value (must be between 0 and 255)");
 	if (line[0] == 'F')
 		map->floor_color = rgb(r, g, b);
 	else if (line[0] == 'C')
@@ -114,16 +135,26 @@ int		parse_colors(t_main *m,char *line, t_map *map)
 	return (1);
 }
 
-int		parse_map_data(t_main *m, char *line, t_map *map)
+void	parse_map_data(t_main *m, char *line, t_map *map)
 {
-	if (!line[0])
-		return (1);
-	if (line[0] == 'R' && line[1] == ' ')
-		return (parse_res(line, map));
-	else if (valid_descriptor(line[0], line[1]))
-		return (parse_texture(line, map));
-	else if (line[0] == 'C' || line[0] == 'F')
-		return (parse_colors(m, line, map));
+	char *copy;
+
+	copy = ft_strtrim(line, " \t\n\v\f\r");
+	if (!copy[0])
+	{
+		free(copy);
+		return ;
+	}
+	else if (copy[0] == 'R' && copy[1] == ' ')
+		parse_res(copy, map);
+	else if (valid_descriptor(copy[0], copy[1]))
+		parse_texture(copy, map);
+	else if (copy[0] == 'C' || copy[0] == 'F')
+		parse_colors(m, copy, map);
 	else
-		return 1;
+	{
+		free(copy);
+		error(m, "invalid line");
+	}
+	free(copy);
 }

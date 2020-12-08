@@ -1,13 +1,13 @@
-F  200, 6, 255
-C  200, 1, 26
+F  200,             6, 255
+				C  200           ,      6,                26
 
 R 3200 1000
 
-NO ./textures/wood.xpm
-SO ./textures/brick.xpm
-WE ./textures/brick.xpm
-EA ./textures/wood.xpm
-S ./textures/cow.xpm
+          NO ./textures/wood.xpm           
+                  SO ./textures/brick.xpm
+WE ./textures/brick.xpm                 
+           EA              ./textures/wood.xpm
+S                ./textures/cow.xpm
 
      11111111111111111111111111111
      10000000000000000000000000001

@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 10:39:34 by ncolin            #+#    #+#             */
-/*   Updated: 2020/12/08 11:27:51 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/08 12:26:28 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	parse(t_main *m, int fd)
 	int		ret;
 	char	*buff;
 
-	while ((ret = get_next_line(fd, &buff)) >= 0 && !is_map_start(buff))
+	while ((ret = get_next_line(fd, &buff)) >= 0 && !is_map_start(m, buff))
 	{
 		parse_map_data(m, buff, m->map);
 		free(buff);

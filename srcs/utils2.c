@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 13:47:49 by ncolin            #+#    #+#             */
-/*   Updated: 2020/12/08 16:21:44 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/09 12:18:07 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ int		ft_haschr(const char *s, int c)
 	return (0);
 }
 
+int		get_int_len(int value)
+{
+	int l;
+
+	l = 1;
+	while (value > 9)
+	{
+		l++;
+		value /= 10;
+	}
+	return (l);
+}
+
 int		ft_skip(t_main *m, char *line, int i, int color)
 {
 	int found;
@@ -33,7 +46,7 @@ int		ft_skip(t_main *m, char *line, int i, int color)
 	found = 0;
 	if (i == 1)
 		found = 1;
-	i += ft_strlen(ft_itoa(color));
+	i += get_int_len(color);
 	while (line[i])
 	{
 		if (ft_isspace(line[i]))

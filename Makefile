@@ -1,12 +1,11 @@
 NAME =	cub3D
 
-FLAGS = -Wall -Wextra -Werror -O2 -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -O2 -g
 
 GCC = clang $(FLAGS)
 
 SRC_PATH =	srcs/
 SRC_NAME = 	main.c 				\
-			parser.c			\
 			error_handling.c	\
 			init.c				\
 			init2.c				\
@@ -52,6 +51,9 @@ $(NAME): re_libs
 	@rm -rf cube.bmp
 	@$(GCC) $(SRCS) $(LIBFT_PATH)$(LIBFT) $(MLX_PATH) $(MLX) $(MLX_FLAGS) -o $(NAME)
 	@echo "\033[32;1mcub3D compiled ${V}\033[0m"
+
+norm:
+	@norminette $(SRC_PATH) $(INCLUDES) $(LIBFT_PATH)
 
 clean:
 	@rm -rf *.o

@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:06:55 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 16:24:56 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/09 12:22:23 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,19 @@ int		valid_descriptor(char a, char b)
 		return (0);
 }
 
-int		parse_texture(char *line, t_map *map)
+int		parse_texture(t_main *m, char *line, t_map *map)
 {
 	int i;
 
+	i = 1;
+	if (line[0] == 'S' && line[1] == ' ')
+	{
+		while (ft_isspace(line[i]))
+			i++;
+		map->tex_sp = ft_strdup(&line[i]);
+	}
+	else if (line[2] != ' ')
+		error(m, "TEXTURE : invalid line");
 	i = 2;
 	while (ft_isspace(line[i]))
 		i++;
@@ -59,8 +68,6 @@ int		parse_texture(char *line, t_map *map)
 		map->tex_w = ft_strdup(&line[i]);
 	else if (line[0] == 'E' && line[1] == 'A')
 		map->tex_e = ft_strdup(&line[i]);
-	else if (line[0] == 'S' && line[1] == ' ')
-		map->tex_sp = ft_strdup(&line[i]);
 	return (1);
 }
 
@@ -106,7 +113,7 @@ void	parse_map_data(t_main *m, char *line, t_map *map)
 	else if (copy[0] == 'R' && copy[1] == ' ')
 		parse_res(copy, map);
 	else if (valid_descriptor(copy[0], copy[1]))
-		parse_texture(copy, map);
+		parse_texture(m, copy, map);
 	else if (copy[0] == 'C' || copy[0] == 'F')
 		parse_colors(m, copy, map);
 	else

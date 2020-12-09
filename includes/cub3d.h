@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:39:23 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 16:35:03 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/09 10:48:56 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FT_CUB3D_H
 # include <stdio.h>
 # include <math.h>
+# include <mlx.h>
 # include <stdarg.h>
-# include "../minilibx-linux/mlx.h"
 # include <sys/stat.h>
 # include <stdlib.h>
 # include <string.h>

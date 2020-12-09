@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:46:56 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/08 16:52:40 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/09 10:45:26 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	calc_textures(t_main *m, t_ray *r, int x)
 {
 	int y;
 	int color;
-	
+
 	y = 0;
 	r->tex_step = 1.0 * TEX_HEIGHT / r->wall_size;
 	r->tex_pos = (r->wall_start - m->map->res_y / 2 \

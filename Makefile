@@ -27,44 +27,42 @@ SRC_NAME = 	main.c 				\
 
 SRCS =	$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJS =	$(SRCS:.c=.o)
-
 INCLUDES =	includes/cub3d.h
 
-OSNAME = $(shell uname)
-
-ifeq ($(OSNAME),Darwin)
-	MLX_PATH = 
-	MLX_FLAGS = -L./mlx -lmlx -framework OpenGL -framework AppKit
-	MLX = 
-else
-	MLX = libmlx.a
-	MLX_PATH = ./minilibx-linux/
-	MLX_FLAGS = -lm -lX11 -lXext
-endif
+MLX_PATH = -L./mlx
+MLX_FLAGS = -framework OpenGL -framework AppKit
+MLX = -lmlx
 
 LIBFT_PATH = ./libft/
-
 LIBFT = libft.a
+
+V	= \xE2\x9C\x94
 
 all: $(NAME) 
 
 %.o: %.c
-	$(GCC) -c -o $@ $<
+	@$(GCC) -c -o $@ $<
 
 re_libs:
 	@$(MAKE) -C libft re
 	@$(MAKE) -C libft clean
-	@$(MAKE) -C minilibx-linux re
-	@$(MAKE) -C minilibx-linux clean
+	@echo "\033[32;1mlibft recompiled ${V}\033[0m"
 
 $(NAME): re_libs
 	@rm -rf cube.bmp
-	$(GCC) $(SRCS) $(LIBFT_PATH)$(LIBFT) $(MLX_PATH)$(MLX) $(MLX_FLAGS) -o $(NAME)
+	@$(GCC) $(SRCS) $(LIBFT_PATH)$(LIBFT) $(MLX_PATH) $(MLX) $(MLX_FLAGS) -o $(NAME)
+	@echo "\033[32;1mcub3D compiled ${V}\033[0m"
 
 clean:
 	@rm -rf *.o
+	@echo "\033[32;1mCleaned cub3D ${V}\033[0m"
 
 fclean: clean
+	@rm -rf $(NAME).dSYM
 	@rm -rf $(NAME)
+	@$(MAKE) -C libft fclean
+	@echo "\033[32;1mFully Cleaned cub3D ${V}\033[0m"
 
 re: fclean all
+
+.PHONY: re_libs all clean fclean re

@@ -55,18 +55,18 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ) includes/libft.h
-	ar rc $(NAME) $(OBJ)
+	@ar rc $(NAME) $(OBJ)
 
 %.o: %.c
-	$(CC) $(CCFLAGS) -I includes/ -c -o $@ $<
+	@$(CC) $(CCFLAGS) -I includes/ -c -o $@ $<
 
 clean:
-	rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME) 
+	@rm -f $(NAME) 
 
 re: fclean all
 
 so: $(OBJ) includes/libft.h
-	$(CC) -shared -fPIC -Wl,-soname,libft.so -o libft.so $(OBJ)
+	@$(CC) -shared -fPIC -Wl,-soname,libft.so -o libft.so $(OBJ)

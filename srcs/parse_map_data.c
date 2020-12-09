@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 23:06:55 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/09 12:22:23 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/09 14:11:58 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	parse_colors(t_main *m, char *line, t_map *map)
 	i = 0;
 	while (line[i])
 	{
-		if (!ft_haschr(" 0123456789,FC", line[i]))
-			error(m, "Wrong character found in Floor or Ceiling line");
+		if (!ft_haschr(" 0123456789,FC", line[i]) || ft_strlen(line < 7))
+			error(m, "COLOR : invalid line");
 		i++;
 	}
 	i = 1;

@@ -6,7 +6,7 @@ WE textures/north.xpm
 EA textures/south.xpm
 S textures/pillar.xpm
 
-F 10, 15, 16
+F 10, 15, 150
 C 239, 238, 145
 
 1111111111
